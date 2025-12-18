@@ -1,0 +1,43 @@
+.c-home {
+    padding-top: $space-lg;
+    --c-prediction-text-color: #{$color-text-muted-dark};
+
+  textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: $space-sm;
+    font-size: 1rem;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    resize: vertical;
+    background-color: $color-canvas;
+  }
+  
+  &__insert-section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+  &__btn-group {
+    display: flex;
+    gap: $space-md;
+  }
+  &__analysis-result {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    justify-content: center;
+    align-items: center;
+    padding-top: $space-lg;
+  }
+  &__prediction-text {
+    font-size: 1.25rem;
+    color: var(--c-prediction-text-color);
+  }
+  &__prediction-text--spam {
+    --c-prediction-text-color: #{$color-error-text};
+  }
+  &__prediction-text--legit {
+    --c-prediction-text-color: #{$color-success-text};
+  }
+}

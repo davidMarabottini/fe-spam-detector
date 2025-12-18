@@ -1,0 +1,14 @@
+.c-login {
+  padding-top: $space-lg;
+  
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

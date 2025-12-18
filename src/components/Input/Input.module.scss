@@ -1,0 +1,9 @@
+.c-input {
+
+  padding: $space-sm;
+  border-bottom: 1px solid $color-border;
+
+  &:focus {
+    border-bottom-color: $color-primary;
+  }
+}
