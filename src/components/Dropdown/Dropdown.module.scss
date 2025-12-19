@@ -84,37 +84,3 @@
     transform: translateY(0);
   }
 }
-
-// .c-dropdown {
-//     position: relative;
-//     top: calc(100% + #{$space-sm});
-//     right: 0;
-//     background-color: $color-surface;
-//     border: 1px solid $color-border;
-//     border-radius: $radius-md;
-//     box-shadow: $shadow-md;
-//     min-width: 180px;
-//     z-index: 1000;
-//     overflow: hidden;
-//     animation: fadeInScale 0.15s ease-out;
-
-//     &__list {
-//       list-style: none;
-//       padding: $space-sm 0;
-//       margin: 0;
-//     }
-
-//     &__item {
-//       padding: $space-sm $space-md;
-//       font-size: $font-base;
-//       color: $color-text-main;
-//       cursor: pointer;
-//       transition: background-color 0.2s ease;
-
-//       &:hover {
-//         background-color: rgba($color-text-main, 0.05);
-//       }
-//     }
-//   }
-
-  

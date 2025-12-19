@@ -1,4 +1,3 @@
-// import { useState, useEffect, useRef } from "react";
 import style from "./Header.module.scss";
 import type { HeaderProps } from "./Header.types";
 import Dropdown from "../Dropdown/Dropdown";

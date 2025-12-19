@@ -18,7 +18,7 @@ const Login = () => {
 
   const onSubmit = (data: { username: string; password: string }) => {
     console.log('Login data:', data);
-    login(); // data.user, data.password
+    login();
   };
 
   useEffect(() => {

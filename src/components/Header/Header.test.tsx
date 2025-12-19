@@ -1,7 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Header from './Header';
-// import style from "./Header.module.scss";
 
 describe('Header Component', () => {
   const mockUser = { user: 'John Doe', role: 'admin' };
@@ -13,7 +12,6 @@ describe('Header Component', () => {
 
   it('does not render user section if userDetails is missing', () => {
     render(<Header />);
-    // Cerchiamo la classe o il ruolo del trigger utente
     const userTrigger = screen.queryByRole('button', { name: /John Doe/i });
     expect(userTrigger).not.toBeInTheDocument();
   });
