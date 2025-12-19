@@ -1,8 +1,9 @@
 export interface ButtonProps {
-  label: string;
+  children: string | React.ReactNode;
   onClick?: () => void;
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'custom';
   rounded?: boolean;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  additionalClassName?: string;
 }

@@ -18,7 +18,7 @@ const Login = () => {
 
   const onSubmit = (data: { username: string; password: string }) => {
     console.log('Login data:', data);
-    login(); // data.user, data.password
+    login();
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Login = () => {
               control={control}
               rules={{ required: "Username richiesto" }}
               render={({ field }) => (
-                <Input {...field} placeholder="Username" />
+                <Input {...field} label="Username" />
               )}
             />
             
@@ -47,11 +47,13 @@ const Login = () => {
               control={control}
               rules={{ required: "Password richiesta" }}
               render={({ field }) => (
-                <Input {...field} type="password" placeholder="Password" />
+                <Input {...field} type="password" label="Password" />
               )}
             />
 
-            <Button type="submit" label="Login" color="primary" disabled={formState.isSubmitting || !formState.isValid} />
+            <Button type="submit" color="primary" disabled={formState.isSubmitting || !formState.isValid}>
+              Login
+            </Button>
           </form>
         </div>
       </Card>

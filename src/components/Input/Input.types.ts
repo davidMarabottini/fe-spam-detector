@@ -1,6 +1,7 @@
-export interface InputProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  type?: string; // TODO: sostituire con tipi input supportati in futuro
+import type { InputHTMLAttributes } from "react";
+
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  onValueChange?: (value: string) => void;
 }

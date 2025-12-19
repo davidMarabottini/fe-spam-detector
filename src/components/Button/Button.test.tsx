@@ -6,7 +6,7 @@ import styles from './Button.module.scss';
 
 describe('Button Component', () => {
   it('rendered with only label', () => {
-    render(<Button label="Test Button"  />);
+    render(<Button>Test Button</Button>);
     const button = screen.getByRole('button', { name: /test button/i });
 
     expect(button).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('Button Component', () => {
     const user = userEvent.setup();
     const handleClick = vi.fn(); 
 
-    render(<Button label="Test Button" onClick={handleClick} />);
+    render(<Button onClick={handleClick} >Test Button</Button>);
 
     const button = screen.getByRole('button', { name: /test button/i });
     await user.click(button);
@@ -30,7 +30,7 @@ describe('Button Component', () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();
     
-    render(<Button label="Disabled Button" onClick={handleClick} disabled />);
+    render(<Button onClick={handleClick} disabled>Disabled Button</Button>);
 
     const button = screen.getByRole('button', { name: /disabled button/i });
 
@@ -47,7 +47,7 @@ describe('Button Component', () => {
     { color: 'secondary', expectedClass: 'c-button--secondary' },
   ])('applies %s class when color prop is %s', ({ color, expectedClass }) => {
 
-    render(<Button label="Test Button" color={color as "primary" | "secondary"} />);
+    render(<Button color={color as "primary" | "secondary"}>Test Button</Button>);
 
     const button = screen.getByRole('button', { name: /test button/i });
     
@@ -55,7 +55,7 @@ describe('Button Component', () => {
   });
 
   it('applies rounded class when rounded prop is true', () => {
-    render(<Button label="Rounded Button" rounded />);
+    render(<Button rounded>Rounded Button</Button>);
     const button = screen.getByRole('button', { name: /rounded button/i });
     expect(button).toHaveClass(styles['c-button--rounded']);
   });

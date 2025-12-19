@@ -35,17 +35,15 @@ const Home = () => {
         
         <div className={clsx(styles["c-home__btn-group"])}>
           <Button 
-            label="SMS" 
             onClick={() => setValue('type', 'sms')} 
             color={selectedType === 'sms' ? 'primary' : 'secondary'} 
             rounded
-          />
+          >SMS</Button>
           <Button 
-            label="Mail" 
             onClick={() => setValue('type', 'mail')} 
             color={selectedType === 'mail' ? 'primary' : 'secondary'} 
             rounded
-          />
+          >Email</Button>
         </div>
         
         <textarea
@@ -55,9 +53,11 @@ const Home = () => {
           rows={10}
         ></textarea>
         
-        <Button label="Analizza Messaggio" type="submit" color="primary"
+        <Button
+          type="submit"
+          color="primary"
           disabled={analyzeSpamMutation.isPending || !formState.isValid}
-        />
+        >Analizza Messaggio</Button>
         </form>
       </Card>
       {analyzeSpamMutation.isSuccess &&
