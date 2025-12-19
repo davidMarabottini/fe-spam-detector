@@ -51,7 +51,9 @@ const Login = () => {
               )}
             />
 
-            <Button type="submit" label="Login" color="primary" disabled={formState.isSubmitting || !formState.isValid} />
+            <Button type="submit" color="primary" disabled={formState.isSubmitting || !formState.isValid}>
+              Login
+            </Button>
           </form>
         </div>
       </Card>
