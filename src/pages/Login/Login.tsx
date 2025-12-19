@@ -38,7 +38,7 @@ const Login = () => {
               control={control}
               rules={{ required: "Username richiesto" }}
               render={({ field }) => (
-                <Input {...field} placeholder="Username" />
+                <Input {...field} label="Username" />
               )}
             />
             
@@ -47,7 +47,7 @@ const Login = () => {
               control={control}
               rules={{ required: "Password richiesta" }}
               render={({ field }) => (
-                <Input {...field} type="password" placeholder="Password" />
+                <Input {...field} type="password" label="Password" />
               )}
             />
 

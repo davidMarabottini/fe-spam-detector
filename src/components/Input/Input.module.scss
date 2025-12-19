@@ -1,9 +1,40 @@
 .c-input {
-
+  position: relative;
   padding: $space-sm;
-  border-bottom: 1px solid $color-border;
+  margin-top: $space-md;
 
-  &:focus {
-    border-bottom-color: $color-primary;
+  &__wrapper {
+    height: 40px;
+  }
+
+  &--error {
+    border-color: $color-error;
+    color: $color-error;
+    font-size: $font-xs;
+  }
+
+  &__label {
+    position: relative;
+    left: 10px;
+    top: -32px;
+    transform: translateY(-50%);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    font-size: $font-base;
+  }
+
+  &__field {
+    border-bottom: 1px solid $color-border;
+    width: 100%;
+    padding: $space-sm 0;
+    font-size: $font-base;
+    background: transparent;
+  }
+
+  &__field:focus + .c-input__label, .c-input__label--floating {
+    top: -62px;
+    left: 0;
+    font-size: $font-xs;
+    color: var(--primary-color);
   }
 }
