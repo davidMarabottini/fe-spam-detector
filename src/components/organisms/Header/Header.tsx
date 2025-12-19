@@ -1,6 +1,6 @@
 import style from "./Header.module.scss";
 import type { HeaderProps } from "./Header.types";
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "../../molecules/Dropdown/Dropdown";
 
 const Header = ({ logout, userDetails }: HeaderProps) => {
   const userLabel = userDetails ? (

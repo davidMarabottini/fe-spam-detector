@@ -1,0 +1,25 @@
+.c-card-prediction {
+
+    &__analysis-result {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    justify-content: center;
+    align-items: center;
+    padding-top: $space-lg;
+  }
+
+  &__prediction-text {
+    font-size: 1.25rem;
+    color: var(--c-prediction-text-color);
+  }
+
+    &__spam {
+    --c-prediction-text-color: #{$color-error-text};
+  }
+
+  &__legit {
+    --c-prediction-text-color: #{$color-success-text};
+  }
+
+}

@@ -1,6 +1,6 @@
 import { authTokenStore } from "../auth/tokenStore";
 import { useAuth } from "../auth/useAuth";
-import Header from "@components/Header/Header";
+import Header from "@components/organisms/Header/Header";
 import { Outlet } from 'react-router-dom';
 import { getDecodedToken } from "../utils/jwt";
 

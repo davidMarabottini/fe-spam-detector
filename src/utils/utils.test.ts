@@ -1,5 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
 import { isNullable } from "./isNullable";
+import { generateMockJWT, getDecodedToken } from './jwt';
 
 describe('isNullable Utility Function', () => {
   it('testing on null validator', () => {
@@ -41,5 +43,57 @@ describe('isNullable Utility Function', () => {
   it('testing on mixed type validator', () => {
     expect(isNullable<string | number>('')).toBe(true);
     expect(isNullable<string | number>(NaN)).toBe(true);
+  });
+});
+
+
+describe('JWT Utilities', () => {
+  it('should generate a valid mock JWT string format', () => {
+    const token = generateMockJWT('john', 'editor');
+    const parts = token.split('.');
+    
+    expect(parts).toHaveLength(3);
+    expect(typeof token).toBe('string');
+  });
+
+  it('should decode a generated token correctly', () => {
+    const user = 'test-user';
+    const role = 'admin';
+    const token = generateMockJWT(user, role);
+    const decoded = getDecodedToken(token);
+
+    expect(decoded).not.toBeNull();
+    expect(decoded?.user).toBe(user);
+    expect(decoded?.role).toBe(role);
+    expect(decoded).toHaveProperty('exp');
+    expect(decoded).toHaveProperty('iat');
+  });
+
+  it('should return null if token is not provided', () => {
+    expect(getDecodedToken(null)).toBeNull();
+    expect(getDecodedToken('')).toBeNull();
+  });
+
+  it('should return null and log error for invalid token format', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    
+    const invalidToken = "invalid.token.format";
+    const result = getDecodedToken(invalidToken);
+
+    expect(result).toBeNull();
+    expect(consoleSpy).toHaveBeenCalled();
+    
+    consoleSpy.mockRestore();
+  });
+
+  it('should handle malformed base64 strings', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    
+    const malformedToken = "header.NOT_BASE64_JSON.signature";
+    const result = getDecodedToken(malformedToken);
+
+    expect(result).toBeNull();
+    
+    consoleSpy.mockRestore();
   });
 });

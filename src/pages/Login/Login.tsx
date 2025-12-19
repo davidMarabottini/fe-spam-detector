@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
-import Card from '@/components/Card/Card';
-import Button from '@/components/Button/Button';
+import Card from '@components/atoms/Card/Card';
+import Button from '@components/atoms/Button/Button';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
-import Input from '@/components/Input/Input';
+import Input from '@components/atoms/Input/Input';
 import { useForm, Controller } from "react-hook-form";
 
 const Login = () => {
