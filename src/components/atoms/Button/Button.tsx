@@ -2,7 +2,7 @@ import styles from './Button.module.scss';
 import clsx from 'clsx';
 import type { ButtonProps } from './Button.types';
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, color="primary", type="button", disabled=false, rounded, additionalClassName }) => {
+const Button: React.FC<ButtonProps> = ({ children, onClick, color="primary", type="button", disabled=false, rounded, additionalClassName }: ButtonProps) => {
   return (
     <button
       className={
