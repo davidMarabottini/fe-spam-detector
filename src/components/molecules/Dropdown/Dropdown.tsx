@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Dropdown.module.scss";
 import clsx from "clsx";
 import type { DropdownProps } from "./Dropdown.types.ts";
-import Button from "../Button/Button.tsx";
+import Button from "../../atoms/Button/Button.tsx";
 
 const Dropdown = ({ label, options, className }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);

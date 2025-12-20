@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
-import Card from '@/components/Card/Card';
-import Button from '@/components/Button/Button';
+import Card from '@components/atoms/Card/Card';
+import Button from '@components/atoms/Button/Button';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
-import Input from '@/components/Input/Input';
+import Input from '@components/atoms/Input/Input';
 import { useForm, Controller } from "react-hook-form";
 
 const Login = () => {
@@ -15,11 +15,6 @@ const Login = () => {
   const { control, handleSubmit, formState } = useForm({
     defaultValues: { username: '', password: '' }
   });
-
-  const onSubmit = (data: { username: string; password: string }) => {
-    console.log('Login data:', data);
-    login();
-  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -32,7 +27,7 @@ const Login = () => {
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["c-login__container"]}>
           <h2>Entra</h2>
-          <form className={styles["c-login__form"]} onSubmit={handleSubmit(onSubmit)}>
+          <form className={styles["c-login__form"]} onSubmit={handleSubmit(login)}>
             <Controller
               name="username"
               control={control}

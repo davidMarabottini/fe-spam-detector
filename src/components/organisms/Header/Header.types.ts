@@ -1,4 +1,4 @@
-import type { decodedToken } from "../../auth/types";
+import type { decodedToken } from "../../../auth/types";
 
 export interface HeaderProps {
   logout?: () => void;
