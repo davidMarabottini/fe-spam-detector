@@ -14,14 +14,14 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
   ) : null;
 
   const menuOptions = [
-    { label: "Logout", onClick: logout }
+    { label: t('header.actions.logout'), onClick: logout }
   ];
 
   return (
     <header className={style["c-header"]}>
       <div className="l-container">
         <div className={style["c-header__container"]}>
-          <h1 className={style["c-header__title"]}>{t('title')}</h1> {/**Spam Detector AI */}
+          <h1 className={style["c-header__title"]}>{t('app.title')}</h1> {/**Spam Detector AI */}
           {userDetails && (
             <Dropdown 
               label={userLabel} 
