@@ -49,3 +49,11 @@ export const Rounded: Story = {
     children: 'Button',
   },
 };
+
+export const CustomBtn: Story = {
+  args: {
+    children: 'Button',
+    color: 'custom',
+    additionalClassName: 'sb-custom-test'
+  },
+};
