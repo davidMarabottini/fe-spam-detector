@@ -16,11 +16,6 @@ const Login = () => {
     defaultValues: { username: '', password: '' }
   });
 
-  const onSubmit = (data: { username: string; password: string }) => {
-    console.log('Login data:', data);
-    login();
-  };
-
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/', { replace: true });
@@ -32,7 +27,7 @@ const Login = () => {
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["c-login__container"]}>
           <h2>Entra</h2>
-          <form className={styles["c-login__form"]} onSubmit={handleSubmit(onSubmit)}>
+          <form className={styles["c-login__form"]} onSubmit={handleSubmit(login)}>
             <Controller
               name="username"
               control={control}

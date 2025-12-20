@@ -25,7 +25,13 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
     analyzeSpamMutation.mutate({ type, text });
   }
   
-  const insertCardClassName = clsx("l-grid__col", {"l-grid__col--span-6": analyzeSpamMutation.isSuccess, "l-grid__col--span-12": !analyzeSpamMutation.isSuccess})
+  const insertCardClassName = clsx(
+    "l-grid__col",
+    {
+      "l-grid__col--span-6": analyzeSpamMutation.isSuccess,
+      "l-grid__col--span-12": !analyzeSpamMutation.isSuccess
+    }
+  )
 
   return (
     <Card additionalClassName={insertCardClassName}>

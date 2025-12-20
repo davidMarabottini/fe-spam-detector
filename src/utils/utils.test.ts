@@ -1,7 +1,8 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { isNullable } from "./isNullable";
 import { generateMockJWT, getDecodedToken } from './jwt';
+import { calculatePerc } from "./numbers";
 
 describe('isNullable Utility Function', () => {
   it('testing on null validator', () => {
@@ -95,5 +96,38 @@ describe('JWT Utilities', () => {
     expect(result).toBeNull();
     
     consoleSpy.mockRestore();
+  });
+});
+
+describe("calculatePerc utility", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it.each([
+    { value: 0, result: 0 },
+    { value: 0.5, result: 50 },
+    { value: 1, result: 100 }
+  ])('should return $result when value is $value (no warning)', ({ value, result }) => {
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(calculatePerc(value)).toBe(result);
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    { value: -1, result: 0 },
+    { value: 1.01, result: 100 }
+  ])('should return $result and warn when value is $value', ({ value, result }) => {
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(calculatePerc(value)).toBe(result);
+    expect(spy).toHaveBeenCalledWith("your value is out of range");
+  });
+
+  it.each([
+    { value: NaN, result: 0 },
+  ])('should return 0 and warn when value is $value', ({ value, result }) => {
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    expect(calculatePerc(value)).toBe(result);
+    expect(spy).toHaveBeenCalledWith("your value is nullable");
   });
 });
