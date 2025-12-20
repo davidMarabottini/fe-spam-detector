@@ -12,10 +12,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Base: Story = {
   args: {
-    children: "prova"
-    // color: 'primary',
-    // children: 'Button',
+    children: "prova",
   },
 };
+
