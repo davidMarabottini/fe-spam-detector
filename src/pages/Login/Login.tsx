@@ -7,10 +7,12 @@ import clsx from 'clsx';
 import styles from "./Login.module.scss";
 import Input from '@components/atoms/Input/Input';
 import { useForm, Controller } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const {t} = useTranslation('login');
 
   const { control, handleSubmit, formState } = useForm({
     defaultValues: { username: '', password: '' }
@@ -26,28 +28,28 @@ const Login = () => {
     <div className={clsx(styles["c-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["c-login__container"]}>
-          <h2>Entra</h2>
+          <h2>{t('title')}</h2>
           <form className={styles["c-login__form"]} onSubmit={handleSubmit(login)}>
             <Controller
               name="username"
               control={control}
-              rules={{ required: "Username richiesto" }}
+              rules={{ required: t('form.username.error.required') }}
               render={({ field }) => (
-                <Input {...field} label="Username" />
+                <Input {...field} label={t('form.username.label')} />
               )}
             />
             
             <Controller
               name="password"
               control={control}
-              rules={{ required: "Password richiesta" }}
+              rules={{ required: t('form.password.error.required') }}
               render={({ field }) => (
-                <Input {...field} type="password" label="Password" />
+                <Input {...field} type="password" label={t('form.password.label')} />
               )}
             />
 
             <Button type="submit" color="primary" disabled={formState.isSubmitting || !formState.isValid}>
-              Login
+              {t("form.submit")}
             </Button>
           </form>
         </div>

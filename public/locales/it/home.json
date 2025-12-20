@@ -1,0 +1,13 @@
+{
+  "cardInput": {
+    "title": "Inserisci il testo del messaggio",
+    "form": {
+      "textarea": {
+        "placeholder": "Inserisci qui il testo del messaggio..."
+      },
+      "buttons": {
+        "submit": "Analizza Messaggio"
+      }
+    }
+  }
+}

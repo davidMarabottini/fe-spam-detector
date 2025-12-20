@@ -6,12 +6,14 @@ import type { UseMutationResult } from "@tanstack/react-query";
 import type { AnalyzeSpamResult } from "@/api/spamService";
 import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
 }
 
 const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
+  const { t } = useTranslation(['common', 'home']);
   const { register, handleSubmit, setValue, watch, formState } = useForm<AnalyzeSpamParams>({
     defaultValues: {
       type: 'sms',
@@ -36,25 +38,25 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
   return (
     <Card additionalClassName={insertCardClassName}>
       <form className={styles["c-card-input"]} onSubmit={handleSubmit(onFormSubmit)}>
-      <h2>Inserisci il testo del messaggio</h2>
+      <h2>{t('home:cardInput.title')}</h2>
       
       <div className={clsx(styles["c-card-input__btn-group"])}>
         <Button 
           onClick={() => setValue('type', 'sms')} 
           color={selectedType === 'sms' ? 'primary' : 'secondary'} 
           rounded
-        >SMS</Button>
+        >{t('common:domains.types.sms')}</Button>
         <Button 
           onClick={() => setValue('type', 'mail')} 
           color={selectedType === 'mail' ? 'primary' : 'secondary'} 
           rounded
-        >Email</Button>
+        >{t('common:domains.types.mail')}</Button>
       </div>
       
       <textarea
         {...register('text', { required: true })}
         className={styles["c-card-input__text-area"]}
-        placeholder="Inserisci qui il testo del messaggio..."
+        placeholder={t('home:cardInput.form.textarea.placeholder')}
         rows={10}
       ></textarea>
       
@@ -62,7 +64,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
         type="submit"
         color="primary"
         disabled={analyzeSpamMutation.isPending || !formState.isValid}
-      >Analizza Messaggio</Button>
+      >{t('home:cardInput.form.buttons.submit')}</Button>
       </form>
     </Card>
   )
