@@ -8,9 +8,11 @@ import styles from "./Login.module.scss";
 import Input from '@components/atoms/Input/Input';
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
+import { useLogin } from '@/hooks/useAuthenticationHooks';
 
 const Login = () => {
-  const { login, isAuthenticated } = useAuth();
+  const { user } = useAuth();
+  const { mutate: login, isPending, error } = useLogin();
   const navigate = useNavigate();
   const {t} = useTranslation('login');
 
@@ -19,17 +21,18 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigate('/', { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [user, navigate]);
 
   return (
     <div className={clsx(styles["c-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["c-login__container"]}>
           <h2>{t('title')}</h2>
-          <form className={styles["c-login__form"]} onSubmit={handleSubmit(login)}>
+          {error && <p className={styles["c-login__error"]}>{t('form.error.invalid')}</p>}
+          <form className={styles["c-login__form"]} onSubmit={handleSubmit(() => login())}>
             <Controller
               name="username"
               control={control}
@@ -48,7 +51,7 @@ const Login = () => {
               )}
             />
 
-            <Button type="submit" color="primary" disabled={formState.isSubmitting || !formState.isValid}>
+            <Button type="submit" color="primary" disabled={isPending || !formState.isValid}>
               {t("form.submit")}
             </Button>
           </form>

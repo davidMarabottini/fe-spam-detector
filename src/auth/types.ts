@@ -1,10 +1,12 @@
+export interface UserProfile {
+  user: string;
+  role: 'admin' | 'user';
+}
+
 export interface AuthContextType {
-  isAuthenticated: boolean;
+  user: UserProfile | null;
+  isAuthenticated?: boolean;
   isLoading: boolean;
-  user?: unknown;
-  token?: string | null;
-  login: () => void;
-  logout: () => void;
 }
 
 export type decodedToken = {
