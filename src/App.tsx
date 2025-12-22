@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
-import { MockAuthProvider } from './auth/mockAuthProvider';
 import '@styles/main.scss';
+import { AuthProvider } from '@/auth/AuthProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,11 +15,11 @@ const queryClient = new QueryClient({
 
 export const App = () => {
   return (
-    <MockAuthProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <RouterProvider router={router} />
-      </QueryClientProvider>
-    </MockAuthProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 };
 
