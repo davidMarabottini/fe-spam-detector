@@ -1,73 +1,154 @@
-# React + TypeScript + Vite
+# Spam Detector – Frontend Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for detecting spam emails and SMS messages, built with **React** and **TypeScript** and integrated with a machine learning backend.
 
-Currently, two official plugins are available:
+The application consumes a REST API that performs text classification using **Naive Bayes models** and returns real-time predictions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 Backend repository:  
+https://github.com/davidMarabottini/bayes_spam_detector
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧠 Project Overview
 
-## Expanding the ESLint configuration
+This project started as a personal experiment to explore machine learning model integration and evolved into a structured, production-oriented frontend application.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The main goal of this repository is to showcase **frontend architecture, API integration, testing strategy, and UX considerations** when consuming an ML-powered service.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The project is intentionally designed with scalability and maintainability in mind, despite being at an early stage.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ⚙️ Main Features
+
+- Spam detection for email and SMS text
+- Real-time prediction feedback
+- Clear visualization of classification results
+- API-driven architecture
+- Authentication-ready frontend (OAuth-based)
+- Protected routes for authenticated users
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- SCSS
+- TanStack Query (server-state management)
+- Axios
+- i18n (internationalization setup)
+
+### Quality & Tooling
+- Unit testing
+- Storybook for component-driven development
+- Modular and scalable component architecture
+
+### Backend (external)
+- Flask REST API
+- Naive Bayes models
+- Scikit-learn
+
+---
+
+## 🔐 Authentication & Authorization
+
+The frontend integrates an authentication flow based on backend-managed sessions (HTTP-only cookies).
+
+Key points:
+- Authentication state is fetched via a `/me` endpoint
+- Session validity is enforced by the backend
+- Protected routes are implemented at UI level for UX purposes
+- Security is intentionally backend-driven
+
+> Note: frontend route protection is meant for user experience, not as a security mechanism.
+
+---
+
+## 🧪 Testing Strategy
+
+Even though this project is at an early stage, a basic unit test coverage is already in place to ensure reliability of core components.
+
+Covered areas:
+* Atomic UI components (atoms, molecules, organisms)
+* Utility functions
+
+The project is also Storybook-ready, currently including Button and Card components, allowing isolated component development, visual documentation, and easier testing of UI elements.
+
+The excluded parts are still evolving and will be progressively covered as the application matures, maintaining a scalable and maintainable frontend architecture.
+
+---
+
+## 🚀 Local Development & Installation Guide
+
+Follow these steps to run the frontend locally:
+
+### Prerequisites
+- Node.js >= 18
+- Python >= 3.11
+- Virtual environment recommended
+
+### Backend Installation
+1. Clone the backend repo:
+
+```bash
+git clone https://github.com/davidMarabottini/bayes_spam_detector.git
+cd bayes_spam_detector
+```
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux / Mac
+venv\Scripts\activate     # Windows
+```
+3. install dependencies
+```
+pip install -r requirements.txt
+```
+4. Run the backend API:
+```
+py run.py
+```
+open another terminal and start the frontend installation:
+
+### Frontend Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/davidMarabottini/fe-spam-detector.git
+cd fe-spam-detector
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies:
 ```
+npm install
+```
+
+Create a .env file in the root
+```bash
+VITE_API_URL=http://localhost:5000
+```
+4. Start the development server:
+```bash
+npm run dev
+```
+5. Open the app in your browser http://localhost:5173
+
+## watch storybook
+npm run storybook
+
+---
+
+## launching test
+1. launching single test:
+npm run test
+2. launching test in watch mode
+npm run test:watch
+3. launching test with coverage
+npm run test:coverage
+
+---
+
+## Notes
+This project is under active development and represents an evolving codebase rather than a finished product.
