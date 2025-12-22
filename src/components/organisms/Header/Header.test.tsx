@@ -7,7 +7,7 @@ describe('Header Component', () => {
 
   it('renders title and logo correctly', () => {
     render(<Header />);
-    expect(screen.getByText('Spam Detector AI')).toBeInTheDocument();
+    expect(screen.getByText('app.title')).toBeInTheDocument();
   });
 
   it('does not render user section if userDetails is missing', () => {
