@@ -7,6 +7,7 @@ import type { AnalyzeSpamResult } from "@/api/spamService";
 import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import TextArea from "@/components/atoms/TextArea/TextArea";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
@@ -52,13 +53,12 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
           rounded
         >{t('common:domains.types.mail')}</Button>
       </div>
-      
-      <textarea
+      <TextArea
         {...register('text', { required: true })}
         className={styles["c-card-input__text-area"]}
-        placeholder={t('home:cardInput.form.textarea.placeholder')}
+        label={t('home:cardInput.form.textarea.placeholder')}
         rows={10}
-      ></textarea>
+      />
       
       <Button
         type="submit"

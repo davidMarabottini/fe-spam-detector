@@ -3,6 +3,7 @@ import Stack from '@components/atoms/Stack/Stack';
 import type { FormProperties } from './Form.types';
 import FormInput from './components/FormInput';
 import FormButton from './components/FormButton';
+import FormTextArea from './components/FormTextArea';
 
 const Form = <T extends FieldValues>({ 
   children, 
@@ -25,5 +26,6 @@ const Form = <T extends FieldValues>({
 };
 
 Form.Input = FormInput;
+Form.TextArea = FormTextArea;
 Form.Button = FormButton;
 export default Form;
