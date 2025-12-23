@@ -7,7 +7,8 @@ import styles from "./Login.module.scss";
 import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/hooks/useAuthenticationHooks';
 import Form from '@/components/form/Form';
-import Stack from '@/components/atoms/Stack/Stack';
+
+type LoginData = {username: string, password: string};
 
 const Login = () => {
   const { user } = useAuth();
@@ -15,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const {t} = useTranslation('login');
 
-  const onSubmit = (values: {username: string, password: string}) => {
+  const onSubmit = (values: LoginData) => {
     login(values);
   };
 
@@ -31,22 +32,20 @@ const Login = () => {
         <div className={styles["c-login__container"]}>
           <h2>{t('title')}</h2>
           {error && <p className={styles["c-login__error"]}>{t('form.error.invalid')}</p>}
-          <Form defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
-            <Stack>
-              <Form.Input
-                name="username"
-                label={t('form.username.label')}
-              />
-              <Form.Input
-                name="password"
-                label={t('form.password.label')}
-                type="password"
-                rules={{ required: t('error.required') }}
-              />
-              <Form.Button type="submit">
-                {t("form.submit")}
-              </Form.Button>
-            </Stack>
+          <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
+            <Form.Input
+              name="username"
+              label={t('form.username.label')}
+            />
+            <Form.Input
+              name="password"
+              label={t('form.password.label')}
+              type="password"
+              rules={{ required: t('error.required') }}
+            />
+            <Form.Button type="submit">
+              {t("form.submit")}
+            </Form.Button>
           </Form>
         </div>
       </Card>

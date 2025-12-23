@@ -9,6 +9,7 @@ export interface FormProperties<T extends FieldValues> extends FormBase {
   children: ReactNode | ((methods: UseFormReturn<T>) => ReactNode);
   onSubmit: (data: T) => void;
   defaultValues?: DefaultValues<T>;
+  noValidate?: boolean;
 }
 
 export interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'placeholder'> {

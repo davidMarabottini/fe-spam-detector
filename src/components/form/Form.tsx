@@ -7,14 +7,15 @@ import FormButton from './components/FormButton';
 const Form = <T extends FieldValues>({ 
   children, 
   onSubmit, 
-  defaultValues, 
-  ...props 
+  defaultValues,
+  noValidate,
+  ...props
 }: FormProperties<T>) => {
   const methods = useForm<T>({ defaultValues });
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} {...props}>
+      <form noValidate onSubmit={methods.handleSubmit(onSubmit)} {...props}>
         <Stack spacing="md">
           {typeof children === 'function' ? children(methods) : children}
         </Stack>
