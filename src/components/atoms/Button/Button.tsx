@@ -2,20 +2,24 @@ import styles from './Button.module.scss';
 import clsx from 'clsx';
 import type { ButtonProps } from './Button.types';
 import { forwardRef } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ 
     children, 
     color = "primary", 
-    type = "button", 
-    disabled = false, 
+    type = "button",
+    disabled = false,
     rounded,
     onClick,
     additionalClassName,
+    asChild,
     ...props
   }, ref) => {
+    const Component = asChild ? Slot : 'button';
+
     return (
-      <button
+      <Component
         ref={ref}
         className={
           clsx(
@@ -32,7 +36,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
-      </button>
+      </Component>
     );
 });
 
