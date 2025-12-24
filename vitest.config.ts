@@ -18,6 +18,7 @@ export default defineConfig({
         '**/*.types.ts', 
         '**/*.module.scss', 
         'src/**/index.ts', 
+        '**/*.stories.ts',
         '**/*.stories.tsx'
       ],
       reporter: ['text', 'html']

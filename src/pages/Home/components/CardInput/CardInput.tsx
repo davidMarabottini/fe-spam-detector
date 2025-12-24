@@ -5,10 +5,8 @@ import styles from './AnalizeCard.module.scss';
 import type { UseMutationResult } from "@tanstack/react-query";
 import type { AnalyzeSpamResult } from "@/api/spamService";
 import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import TextArea from "@/components/atoms/TextArea/TextArea";
-import RadioGroup from "@/components/atoms/RadioBtn/RadioBtn";
+import Form from "@/components/form/Form";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
@@ -16,15 +14,12 @@ interface CardInputProps {
 
 const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
   const { t } = useTranslation(['common', 'home']);
-  const { register, handleSubmit, setValue, formState } = useForm<AnalyzeSpamParams>({
-    defaultValues: {
-      type: 'sms',
-      text: ''
-    }
-  });
   const onFormSubmit = ({type, text}: AnalyzeSpamParams) => {
     analyzeSpamMutation.mutate({ type, text });
-  }
+  };
+  const domains = ['mail', 'sms'];
+
+  const options = domains.map(value => ({label: `common:domains.types.${value}`, value}))
   
   const insertCardClassName = clsx(
     "l-grid__col",
@@ -32,43 +27,48 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
       "l-grid__col--span-6": analyzeSpamMutation.isSuccess,
       "l-grid__col--span-12": !analyzeSpamMutation.isSuccess
     }
-  )
+  );
 
   return (
     <Card additionalClassName={insertCardClassName}>
-      <form className={styles["c-card-input"]} onSubmit={handleSubmit(onFormSubmit)}>
+      <Form
+        className={styles["c-card-input"]}
+        onSubmit={onFormSubmit}
+      >
         <h2>{t('home:cardInput.title')}</h2>
         
-        <RadioGroup variant="ghost" defaultValue="sms" gap="sm" options={[{label: 'common:domains.types.sms', value: 'sms'}, {label: 'common:domains.types.mail', value: 'mail'}]} >
-          {({label, value}, isSelected) => (
+        <Form.RadioBtn
+          name="type"
+          variant="ghost"
+          defaultValue={domains[0]}
+          gap="sm"
+          options={options}
+        >
+          {({label}, isSelected) => (
             <Button 
-              onClick={() => setValue('type', value as 'mail' | 'sms')} 
               color={isSelected ? 'primary' : 'secondary'} 
               rounded
               asChild
             >
-              <div>
-                {t(label)}
-              </div>
+              <div> {t(label)} </div>
             </Button>
             )}
-        </RadioGroup>
+        </Form.RadioBtn>
         
-        <TextArea
-          {...register('text', { required: true })}
+        <Form.TextArea
+          name="text"
           className={styles["c-card-input__text-area"]}
           label={t('home:cardInput.form.textarea.placeholder')}
           rows={10}
         />
         
-        <Button
+        <Form.Button
           type="submit"
           color="primary"
-          disabled={analyzeSpamMutation.isPending || !formState.isValid}
         >
           {t('home:cardInput.form.buttons.submit')}
-        </Button>
-      </form>
+        </Form.Button>
+      </Form>
     </Card>
   )
 }

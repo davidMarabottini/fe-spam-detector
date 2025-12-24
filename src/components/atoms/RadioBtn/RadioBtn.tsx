@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 
 const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ options, name, value, defaultValue, onChange, children, error, className, orientation, variant, gap, ...props }, ref) => {
+  ({ options, name, value, defaultValue, onValueChange: onChange, children, error, className, orientation, variant, gap, ...props }, ref) => {
     const [curValue, setCurValue] = useState<string | undefined>(defaultValue);
 
     const changeHandler = (cv: string) => {

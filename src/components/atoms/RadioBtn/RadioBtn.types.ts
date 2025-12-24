@@ -8,7 +8,7 @@ export interface RadioGroupProps {
   name?: string;
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   children?: (option: RadioOption, selected: boolean) => React.ReactNode;
   error?: string;
   className?: string;

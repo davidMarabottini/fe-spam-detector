@@ -4,6 +4,7 @@ import type { FormProperties } from './Form.types';
 import FormInput from './components/FormInput';
 import FormButton from './components/FormButton';
 import FormTextArea from './components/FormTextArea';
+import FormRadioBtn from './components/FormRadioBtn';
 
 const Form = <T extends FieldValues>({ 
   children, 
@@ -28,4 +29,5 @@ const Form = <T extends FieldValues>({
 Form.Input = FormInput;
 Form.TextArea = FormTextArea;
 Form.Button = FormButton;
+Form.RadioBtn = FormRadioBtn
 export default Form;

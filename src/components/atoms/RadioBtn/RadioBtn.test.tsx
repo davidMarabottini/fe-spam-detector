@@ -15,7 +15,7 @@ describe('RadioBtn Component', () => {
       { label: 'Radio 2', value: 'radio2' }
     ];
 
-    render(<RadioBtn options={options} onChange={onChange} />);
+    render(<RadioBtn options={options} onValueChange={onChange} />);
 
     const radio1 = screen.getByRole('radio', { name: /radio 1/i });
     const radio2 = screen.getByRole('radio', { name: /radio 2/i });
@@ -40,7 +40,7 @@ describe('RadioBtn Component', () => {
       { label: 'Radio 2', value: 'radio2' }
     ];
 
-    render(<RadioBtn data-testid="radiobtn" orientation='vertical' options={options} onChange={onChange} />);
+    render(<RadioBtn data-testid="radiobtn" orientation='vertical' options={options} onValueChange={onChange} />);
 
     const radioBtn = screen.getByTestId('radiobtn');
     expect(radioBtn.children[0]).toHaveClass(styles['c-radio-btn__container--vertical'])
@@ -53,7 +53,7 @@ describe('RadioBtn Component', () => {
       { label: 'Radio 2', value: 'radio2' }
     ];
 
-    render(<RadioBtn data-testid="radiobtn" orientation='horizontal' options={options} onChange={onChange} />);
+    render(<RadioBtn data-testid="radiobtn" orientation='horizontal' options={options} onValueChange={onChange} />);
 
     const radioBtn = screen.getByTestId('radiobtn');
     expect(radioBtn.children[0]).not.toHaveClass('c-radio-btn__container--vertical')
@@ -66,7 +66,7 @@ describe('RadioBtn Component', () => {
       { label: 'Radio 2', value: 'radio2' }
     ];
 
-    render(<RadioBtn data-testid="radiobtn" gap={gap} options={options} onChange={onChange} />);
+    render(<RadioBtn data-testid="radiobtn" gap={gap} options={options} onValueChange={onChange} />);
 
     const radioBtn = screen.getByTestId('radiobtn');
     expect(radioBtn.children[0]).toHaveClass(styles[`c-radio-btn__container--${gap}`])
@@ -102,7 +102,7 @@ describe('RadioBtn Component', () => {
       { label: 'Radio 2', value: 'radio2' }
     ];
 
-    render(<RadioBtn variant="ghost" options={options} onChange={onChange} />);
+    render(<RadioBtn variant="ghost" options={options} onValueChange={onChange} />);
 
     await user.click(screen.getByLabelText('Radio 2'));
     const radio1 = screen.getByRole('radio', { name: /radio 1/i });
