@@ -7,6 +7,7 @@ import type { AnalyzeSpamResult } from "@/api/spamService";
 import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import { useTranslation } from "react-i18next";
 import Form from "@/components/form/Form";
+import Stack from "@/components/atoms/Stack/Stack";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
@@ -35,39 +36,41 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
         className={styles["c-card-input"]}
         onSubmit={onFormSubmit}
       >
-        <h2>{t('home:cardInput.title')}</h2>
-        
-        <Form.RadioBtn
-          name="type"
-          variant="ghost"
-          defaultValue={domains[0]}
-          gap="sm"
-          options={options}
-        >
-          {({label}, isSelected) => (
-            <Button 
-              color={isSelected ? 'primary' : 'secondary'} 
-              rounded
-              asChild
-            >
-              <div> {t(label)} </div>
-            </Button>
-            )}
-        </Form.RadioBtn>
-        
-        <Form.TextArea
-          name="text"
-          className={styles["c-card-input__text-area"]}
-          label={t('home:cardInput.form.textarea.placeholder')}
-          rows={10}
-        />
-        
-        <Form.Button
-          type="submit"
-          color="primary"
-        >
-          {t('home:cardInput.form.buttons.submit')}
-        </Form.Button>
+        <Stack spacing="md">
+          <h2>{t('home:cardInput.title')}</h2>
+          
+          <Form.RadioBtn
+            name="type"
+            variant="ghost"
+            defaultValue={domains[0]}
+            gap="sm"
+            options={options}
+          >
+            {({label}, isSelected) => (
+              <Button 
+                color={isSelected ? 'primary' : 'secondary'} 
+                rounded
+                asChild
+              >
+                <div> {t(label)} </div>
+              </Button>
+              )}
+          </Form.RadioBtn>
+          
+          <Form.TextArea
+            name="text"
+            className={styles["c-card-input__text-area"]}
+            label={t('home:cardInput.form.textarea.placeholder')}
+            rows={10}
+          />
+          
+          <Form.Button
+            type="submit"
+            color="primary"
+          >
+            {t('home:cardInput.form.buttons.submit')}
+          </Form.Button>
+        </Stack>
       </Form>
     </Card>
   )

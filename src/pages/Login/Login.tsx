@@ -7,6 +7,7 @@ import styles from "./Login.module.scss";
 import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/hooks/useAuthenticationHooks';
 import Form from '@/components/form/Form';
+import Stack from '@/components/atoms/Stack/Stack';
 
 type LoginData = {username: string, password: string};
 
@@ -27,25 +28,28 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className={clsx(styles["c-login"], "l-grid")}>
+    <div className={clsx(styles["p-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
-        <div className={styles["c-login__container"]}>
+        <div className={styles["p-login__container"]}>
           <h2>{t('title')}</h2>
-          {error && <p className={styles["c-login__error"]}>{t('form.error.invalid')}</p>}
+          {error && <p className={styles["p-login__error"]}>{t('form.error.invalid')}</p>}
           <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
-            <Form.Input
-              name="username"
-              label={t('form.username.label')}
-            />
-            <Form.Input
-              name="password"
-              label={t('form.password.label')}
-              type="password"
-              rules={{ required: t('error.required') }}
-            />
-            <Form.Button type="submit">
-              {t("form.submit")}
-            </Form.Button>
+            <Stack spacing="md">
+              <Form.Input
+                name="username"
+                rules={{ required: t('error.required') }}
+                label={t('form.username.label')}
+              />
+              <Form.Input
+                name="password"
+                label={t('form.password.label')}
+                type="password"
+                rules={{ required: t('error.required') }}
+              />
+              <Form.Button type="submit">
+                {t("form.submit")}
+              </Form.Button>
+            </Stack>
           </Form>
         </div>
       </Card>

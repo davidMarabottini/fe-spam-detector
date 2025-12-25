@@ -13,6 +13,9 @@ export default defineConfig({
       provider: 'v8',
       include: ['src/**/*.tsx', 'src/**/*.ts'],
       exclude: [
+        'src/config/**',
+        'types.ts',
+        'router.tsx',
         'src/main.tsx', 
         'src/vite-env.d.ts', 
         '**/*.types.ts', 

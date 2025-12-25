@@ -4,6 +4,7 @@ import type { ButtonProps } from "../atoms/Button/Button.types";
 import type { InputProps } from "../atoms/Input/Input.types";
 import type { TextAreaProps } from "../atoms/TextArea/TextArea.types";
 import type { RadioGroupProps } from "../atoms/RadioBtn/RadioBtn.types";
+import type { SelectProps } from "../atoms/Select/Select.types";
 
 type FormBase = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onSubmit'>;
 
@@ -25,6 +26,11 @@ export interface FormTextAreaProps<T extends FieldValues> extends Omit<TextAreaP
 }
 
 export interface FormRadioBtnProps<T extends FieldValues> extends Omit<RadioGroupProps, 'placeholder'> {
+  name: Path<T>;
+  rules?: RegisterOptions<T, Path<T>>;
+}
+
+export interface FormSelect<T extends FieldValues> extends Omit<SelectProps, 'placeholder'> {
   name: Path<T>;
   rules?: RegisterOptions<T, Path<T>>;
 }

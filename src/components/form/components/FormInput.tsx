@@ -12,7 +12,8 @@ const FormInput = <T extends FieldValues>({ name, rules, ...props }: FormInputPr
       {...props} 
       {...register(name, rules)} 
       placeholder=" "
-      error={error} 
+      error={error}
+      required={!!rules?.required}
     />
   );
 };

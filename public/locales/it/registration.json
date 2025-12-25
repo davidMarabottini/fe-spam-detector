@@ -1,0 +1,49 @@
+{
+  "title": "Registraione",
+  "form": {
+    "name": {
+      "label": "Nome",
+      "error": {
+        "required": "Nome Richiesto"
+      } 
+    },
+    "surname": {
+      "label": "Cognome",
+      "error": {
+        "required": "Cognome Richiesto"
+      } 
+    },
+    "birthday": {
+      "label": "Data di nascita",
+      "error": {
+        "required": "Data di nascita Richiesta"
+      } 
+    },
+    "gender": {
+      "label": "Genere",
+      "error": {
+        "required": "Genere Richiesto"
+      },
+      "possibilities": ["Maschio", "Femmina", "Altro"]
+    },
+    "username": {
+      "label": "Username",
+      "error": {
+        "required": "Username Richiesto"
+      } 
+    },
+    "password": {
+      "label": "Password",
+      "error": {
+        "required": "Password Richiesta"
+      }
+    },
+    "repeatPassword": {
+      "label": "Ripeti Password",
+      "error": {
+        "required": "Password Richiesta"
+      }
+    },
+    "submit": "Login"
+  }
+}

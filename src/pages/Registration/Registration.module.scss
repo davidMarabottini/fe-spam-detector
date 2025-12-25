@@ -1,5 +1,5 @@
-.p-login {
-  padding-top: $space-lg;
+.p-registration {
+  margin-top: $space-lg;
   
   &__form {
     display: flex;
@@ -9,7 +9,7 @@
   }
 
   &__container {
-    max-width: 600px;
+    // max-width: 600px;
     margin: 0 auto;
   }
 }
