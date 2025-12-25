@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { isNullable } from "./isNullable";
 import { generateMockJWT, getDecodedToken } from './jwt';
 import { calculatePerc } from "./numbers";
+import { setRequiredField } from "./string";
 
 describe('isNullable Utility Function', () => {
   it('testing on null validator', () => {
@@ -131,3 +132,20 @@ describe("calculatePerc utility", () => {
     expect(spy).toHaveBeenCalledWith("your value is nullable");
   });
 });
+
+describe("setRequiredField", () => {
+  it("should be with hasterisk", () => {
+    const result = setRequiredField("test", true);
+    expect(result).toBe("test *")
+  })
+
+  it("should be without hasterisk", () => {
+    const result = setRequiredField("test", false);
+    expect(result).toBe("test")
+  })
+
+  it("should be without hasterisk", () => {
+    const result = setRequiredField("test");
+    expect(result).toBe("test")
+  })
+})

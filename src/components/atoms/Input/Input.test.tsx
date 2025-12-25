@@ -5,10 +5,10 @@ import Input from './Input';
 import styles from './Input.module.scss';
 
 describe('Input Component', () => {
-  it('renders correctly with label and placeholder', () => {
+  it('renders correctly with label', () => {
     render(<Input label="Username" />);
     
-    expect(screen.getByText(/username/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
   });
 
   it('calls onValueChange when user types', async () => {

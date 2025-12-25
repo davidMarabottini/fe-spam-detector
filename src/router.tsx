@@ -4,6 +4,7 @@ import Login from '@pages/Login/Login';
 import { PublicLayout } from '@layouts/PublicLayout';
 import { PrivateLayout } from '@layouts/PrivateLayout';
 import { ProtectedRoute } from './auth/protectedRoute';
+import Registration from './pages/Registration/Registration';
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/externalHome',
-        element: <Home />,
+        path: '/registration',
+        element: <Registration />,
       },
     ],
   },

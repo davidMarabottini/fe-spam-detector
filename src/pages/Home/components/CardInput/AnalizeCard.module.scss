@@ -3,17 +3,6 @@
   flex-direction: column;
   gap: $space-md;
 
-  textarea {
-    width: 100%;
-    min-height: 150px;
-    padding: $space-sm;
-    font-size: 1rem;
-    border: 1px solid $color-border;
-    border-radius: $radius-sm;
-    resize: vertical;
-    background-color: $color-canvas;
-  }
-
   &__btn-group {
     display: flex;
     gap: $space-md;

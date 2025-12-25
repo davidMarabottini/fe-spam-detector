@@ -1,0 +1,28 @@
+.c-radio-btn {
+  &__container {
+    display: flex;
+
+    &--vertical {
+      flex-direction: column;
+    }
+
+    &--sm {
+      gap: $space-sm;
+    }
+
+    &--md {
+      gap: $space-md;
+    }
+
+    &--lg {
+      gap: $space-lg;
+    }
+  }
+
+  &__item-input {
+    &--ghost {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}

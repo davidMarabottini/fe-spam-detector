@@ -2,23 +2,24 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
 import Card from '@components/atoms/Card/Card';
-import Button from '@components/atoms/Button/Button';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
-import Input from '@components/atoms/Input/Input';
-import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/hooks/useAuthenticationHooks';
+import Form from '@/components/organisms/form/Form';
+import Stack from '@/components/atoms/Stack/Stack';
+
+type LoginData = {username: string, password: string};
 
 const Login = () => {
   const { user } = useAuth();
-  const { mutate: login, isPending, error } = useLogin();
+  const { mutate: login, error } = useLogin();
   const navigate = useNavigate();
   const {t} = useTranslation('login');
 
-  const { control, handleSubmit, formState } = useForm({
-    defaultValues: { username: '', password: '' }
-  });
+  const onSubmit = (values: LoginData) => {
+    login(values);
+  };
 
   useEffect(() => {
     if (user) {
@@ -27,34 +28,29 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className={clsx(styles["c-login"], "l-grid")}>
+    <div className={clsx(styles["p-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
-        <div className={styles["c-login__container"]}>
+        <div className={styles["p-login__container"]}>
           <h2>{t('title')}</h2>
-          {error && <p className={styles["c-login__error"]}>{t('form.error.invalid')}</p>}
-          <form className={styles["c-login__form"]} onSubmit={handleSubmit(() => login())}>
-            <Controller
-              name="username"
-              control={control}
-              rules={{ required: t('form.username.error.required') }}
-              render={({ field }) => (
-                <Input {...field} label={t('form.username.label')} />
-              )}
-            />
-            
-            <Controller
-              name="password"
-              control={control}
-              rules={{ required: t('form.password.error.required') }}
-              render={({ field }) => (
-                <Input {...field} type="password" label={t('form.password.label')} />
-              )}
-            />
-
-            <Button type="submit" color="primary" disabled={isPending || !formState.isValid}>
-              {t("form.submit")}
-            </Button>
-          </form>
+          {error && <p className={styles["p-login__error"]}>{t('form.error.invalid')}</p>}
+          <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
+            <Stack spacing="md">
+              <Form.Input
+                name="username"
+                rules={{ required: t('error.required') }}
+                label={t('form.username.label')}
+              />
+              <Form.Input
+                name="password"
+                label={t('form.password.label')}
+                type="password"
+                rules={{ required: t('error.required') }}
+              />
+              <Form.Button type="submit">
+                {t("form.submit")}
+              </Form.Button>
+            </Stack>
+          </Form>
         </div>
       </Card>
     </div>

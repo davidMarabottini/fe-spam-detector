@@ -1,8 +1,8 @@
 import apiClient from "./apiClient";
 import type { UserProfile } from "@/auth/types";
 
-export const login = async (): Promise<{ user: UserProfile }> => {
-  const { data } = await apiClient.post('/login');
+export const login = async (credentials: {username: string, password: string}): Promise<{ user: UserProfile }> => {
+  const { data } = await apiClient.post('/login', credentials);
   return data;
 };
 

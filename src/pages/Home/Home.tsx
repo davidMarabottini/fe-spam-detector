@@ -8,7 +8,7 @@ const Home = () => {
   const analyzeSpamMutation = useAnalyzeSpam();
   //TODO: inserire messaggio di errore in caso di fallimento
   return (
-    <div className={clsx(styles["c-home"], "l-grid")}>
+    <div className={clsx(styles["p-home"], "l-grid")}>
       <CardInput analyzeSpamMutation={analyzeSpamMutation} />
       
       {analyzeSpamMutation.isSuccess &&

@@ -19,7 +19,6 @@
     top: -32px;
     transform: translateY(-50%);
     transition: all 0.2s ease;
-    pointer-events: none;
     font-size: $font-base;
   }
 
@@ -31,7 +30,7 @@
     background: transparent;
   }
 
-  &__field:focus + .c-input__label, .c-input__label--floating {
+  &__field:focus + .c-input__label, .c-input__field:not(:placeholder-shown) + .c-input__label {
     top: -62px;
     left: 0;
     font-size: $font-xs;
