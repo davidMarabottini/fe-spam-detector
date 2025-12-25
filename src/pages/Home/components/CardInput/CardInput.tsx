@@ -6,7 +6,7 @@ import type { UseMutationResult } from "@tanstack/react-query";
 import type { AnalyzeSpamResult } from "@/api/spamService";
 import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import { useTranslation } from "react-i18next";
-import Form from "@/components/form/Form";
+import Form from "@/components/organisms/form/Form";
 import Stack from "@/components/atoms/Stack/Stack";
 
 interface CardInputProps {

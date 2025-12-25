@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import type { UseFormReturn, FieldValues, Path, DefaultValues, RegisterOptions } from "react-hook-form";
-import type { ButtonProps } from "../atoms/Button/Button.types";
-import type { InputProps } from "../atoms/Input/Input.types";
-import type { TextAreaProps } from "../atoms/TextArea/TextArea.types";
-import type { RadioGroupProps } from "../atoms/RadioBtn/RadioBtn.types";
-import type { SelectProps } from "../atoms/Select/Select.types";
+import type { ButtonProps } from "../../atoms/Button/Button.types";
+import type { InputProps } from "../../atoms/Input/Input.types";
+import type { TextAreaProps } from "../../atoms/TextArea/TextArea.types";
+import type { RadioGroupProps } from "../../atoms/RadioBtn/RadioBtn.types";
+import type { SelectProps } from "../../molecules/Select/Select.types";
 
 type FormBase = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onSubmit'>;
 

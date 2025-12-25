@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import styles from "./Login.module.scss";
 import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/hooks/useAuthenticationHooks';
-import Form from '@/components/form/Form';
+import Form from '@/components/organisms/form/Form';
 import Stack from '@/components/atoms/Stack/Stack';
 
 type LoginData = {username: string, password: string};

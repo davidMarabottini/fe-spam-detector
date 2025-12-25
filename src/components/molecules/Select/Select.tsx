@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import type { SelectProps } from "./Select.types";
 import styles from './Select.module.scss';
-import Input from "../Input/Input";
+import Input from "../../atoms/Input/Input";
 import clsx from "clsx";
 
 
