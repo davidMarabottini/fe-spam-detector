@@ -17,7 +17,7 @@ const Form = <T extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form noValidate onSubmit={methods.handleSubmit(onSubmit)} {...props}>
+      <form noValidate={noValidate} onSubmit={methods.handleSubmit(onSubmit)} {...props}>
         {typeof children === 'function' ? children(methods) : children}
       </form>
     </FormProvider>
