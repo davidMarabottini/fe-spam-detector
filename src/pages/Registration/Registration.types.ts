@@ -6,3 +6,13 @@ export type RegistrationData = {
   username?: string
   password?: string
 };
+
+export type RegistrationForm = {
+  name: string
+  surname: string
+  gender: 'M' | 'F' | ''
+  email: string
+  username: string
+  password: string
+  repeatPassword: string
+}

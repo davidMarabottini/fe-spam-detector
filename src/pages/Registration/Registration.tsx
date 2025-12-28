@@ -4,7 +4,7 @@ import styles from "./Registration.module.scss";
 import { useTranslation } from 'react-i18next';
 import Form from '@/components/organisms/form/Form';
 import Stack from '@/components/atoms/Stack/Stack';
-import type { RegistrationData } from './Registration.types';
+import type { RegistrationForm } from './Registration.types';
 import { useInsertUser } from '@/hooks/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@/constants/validations';
 
@@ -12,8 +12,9 @@ const Registration = () => {
   const {t} = useTranslation('registration');
   const {mutate: insertUser, error} = useInsertUser();
 
-  const onSubmit = (values: RegistrationData) => {
-    insertUser(values);
+  const onSubmit = (values: RegistrationForm) => {
+    const { repeatPassword: _repeatPassword, ...payload } = values;
+    insertUser(payload);
   };
 
   const init = {
@@ -36,7 +37,7 @@ const Registration = () => {
       <div className={styles["p-registration__container"]}>
         <h2>{t('Form Registrazione')}</h2>
         {error && <p>errore</p>}
-        <Form<RegistrationData>
+        <Form<RegistrationForm>
           defaultValues={init}
           onSubmit={onSubmit}
         >
@@ -46,12 +47,13 @@ const Registration = () => {
                 className="l-grid__col l-grid__col--span-6"
                 name="name"
                 label={t('form.name.label')}
+                rules={{ required: t('form.name.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="surname"
                 label={t('form.surname.label')}
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.surname.error.required') }}
               />
               {/* TODO: implementare un datePicker e aggiungere data di nascita */}
               <Form.Select
@@ -59,39 +61,46 @@ const Registration = () => {
                 label="gender"
                 options={options}
                 className="l-grid__col l-grid__col--span-6"
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.gender.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="email"
                 label={t('form.email.label')}
                 rules={{
-                  required: t('error.required'),
-                  pattern: VALIDATIONS_EMAIL,
+                  required: t('form.email.error.required'),
+                  pattern: {
+                    value: VALIDATIONS_EMAIL,
+                    message: t('form.email.error.errorFormat'),
+                  },
                 }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="username"
                 label={t('form.username.label')}
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.username.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="password"
                 label={t('form.password.label')}
                 type="password"
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.password.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="repeatPassword"
                 label={t('form.repeatPassword.label')}
                 type="password"
-                rules={{ required: t('error.required') }}
+                rules={{
+                  required: t('form.repeatPassword.error.required'),
+                  validate: (value, formValues) => 
+                    value === formValues.password || t('form.error.passwordsDoNotMatch')
+                }}
               />
             </div>
-            <Form.Button type="submit">
+            <Form.Button type="submit" autoDisabled={false}>
               {t("form.submit")}
             </Form.Button>
           </Stack>
