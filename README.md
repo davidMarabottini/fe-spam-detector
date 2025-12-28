@@ -91,26 +91,14 @@ Follow these steps to run the frontend locally:
 - Virtual environment recommended
 
 ### Backend Installation
-1. Clone the backend repo:
+Clone the backend repo:
 
 ```bash
 git clone https://github.com/davidMarabottini/bayes_spam_detector.git
 cd bayes_spam_detector
 ```
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux / Mac
-venv\Scripts\activate     # Windows
-```
-3. install dependencies
-```
-pip install -r requirements.txt
-```
-4. Run the backend API:
-```
-py run.py
-```
+Follow the instruction on README.md in the backend
+
 open another terminal and start the frontend installation:
 
 ### Frontend Installation

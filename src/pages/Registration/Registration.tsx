@@ -25,6 +25,12 @@ const Registration = () => {
     password: '',
   }
 
+  const options = [
+    {label: 'Male', value: 'M'},
+    {label: 'Female', value: 'F'},
+    {label: 'Other', value: ''}
+  ]
+
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
@@ -51,7 +57,7 @@ const Registration = () => {
               <Form.Select
                 name="gender"
                 label="gender"
-                options={[{label: 'Male', value: 'M'}, {label: 'Female', value: 'F'}, {label: 'Other', value: ''}]}
+                options={options}
                 className="l-grid__col l-grid__col--span-6"
                 rules={{ required: t('error.required') }}
               />

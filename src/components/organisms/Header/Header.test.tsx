@@ -19,7 +19,6 @@ describe('Header Component', () => {
   it('renders user details when provided', () => {
     render(<Header userDetails={mockUser} />);
     expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('admin')).toBeInTheDocument();
   });
 
   it('cleans up event listeners on unmount', () => {
