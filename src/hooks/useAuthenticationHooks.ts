@@ -8,6 +8,7 @@ export const useLogin = () => {
     mutationFn: authService.login,
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     }
   });
 };

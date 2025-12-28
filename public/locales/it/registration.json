@@ -26,6 +26,13 @@
       },
       "possibilities": ["Maschio", "Femmina", "Altro"]
     },
+    "email": {
+      "label": "Email",
+      "error": {
+        "required": "Email Richiesta",
+        "errorFormat": "Email in formato errato"
+      } 
+    },
     "username": {
       "label": "Username",
       "error": {

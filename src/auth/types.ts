@@ -1,6 +1,6 @@
 export interface UserProfile {
   user: string;
-  role: 'admin' | 'user';
+  role: ('admin' | 'user')[];
 }
 
 export interface AuthContextType {

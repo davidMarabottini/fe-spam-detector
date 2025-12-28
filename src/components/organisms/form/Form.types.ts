@@ -35,5 +35,6 @@ export interface FormSelect<T extends FieldValues> extends Omit<SelectProps, 'pl
   rules?: RegisterOptions<T, Path<T>>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
-export interface FormButtonProps extends ButtonProps {}
+export interface FormButtonProps extends ButtonProps {
+  autoDisabled?: boolean
+}

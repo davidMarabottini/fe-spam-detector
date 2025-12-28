@@ -2,43 +2,42 @@ import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Registration.module.scss";
 import { useTranslation } from 'react-i18next';
-// import { useLogin } from '@/hooks/useAuthenticationHooks';
 import Form from '@/components/organisms/form/Form';
 import Stack from '@/components/atoms/Stack/Stack';
-import Select from '@/components/molecules/Select/Select';
-
-type RegistrationData = {
-  name?: string
-  surname?: string
-  birthday?: string
-  gender?: 'M' | 'F' | ''
-  username?: string
-  password?: string
-};
+import type { RegistrationForm } from './Registration.types';
+import { useInsertUser } from '@/hooks/useUserHooks';
+import { VALIDATIONS_EMAIL } from '@/constants/validations';
 
 const Registration = () => {
-  // const { mutate: login, error } = useLogin();
   const {t} = useTranslation('registration');
+  const {mutate: insertUser, error} = useInsertUser();
 
-  const onSubmit = (values: RegistrationData) => {
-    console.log(values);
+  const onSubmit = (values: RegistrationForm) => {
+    const { repeatPassword: _repeatPassword, ...payload } = values;
+    insertUser(payload);
   };
 
   const init = {
     name: '',
     surname: '',
-    birthday: '',
-    gender: '',
+    // birthday: '',
+    gender: '' as 'M' | 'F' | '',
     username: '',
     password: '',
   }
+
+  const options = [
+    {label: 'Male', value: 'M'},
+    {label: 'Female', value: 'F'},
+    {label: 'Other', value: ''}
+  ]
 
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
         <h2>{t('Form Registrazione')}</h2>
-        {/* {error && <p className={styles["p-registration__error"]}>{t('form.error.invalid')}</p>} */}
-        <Form<RegistrationData>
+        {error && <p>errore</p>}
+        <Form<RegistrationForm>
           defaultValues={init}
           onSubmit={onSubmit}
         >
@@ -48,49 +47,60 @@ const Registration = () => {
                 className="l-grid__col l-grid__col--span-6"
                 name="name"
                 label={t('form.name.label')}
+                rules={{ required: t('form.name.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="surname"
                 label={t('form.surname.label')}
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.surname.error.required') }}
               />
-              {/* TODO: implementare un datePicker
-              <Form.Input
-                className="l-grid__col l-grid__col--span-6"
-                name="birthday"
-                label={t('form.birthday.label')}
-                rules={{ required: t('error.required') }}
-              /> */}
+              {/* TODO: implementare un datePicker e aggiungere data di nascita */}
               <Form.Select
                 name="gender"
                 label="gender"
-                options={[{label: 'Male', value: 'M'}, {label: 'Female', value: 'F'}, {label: 'Other', value: ''}]}
+                options={options}
                 className="l-grid__col l-grid__col--span-6"
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.gender.error.required') }}
+              />
+              <Form.Input
+                className="l-grid__col l-grid__col--span-6"
+                name="email"
+                label={t('form.email.label')}
+                rules={{
+                  required: t('form.email.error.required'),
+                  pattern: {
+                    value: VALIDATIONS_EMAIL,
+                    message: t('form.email.error.errorFormat'),
+                  },
+                }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="username"
                 label={t('form.username.label')}
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.username.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="password"
                 label={t('form.password.label')}
                 type="password"
-                rules={{ required: t('error.required') }}
+                rules={{ required: t('form.password.error.required') }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="repeatPassword"
                 label={t('form.repeatPassword.label')}
                 type="password"
-                rules={{ required: t('error.required') }}
+                rules={{
+                  required: t('form.repeatPassword.error.required'),
+                  validate: (value, formValues) => 
+                    value === formValues.password || t('form.error.passwordsDoNotMatch')
+                }}
               />
             </div>
-            <Form.Button type="submit">
+            <Form.Button type="submit" autoDisabled={false}>
               {t("form.submit")}
             </Form.Button>
           </Stack>
