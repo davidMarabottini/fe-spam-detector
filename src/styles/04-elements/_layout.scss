@@ -29,11 +29,14 @@
 
     @for $i from 1 through 12 {
       &--span-#{$i} {
-        grid-column: span min($i, 6);
+        grid-column: span 6;
 
         @include desktop {
           grid-column: span $i;
         }
+      }
+      &--#{$i} {
+        grid-column: span $i;
       }
     }
 

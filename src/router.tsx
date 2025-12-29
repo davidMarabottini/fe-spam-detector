@@ -5,6 +5,7 @@ import { PublicLayout } from '@layouts/PublicLayout';
 import { PrivateLayout } from '@layouts/PrivateLayout';
 import { ProtectedRoute } from './auth/protectedRoute';
 import Registration from './pages/Registration/Registration';
+import Status from './pages/Status/Status';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
             path: '/',
             element: <Home />,
           },
+          {
+            path: '/status',
+            element: <Status />
+          }
         ],
       },
     ],
