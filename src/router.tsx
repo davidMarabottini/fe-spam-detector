@@ -6,17 +6,18 @@ import { PrivateLayout } from '@layouts/PrivateLayout';
 import { ProtectedRoute } from './auth/protectedRoute';
 import Registration from './pages/Registration/Registration';
 import Status from './pages/Status/Status';
+import { ROUTES } from './constants/routes';
 
 export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
     children: [
       {
-        path: '/login',
+        path: ROUTES.LOGIN,
         element: <Login />,
       },
       {
-        path: '/registration',
+        path: ROUTES.REGISTRATION,
         element: <Registration />,
       },
     ],
@@ -28,11 +29,11 @@ export const router = createBrowserRouter([
         element: <PrivateLayout />,
         children: [
           {
-            path: '/',
+            path: ROUTES.HOME,
             element: <Home />,
           },
           {
-            path: '/status',
+            path: ROUTES.STATUS,
             element: <Status />
           }
         ],

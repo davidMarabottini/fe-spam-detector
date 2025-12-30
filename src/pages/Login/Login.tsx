@@ -4,10 +4,11 @@ import { useAuth } from '../../auth/useAuth';
 import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
-import { useTranslation } from 'react-i18next';
-import { useLogin } from '@/hooks/useAuthenticationHooks';
-import Form from '@/components/organisms/form/Form';
-import Stack from '@/components/atoms/Stack/Stack';
+import { Trans, useTranslation } from 'react-i18next';
+import { useLogin } from '@hooks/useAuthenticationHooks';
+import Form from '@components/organisms/form/Form';
+import Stack from '@components/atoms/Stack/Stack';
+import { ROUTES } from '@constants/routes';
 
 type LoginData = {username: string, password: string};
 
@@ -49,6 +50,16 @@ const Login = () => {
               <Form.Button type="submit">
                 {t("form.submit")}
               </Form.Button>
+
+              <p>
+                <Trans
+                  i18nKey="register"
+                  ns="login"
+                  components={[
+                    <a href={ROUTES.REGISTRATION} key="link" className={styles.link} />
+                  ]}
+                />
+              </p>
             </Stack>
           </Form>
         </div>

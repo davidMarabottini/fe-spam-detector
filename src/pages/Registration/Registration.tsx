@@ -1,12 +1,13 @@
 import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Registration.module.scss";
-import { useTranslation } from 'react-i18next';
-import Form from '@/components/organisms/form/Form';
-import Stack from '@/components/atoms/Stack/Stack';
+import { Trans, useTranslation } from 'react-i18next';
+import Form from '@components/organisms/form/Form';
+import Stack from '@components/atoms/Stack/Stack';
 import type { RegistrationForm } from './Registration.types';
-import { useInsertUser } from '@/hooks/useUserHooks';
-import { VALIDATIONS_EMAIL } from '@/constants/validations';
+import { useInsertUser } from '@hooks/useUserHooks';
+import { VALIDATIONS_EMAIL } from '@constants/validations';
+import { ROUTES } from '@constants/routes';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -103,6 +104,15 @@ const Registration = () => {
             <Form.Button type="submit" autoDisabled={false}>
               {t("form.submit")}
             </Form.Button>
+            <p>
+              <Trans
+                i18nKey="login"
+                ns="registration"
+                components={[
+                  <a href={ROUTES.LOGIN} key="link" className={styles.link} />
+                ]}
+              />
+            </p>
           </Stack>
         </Form>
       </div>

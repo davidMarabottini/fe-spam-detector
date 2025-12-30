@@ -52,5 +52,6 @@
       }
     },
     "submit": "Login"
-  }
+  },
+  "login": "Sei gia iscritto ? <0>loggati</0>"
 }
