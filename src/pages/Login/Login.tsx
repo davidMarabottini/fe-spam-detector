@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/hooks/useAuthenticationHooks';
 import Form from '@/components/organisms/form/Form';
 import Stack from '@/components/atoms/Stack/Stack';
+import Typography from '@/components/atoms/Typography/Typography';
 
 type LoginData = {username: string, password: string};
 
@@ -31,8 +32,8 @@ const Login = () => {
     <div className={clsx(styles["p-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["p-login__container"]}>
-          <h2>{t('title')}</h2>
-          {error && <p className={styles["p-login__error"]}>{t('form.error.invalid')}</p>}
+          <Typography variant="h2">{t('title')}</Typography>
+          {error && <Typography additionalClasses={styles["p-login__error"]}>{t('form.error.invalid')}</Typography>}
           <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
             <Stack spacing="md">
               <Form.Input

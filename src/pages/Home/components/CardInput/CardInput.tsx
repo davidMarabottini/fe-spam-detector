@@ -8,6 +8,7 @@ import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import { useTranslation } from "react-i18next";
 import Form from "@/components/organisms/form/Form";
 import Stack from "@/components/atoms/Stack/Stack";
+import Typography from "@/components/atoms/Typography/Typography";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
@@ -37,7 +38,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
         onSubmit={onFormSubmit}
       >
         <Stack spacing="md">
-          <h2>{t('home:cardInput.title')}</h2>
+          <Typography variant="h2">{t('home:cardInput.title')}</Typography>
           
           <Form.RadioBtn
             name="type"
