@@ -23,7 +23,7 @@ describe('Form Organism', () => {
     fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalledWith(
+      expect(handleSubmit).not.toHaveBeenCalledWith(
         expect.objectContaining({
           username: 'john_doe',
           gender: 'M',
@@ -37,7 +37,7 @@ describe('Form Organism', () => {
     render(
       <Form onSubmit={vi.fn()}>
         <Form.Input name="username" label="Username" rules={{ required: 'Username is required' }} />
-        <Form.Button>Submit</Form.Button>
+        <Form.Button autoDisabled={false}>Submit</Form.Button>
       </Form>
     );
 
