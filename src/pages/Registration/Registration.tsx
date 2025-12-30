@@ -9,6 +9,7 @@ import { useInsertUser } from '@hooks/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@constants/validations';
 import { ROUTES } from '@constants/routes';
 import Typography from '@components/atoms/Typography/Typography';
+import { Check, X } from 'lucide-react';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -33,6 +34,8 @@ const Registration = () => {
     {label: 'Female', value: 'F'},
     {label: 'Other', value: ''}
   ]
+
+  const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
 
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
@@ -101,19 +104,33 @@ const Registration = () => {
                     value === formValues.password || t('form.error.passwordsDoNotMatch')
                 }}
               />
-            </div>
-            <Form.Button type="submit" autoDisabled={false}>
-              {t("form.submit")}
+              <div></div>
+            <Form.Button
+              additionalClassName={btnClass}
+              type="submit"
+              autoDisabled={false}
+            >
+              <Check size={16} /> {t("form.submit")}
             </Form.Button>
-            <p>
+            <Form.Button
+              additionalClassName={btnClass}
+              type="reset"
+              color='secondary'
+              autoDisabled={false}
+            >
+              <X size={16} /> Reset
+            </Form.Button>
+            </div>
+            <Typography
+              color="muted"
+              additionalClasses={styles['p-registration__login-link']}
+            >
               <Trans
                 i18nKey="login"
                 ns="registration"
-                components={[
-                  <a href={ROUTES.LOGIN} key="link" className={styles.link} />
-                ]}
+                components={[<a href={ROUTES.LOGIN} key="link" />]}
               />
-            </p>
+            </Typography>
           </Stack>
         </Form>
       </div>

@@ -10,6 +10,7 @@ import Form from '@components/organisms/form/Form';
 import Stack from '@components/atoms/Stack/Stack';
 import { ROUTES } from '@constants/routes';
 import Typography from '@/components/atoms/Typography/Typography';
+import { LogIn } from 'lucide-react';
 
 
 type LoginData = {username: string, password: string};
@@ -49,19 +50,19 @@ const Login = () => {
                 type="password"
                 rules={{ required: t('error.required') }}
               />
-              <Form.Button type="submit">
-                {t("form.submit")}
+              <Form.Button additionalClassName={styles['p-login__button']} type="submit">
+                <LogIn size={16} /> {t("form.submit")}
               </Form.Button>
 
-              <p>
+              <Typography color="muted" additionalClasses={styles['p-login__register-link']}>
                 <Trans
                   i18nKey="register"
                   ns="login"
                   components={[
-                    <a href={ROUTES.REGISTRATION} key="link" className={styles.link} />
+                    <a href={ROUTES.REGISTRATION} key="link" />
                   ]}
                 />
-              </p>
+              </Typography>
             </Stack>
           </Form>
         </div>

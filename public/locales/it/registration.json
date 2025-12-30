@@ -51,7 +51,7 @@
         "required": "Password Richiesta"
       }
     },
-    "submit": "Login"
+    "submit": "Registrati"
   },
   "login": "Sei gia iscritto ? <0>loggati</0>"
 }

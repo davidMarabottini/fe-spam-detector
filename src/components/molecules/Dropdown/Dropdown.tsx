@@ -29,8 +29,8 @@ const Dropdown = ({ label, options, className }: DropdownProps) => {
         <>
             {label}
             <span className={clsx(styles["c-dropdown__arrow"])}>
-          ▾
-        </span>
+              ▾
+            </span>
           </>
       </Button>
 

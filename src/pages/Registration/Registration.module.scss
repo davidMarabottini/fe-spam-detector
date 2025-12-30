@@ -9,7 +9,15 @@
   }
 
   &__container {
-    // max-width: 600px;
     margin: 0 auto;
+  }
+
+  &__login-link {
+    margin-top: $space-md;
+  }
+
+  &__button {
+    @include flex-center;
+    gap: $space-sm;
   }
 }

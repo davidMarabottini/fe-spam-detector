@@ -12,4 +12,12 @@
     max-width: 600px;
     margin: 0 auto;
   }
+
+  &__button {
+    @include flex-center;
+    gap: $space-sm;
+  }
+  &__register-link {
+    margin-top: $space-md;
+  }
 }

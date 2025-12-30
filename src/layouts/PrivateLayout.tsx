@@ -1,7 +1,7 @@
-import Header from "@/components/organisms/Header/Header";
+import Header from "@components/organisms/Header/Header";
 import { useAuth } from "../auth/useAuth";
 import { Outlet } from 'react-router-dom';
-import { useLogout } from "@/hooks/useAuthenticationHooks";
+import { useLogout } from "@hooks/useAuthenticationHooks";
 
 
 export const PrivateLayout = () => {

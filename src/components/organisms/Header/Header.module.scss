@@ -10,6 +10,11 @@
     align-items: center;
   }
 
+  &__left-area {
+    @include flex-center;
+    gap: $space-sm;
+  }
+
   &__title {
     font-size: 2rem;
     margin: 0;

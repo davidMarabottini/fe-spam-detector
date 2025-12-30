@@ -36,12 +36,12 @@ const Status = () => {
           {t("contribution.title")}
         </Typography>
         <HamSpamTable ham={contributions.mail.ham} spam={contributions.mail.spam}>
-          <Typography as="div">
+          <Typography additionalClasses={styles["p-status__ham-spam-head"]} as="div">
             <Mail size={16} /> {t("contribution.areas.mail")}
           </Typography>
         </HamSpamTable>
         <HamSpamTable ham={contributions.sms.ham} spam={contributions.sms.spam}>
-          <Typography as="div">
+          <Typography additionalClasses={styles["p-status__ham-spam-head"]} as="div">
             <Smartphone size={16} /> {t("contribution.areas.sms")}
           </Typography>
         </HamSpamTable>
@@ -71,7 +71,7 @@ const Status = () => {
         <div className={styles['p-status__internal-priviledges-card']}>
           {privileges.map((x) => (
             <div key={x} className={styles['p-status__priviledge']}>
-              <Typography as="p">{x}</Typography>
+              <Typography as="p" color="muted">{x}</Typography>
             </div>
           ))}
         </div>
