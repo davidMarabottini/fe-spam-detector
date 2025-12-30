@@ -7,6 +7,7 @@ import Stack from '@/components/atoms/Stack/Stack';
 import type { RegistrationForm } from './Registration.types';
 import { useInsertUser } from '@/hooks/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@/constants/validations';
+import Typography from '@/components/atoms/Typography/Typography';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -35,8 +36,8 @@ const Registration = () => {
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
-        <h2>{t('Form Registrazione')}</h2>
-        {error && <p>errore</p>}
+        <Typography variant="h2" >{t('Form Registrazione')}</Typography>
+        {error && <Typography>errore</Typography>}
         <Form<RegistrationForm>
           defaultValues={init}
           onSubmit={onSubmit}

@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: $font-family-base;
 }
 
 html {
@@ -17,6 +18,13 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
+
+h1 { @include typography($font-3xl, $font-weight-bold, $line-height-tight); }
+h2 { @include typography($font-2xl, $font-weight-bold, $line-height-tight); }
+h3 { @include typography($font-xl, $font-weight-medium, $line-height-tight); }
+h4 { @include typography($font-lg, $font-weight-medium, $line-height-tight); }
+p { @include typography($font-md, $font-weight-medium, $line-height-tight); }
+small { @include typography($font-sm, $font-weight-medium, $line-height-tight); }
 
 textarea, input, button {
   font-family: inherit;

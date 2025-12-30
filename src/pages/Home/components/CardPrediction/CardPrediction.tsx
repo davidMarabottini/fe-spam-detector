@@ -6,6 +6,7 @@ import type { AnalyzeSpamParams } from "@/hooks/useAnalyzeSpam";
 import ResultCircle from "@/components/atoms/ResultCircle/ResultCircle";
 import styles from "./CardPrediction.module.scss"
 import { calculatePerc } from "@/utils/numbers";
+import Typography from "@/components/atoms/Typography/Typography";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
@@ -27,9 +28,12 @@ const CardResult = ({analyzeSpamMutation}: CardInputProps) => {
       <Card additionalClassName="l-grid__col l-grid__col--span-6">
         <div className={styles["c-card-prediction__analysis-result"]}>
           <ResultCircle percentage={calculatePerc(probability_spam)} />
-          <h2 className={predictionClass}>
+          <Typography
+            variant="h2"
+            additionalClasses={predictionClass}
+          >
             {prediction}
-          </h2>
+          </Typography>
         </div>
       </Card>
     )
