@@ -17,3 +17,16 @@
   align-items: center;
   justify-content: center;
 }
+
+// TYPOGRAPHY
+
+@function rem($pixel) {
+  @return calc($pixel / $font-size-root) * 1rem;
+}
+
+@mixin typography($size, $weight: $font-weight-normal, $lh: $line-height-base) {
+  font-family: $font-family-base;
+  font-size: rem($size);
+  font-weight: $weight;
+  line-height: $lh;
+}

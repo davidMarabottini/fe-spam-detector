@@ -1,3 +1,4 @@
+// COLORI
 $color-primary: #3b82f6;
 $color-primary-hover: #2563eb;
 
@@ -18,11 +19,7 @@ $color-text-main: #1e293b;
 $color-text-muted: #64748b;
 $color-text-muted-dark: #505c6f;
 
-$radius-sm: 4px;
-$radius-md: 12px;
-$radius-lg: 20px;
-$radius-full: 100%;
-
+// SPAZIATURE
 $space-xxs: 2px;
 $space-xs: 4px;
 $space-sm: 8px;
@@ -30,9 +27,30 @@ $space-md: 16px;
 $space-lg: 24px;
 $space-xl: 40px;
 
+//SPACING E SHADOWS
+$radius-sm: 4px;
+$radius-md: 12px;
+$radius-lg: 20px;
+$radius-full: 100%;
+
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 $shadow-bottom-md: 0 4px 6px -7px rgba(0, 0, 0, 0.1), 0 2px 4px -5px rgba(0, 0, 0, 0.06);
+
+//FONTS
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../assets/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+$font-family-base: 'Inter', sans-serif;
+$font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+$font-size-root: 16px;
 
 $font-xs: 12px;
 $font-sm: 14px;
@@ -43,5 +61,16 @@ $font-xl: 24px;
 $font-2xl: 32px;
 $font-3xl: 40px;
 
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
 
+$line-height-base: 1.5;
+$line-height-tight: 1.2;
+
+$letter-spacings-tight: -0.02em;
+$letter-spacings-normal: 0;
+$letter-spacings-wide: 0.05em;
+
+// BREAKPOINTS
 $bp-mobile: 768px;

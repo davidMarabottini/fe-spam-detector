@@ -8,6 +8,7 @@ import BadgeContainer from "./components/BadgeContainer/BadgeContainer"
 import HamSpamTable from "./components/HamSpamTable/HamSpamTable"
 import { useUserStatus } from "@/hooks/useUserHooks"
 import { useTranslation } from "react-i18next"
+import Typography from "@/components/atoms/Typography/Typography"
 
 const Status = () => {
   const {data, isLoading, isError} = useUserStatus();
@@ -27,32 +28,34 @@ const Status = () => {
 
   return (
     <div className={clsx(styles["p-status"], "l-grid")}>
-      <div className={clsx(styles["p-status__title"], "l-grid__col l-grid__col--span-12")}><h2>{t("title")}</h2></div>
+      <div className={clsx(styles["p-status__title"], "l-grid__col l-grid__col--span-12")}>
+        <Typography variant="h2" >{t("title")}</Typography>
+      </div>
       <Card additionalClassName={clsx(styles["p-status__contributions-card"], "l-grid__col l-grid__col--span-4")}>
-        <h3 className={styles["p-status__subtitle"]}>
+        <Typography variant="h3" className={styles["p-status__subtitle"]}>
           {t("contribution.title")}
-        </h3>
+        </Typography>
         <HamSpamTable ham={contributions.mail.ham} spam={contributions.mail.spam}>
-          <div>
+          <Typography as="div">
             <Mail size={16} /> {t("contribution.areas.mail")}
-          </div>
+          </Typography>
         </HamSpamTable>
         <HamSpamTable ham={contributions.sms.ham} spam={contributions.sms.spam}>
-          <div>
+          <Typography as="div">
             <Smartphone size={16} /> {t("contribution.areas.sms")}
-          </div>
+          </Typography>
         </HamSpamTable>
       </Card>
       <Card additionalClassName={clsx(styles['p-status__progress-card'],"l-grid__col l-grid__col--span-4")}>
-        <h3 className={styles["p-status__subtitle"]}>{t('progress.level', {level: user.level})}</h3>
-        <strong>
+        <Typography as="h3" additionalClasses={styles["p-status__subtitle"]}>{t('progress.level', {level: user.level})}</Typography>
+        <Typography as="strong">
           {t("progress.title")}
-        </strong>
+        </Typography>
         <ResultCircle percentage={user.nextLevelProgress} />
-        <p>{user.rank}</p>
+        <Typography as="p">{user.rank}</Typography>
       </Card>
       <Card additionalClassName={clsx(styles['p-status__badges-card'], "l-grid__col l-grid__col--span-4")}>
-        <h3 className={styles["p-status__subtitle"]}>{t('badges.title')}</h3>
+        <Typography as="h3" className={styles["p-status__subtitle"]}>{t('badges.title')}</Typography>
         <div className="l-grid">
           {
             badges.map(({id, name}) => (
@@ -68,7 +71,7 @@ const Status = () => {
         <div className={styles['p-status__internal-priviledges-card']}>
           {privileges.map((x) => (
             <div key={x} className={styles['p-status__priviledge']}>
-              <p>{x}</p>
+              <Typography as="p">{x}</Typography>
             </div>
           ))}
         </div>
