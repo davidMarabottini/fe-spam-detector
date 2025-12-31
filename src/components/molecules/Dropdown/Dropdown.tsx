@@ -4,7 +4,7 @@ import clsx from "clsx";
 import type { DropdownProps } from "./Dropdown.types.ts";
 import Button from "../../atoms/Button/Button.tsx";
 
-const Dropdown = ({ label, options, className }: DropdownProps) => {
+const Dropdown = ({ label, options, className, onTriggerClick }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -18,20 +18,22 @@ const Dropdown = ({ label, options, className }: DropdownProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const triggerClickHandler = (open: boolean) => {
+    setIsOpen(open)
+    onTriggerClick?.(open)
+  }
+
   return (
     <div className={clsx(styles["c-dropdown"], { [styles["c-dropdown--open"]]: isOpen }, className)} ref={containerRef}>
       <Button
         additionalClassName={styles["c-dropdown__trigger"]}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => triggerClickHandler(!isOpen)}
         aria-expanded={isOpen}
         color="custom"
       >
-        <>
-            {label}
-            <span className={clsx(styles["c-dropdown__arrow"])}>
-              ▾
-            </span>
-          </>
+        
+        {label}
+          
       </Button>
 
       {isOpen && (

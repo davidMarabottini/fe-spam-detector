@@ -128,7 +128,7 @@ const Registration = () => {
               <Trans
                 i18nKey="login"
                 ns="registration"
-                components={[<a href={ROUTES.LOGIN} key="link" />]}
+                components={[<a href={ROUTES.LOGIN.path} key="link" />]}
               />
             </Typography>
           </Stack>

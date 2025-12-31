@@ -59,7 +59,7 @@ const Login = () => {
                   i18nKey="register"
                   ns="login"
                   components={[
-                    <a href={ROUTES.REGISTRATION} key="link" />
+                    <a href={ROUTES.REGISTRATION.path} key="link" />
                   ]}
                 />
               </Typography>

@@ -1,0 +1,9 @@
+{
+  "title": "Menu",
+  "labels": {
+    "home": "Home",
+    "login": "Login",
+    "registration": "Registrati",
+    "status": "Status"
+  }
+}

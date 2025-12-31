@@ -43,10 +43,13 @@
   }
 
   &__user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    @include flex-center;
+    gap: $space-sm;
     line-height: 1.2;
+  }
+  
+  &__chevron-opened {
+    transform: rotate(180deg);
   }
 
   &__username {

@@ -3,19 +3,22 @@ import type { HeaderProps } from "./Header.types";
 import Dropdown from "../../molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import Typography from "@/components/atoms/Typography/Typography";
-import { MenuIcon } from "lucide-react";
+import { ChevronDown, MenuIcon } from "lucide-react";
 import { SideMenu } from "../SideMenu/SideMenu";
 import { useState } from "react";
 import Button from "@/components/atoms/Button/Button";
+import clsx from "clsx";
 
 const Header = ({ logout, userDetails }: HeaderProps) => {
   const {t} = useTranslation()
+  const [dropdownOpened, setDropdownOpened] = useState(false);
 
-  const userLabel = userDetails ? (
+  const userLabel = userDetails && (
     <div className={style["c-header__user-info"]}>
-      <span className={style["c-header__username"]}>{userDetails.user}</span>
+      <span className={style["c-header__username"]}>{userDetails}</span>
+      <ChevronDown className={clsx({[style['c-header__chevron-opened']]: dropdownOpened})} size={12} />
     </div>
-  ) : null;
+  );
 
   const menuOptions = [
     { label: t('header.actions.logout'), onClick: logout }
@@ -44,13 +47,14 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
             <Dropdown 
               label={userLabel} 
               options={menuOptions} 
-              className={style["c-header__user-dropdown"]} 
+              className={style["c-header__user-dropdown"]}
+              onTriggerClick={setDropdownOpened}
             />
           )}
         </div>
       </div>
     </header>
-    <SideMenu isOpen={menuOpen} onClose={() =>{setMenuOpen(false)}} />
+    <SideMenu isOpen={menuOpen} onClose={() =>{setMenuOpen(false)}} menuType={userDetails ? 'privateRoutes' : 'publicRoutes'} />
     </>
   );
 };

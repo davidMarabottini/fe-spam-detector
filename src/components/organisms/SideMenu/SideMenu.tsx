@@ -1,26 +1,32 @@
 import clsx from 'clsx';
 import Typography from '@components/atoms/Typography/Typography';
 import styles from './SideMenu.module.scss';
+import { privateRoutes, publicRoutes, ROUTES } from '@/constants/routes';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
-const navItems = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Profilo', href: '/profile' },
-  { label: 'Impostazioni', href: '/settings' },
-];
 
-export const SideMenu = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClose: () => void, menuType: 'publicRoutes' | 'privateRoutes' }) => {
+  const {t} = useTranslation('menu');
+  const navItems = useMemo(() => (
+    {
+      privateRoutes: privateRoutes.map(x => ({label: t(ROUTES[x].string), href: ROUTES[x].path})),
+      publicRoutes: publicRoutes.map(x => ({label: t(ROUTES[x].string), href: ROUTES[x].path}))
+    }
+  ), [t])
+    
 
   return (
     <>
     <nav className={clsx(styles['c-side-menu'], {[styles['c-side-menu--open']]: isOpen})}>
       <div className={styles['c-side-menu__header']}>
         <Typography variant="h3" color="primary">
-          App Menu
+          {t('title')}
         </Typography>
       </div>
 
       <ul className={styles['c-side-menu__list']}>
-        {navItems.map((item) => (
+        {navItems[menuType].map((item) => (
           <li key={item.href} className={styles['c-side-menu__item']}>
             <Typography 
               as="a" 
@@ -32,18 +38,12 @@ export const SideMenu = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
           </li>
         ))}
       </ul>
-
-      <div className={styles['c-side-menu__footer']}>
-        <Typography variant="small" color="muted">
-          Versione 1.0.0
-        </Typography>
-      </div>
     </nav>
-          {open && <div 
-        className={clsx(styles['c-side-menu__backdrop'], isOpen && styles['c-side-menu__backdrop--visible'])} 
-        onClick={onClose}
-        aria-hidden="true"
-      />}
+    {open && <div 
+      className={clsx(styles['c-side-menu__backdrop'], isOpen && styles['c-side-menu__backdrop--visible'])} 
+      onClick={onClose}
+      aria-hidden="true" // TODO: capire
+    />}
     </>
   );
 };
