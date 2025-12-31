@@ -4,6 +4,9 @@ import Dropdown from "../../molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import Typography from "@/components/atoms/Typography/Typography";
 import { MenuIcon } from "lucide-react";
+import { SideMenu } from "../SideMenu/SideMenu";
+import { useState } from "react";
+import Button from "@/components/atoms/Button/Button";
 
 const Header = ({ logout, userDetails }: HeaderProps) => {
   const {t} = useTranslation()
@@ -18,12 +21,17 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
     { label: t('header.actions.logout'), onClick: logout }
   ];
 
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
+    <>
     <header className={style["c-header"]}>
       <div className="l-container">
         <div className={style["c-header__container"]}>
           <div className={style["c-header__left-area"]}>
-            <MenuIcon size={36} />
+            <Button color="custom" onClick={() => {setMenuOpen(isOpen => !isOpen)}}>
+            <MenuIcon size={36}  />
+              </Button>
             <Typography
               variant="h1"
               additionalClasses={style["c-header__style"]}
@@ -42,6 +50,8 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
         </div>
       </div>
     </header>
+    <SideMenu isOpen={menuOpen} onClose={() =>{setMenuOpen(false)}} />
+    </>
   );
 };
 
