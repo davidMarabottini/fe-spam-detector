@@ -1,16 +1,18 @@
 import style from "./Header.module.scss";
-import type { HeaderProps } from "./Header.types";
+import type { DropdownProp, HeaderProps } from "./Header.types";
 import Dropdown from "../../molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import Typography from "@/components/atoms/Typography/Typography";
-import { ChevronDown, MenuIcon } from "lucide-react";
+import { ChevronDown, LogOut, MenuIcon } from "lucide-react";
 import { SideMenu } from "../SideMenu/SideMenu";
 import { useState } from "react";
-import Button from "@/components/atoms/Button/Button";
+import Button from "@components/atoms/Button/Button";
+
 import clsx from "clsx";
+import { userRoutes } from "@/constants/routes";
 
 const Header = ({ logout, userDetails }: HeaderProps) => {
-  const {t} = useTranslation()
+  const {t} = useTranslation(["common", "menu"])
   const [dropdownOpened, setDropdownOpened] = useState(false);
 
   const userLabel = userDetails && (
@@ -21,8 +23,14 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
   );
 
   const menuOptions = [
-    { label: t('header.actions.logout'), onClick: logout }
-  ];
+    ...userRoutes,
+    {
+      key:'logout',
+      label: t('common:header.actions.logout'),
+      icon: <LogOut size={12} />,
+      onClick: logout,
+    },
+  ] as DropdownProp[];
 
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -39,22 +47,33 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
               variant="h1"
               additionalClasses={style["c-header__style"]}
             >
-              {t('app.title')}
+              {t('common:app.title')}
             </Typography>
           </div>
           
           {userDetails && (
-            <Dropdown 
+            <Dropdown<DropdownProp>
               label={userLabel} 
               options={menuOptions} 
               className={style["c-header__user-dropdown"]}
               onTriggerClick={setDropdownOpened}
-            />
+            >
+              {(option) => (
+                  <Button
+                    color="custom"
+                    onClick={() => option.onClick?.()}
+                  >{option.icon} {t(`menu:${option.label}`)}</Button>
+                )}
+              </Dropdown>
           )}
         </div>
       </div>
     </header>
-    <SideMenu isOpen={menuOpen} onClose={() =>{setMenuOpen(false)}} menuType={userDetails ? 'privateRoutes' : 'publicRoutes'} />
+    <SideMenu
+      isOpen={menuOpen}
+      onClose={() =>{setMenuOpen(false)}}
+      menuType={userDetails ? 'privateRoutes' : 'publicRoutes'}
+    />
     </>
   );
 };

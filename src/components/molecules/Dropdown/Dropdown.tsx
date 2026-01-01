@@ -4,7 +4,7 @@ import clsx from "clsx";
 import type { DropdownProps } from "./Dropdown.types.ts";
 import Button from "../../atoms/Button/Button.tsx";
 
-const Dropdown = ({ label, options, className, onTriggerClick }: DropdownProps) => {
+const Dropdown = <T extends {key: string}> ({ label, options, className, onTriggerClick, children }: DropdownProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -39,22 +39,9 @@ const Dropdown = ({ label, options, className, onTriggerClick }: DropdownProps) 
       {isOpen && (
         <div className={styles["c-dropdown__menu"]}>
           <ul className={styles["c-dropdown__list"]}>
-            {options.map((option, index) => (
-              <li key={index} className={styles["c-dropdown__item"]}>
-                {option.url ? (
-                  <a href={option.url} className={styles["c-dropdown__action"]}>
-                    {option.label}
-                  </a>
-                ) : (
-                  <Button
-                    additionalClassName={styles["c-dropdown__action"]}
-                    color="custom"
-                    onClick={() => {
-                      option.onClick?.();
-                      setIsOpen(false);
-                    }}
-                  >{option.label}</Button>
-                )}
+            {options.map((option) => (
+              <li key={option.key} className={styles["c-dropdown__item"]}>
+                {children(option)}
               </li>
             ))}
           </ul>

@@ -2,10 +2,7 @@
   padding-top: $space-lg;
   
   &__form {
-    display: flex;
-    flex-direction: column;
-    gap: $space-md;
-    padding: $space-lg;
+    padding-top: $space-lg;
   }
 
   &__container {

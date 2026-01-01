@@ -4,6 +4,10 @@
     "home": "Home",
     "login": "Login",
     "registration": "Registrati",
-    "status": "Status"
+    "status": "Status",
+    "cronology": "Cronologia",
+    "insert": "Inserisci",
+    "user": "User",
+    "settings": "Settaggi"
   }
 }

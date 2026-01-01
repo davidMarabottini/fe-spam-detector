@@ -2,7 +2,6 @@ import Card from "@/components/atoms/Card/Card"
 import clsx from "clsx"
 import styles from './Status.module.scss'
 import ResultCircle from "@/components/atoms/ResultCircle/ResultCircle"
-import Button from "@/components/atoms/Button/Button"
 import { Mail, Smartphone } from 'lucide-react';
 import BadgeContainer from "./components/BadgeContainer/BadgeContainer"
 import HamSpamTable from "./components/HamSpamTable/HamSpamTable"
@@ -75,10 +74,6 @@ const Status = () => {
             </div>
           ))}
         </div>
-      </Card>
-      <Card additionalClassName={clsx(styles['p-status__buttons-card'], "l-grid__col l-grid__col--span-12")}>
-        <Button>{t('buttons.newMessage')}</Button>
-        <Button>{t('buttons.cronology')}</Button>
       </Card>
     </div>
   )

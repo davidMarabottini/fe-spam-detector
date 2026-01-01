@@ -15,17 +15,17 @@
   }
 
   &__backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 90;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 
 }
 &__backdrop--visible {
@@ -45,15 +45,21 @@
   }
 
   &__item {
-    margin-bottom: 1.5rem;
+    margin-bottom: $space-sm;
+    cursor: pointer;
+    padding: $space-sm;
+    transition: 0.5s;
+    &:hover {
+      background: $color-border;
+      color: $color-primary;
+    }
   }
 
   &__link {
     text-decoration: none;
-    transition: color 0.2s;
 
-    &:hover {
-      color: $color-primary;
-    }
+    // &:hover {
+    //   color: $color-primary;
+    // }
   }
 }

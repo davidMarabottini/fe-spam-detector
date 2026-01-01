@@ -37,7 +37,7 @@ const Login = () => {
         <div className={styles["p-login__container"]}>
           <Typography variant="h2">{t('title')}</Typography>
           {error && <Typography additionalClasses={styles["p-login__error"]}>{t('form.error.invalid')}</Typography>}
-          <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
+          <Form<LoginData> className={styles['p-login__form']} defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
             <Stack spacing="md">
               <Form.Input
                 name="username"

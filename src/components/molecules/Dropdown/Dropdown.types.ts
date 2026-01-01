@@ -1,12 +1,11 @@
-type dropdownOption = {
-  label: string;
-  url?: string;
-  onClick?: () => void;
-}
+import type { ReactNode } from "react";
 
-export interface DropdownProps {
-  label: React.ReactNode;
-  options: dropdownOption[];
+
+
+export interface DropdownProps<T> {
+  label: ReactNode;
+  options: T[];
   className?: string;
   onTriggerClick?: (isOpen: boolean) => void;
+  children: (ddo: T) => ReactNode;
 }
