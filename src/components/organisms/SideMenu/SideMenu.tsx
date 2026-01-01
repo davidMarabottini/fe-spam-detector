@@ -4,6 +4,7 @@ import styles from './SideMenu.module.scss';
 import { privateRoutes, publicRoutes } from '@constants/routes';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import Button from '@components/atoms/Button/Button';
 
 
 export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClose: () => void, menuType: 'publicRoutes' | 'privateRoutes' }) => {
@@ -27,15 +28,17 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
       <ul className={styles['c-side-menu__list']}>
         {
           (menuType === 'privateRoutes' ? privateRoutes : publicRoutes).map(item => (
-            <li key={item.key} className={styles['c-side-menu__item']}>
-            <Typography 
-              as="a" 
-              onClick={() => itemClickHandler(item.path)}
-              additionalClasses={styles['c-side-menu__link']}
-            >
-              {item.icon} {t(item.label)}
-            </Typography>
-          </li>
+            <Button onClick={() => itemClickHandler(item.path)} asChild color="custom">
+              <li key={item.key} className={styles['c-side-menu__item']}>
+                <Typography 
+                  as="a" 
+                  onClick={() => itemClickHandler(item.path)}
+                  additionalClasses={styles['c-side-menu__link']}
+                >
+                  {item.icon} {t(item.label)}
+                </Typography>
+            </li>
+          </Button>
           ))
         }
       </ul>

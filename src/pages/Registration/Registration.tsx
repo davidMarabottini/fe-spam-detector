@@ -124,6 +124,7 @@ const Registration = () => {
             <Typography
               color="muted"
               additionalClasses={styles['p-registration__login-link']}
+              variant="small"
             >
               <Trans
                 i18nKey="login"

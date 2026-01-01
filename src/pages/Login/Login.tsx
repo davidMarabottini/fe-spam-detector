@@ -54,7 +54,7 @@ const Login = () => {
                 <LogIn size={16} /> {t("form.submit")}
               </Form.Button>
 
-              <Typography color="muted" additionalClasses={styles['p-login__register-link']}>
+              <Typography color="muted" variant="small" additionalClasses={styles['p-login__register-link']}>
                 <Trans
                   i18nKey="register"
                   ns="login"

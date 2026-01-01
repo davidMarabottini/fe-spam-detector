@@ -1,29 +1,34 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Header from './Header';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('Header Component', () => {
-  const mockUser = { user: 'John Doe', role: 'admin' };
+  const mockUser = "John Doe";
 
   it('renders title and logo correctly', () => {
-    render(<Header />);
-    expect(screen.getByText('app.title')).toBeInTheDocument();
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('title')).toBeInTheDocument();
   });
 
   it('does not render user section if userDetails is missing', () => {
-    render(<Header />);
-    const userTrigger = screen.queryByRole('button', { name: /John Doe/i });
+    render(<MemoryRouter><Header /></MemoryRouter>);
+    const userTrigger = screen.queryByRole('button', { name: mockUser });
     expect(userTrigger).not.toBeInTheDocument();
   });
 
   it('renders user details when provided', () => {
-    render(<Header userDetails={mockUser} />);
+    render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
 
   it('cleans up event listeners on unmount', () => {
     const removeSpy = vi.spyOn(document, 'removeEventListener');
-    const { unmount } = render(<Header userDetails={mockUser} />);
+    const { unmount } = render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
     
     unmount();
     expect(removeSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));

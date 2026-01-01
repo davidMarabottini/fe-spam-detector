@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "./Dropdown.module.scss";
 import clsx from "clsx";
-import type { DropdownProps } from "./Dropdown.types.ts";
+import type { DropDownItemBase, DropdownProps } from "./Dropdown.types.ts";
 import Button from "../../atoms/Button/Button.tsx";
 
-const Dropdown = <T extends {key: string}> ({ label, options, className, onTriggerClick, children }: DropdownProps<T>) => {
+const Dropdown = <T extends DropDownItemBase> ({ label, options, className, onTriggerClick, children }: DropdownProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,7 @@ const Dropdown = <T extends {key: string}> ({ label, options, className, onTrigg
         <div className={styles["c-dropdown__menu"]}>
           <ul className={styles["c-dropdown__list"]}>
             {options.map((option) => (
-              <li key={option.key} className={styles["c-dropdown__item"]}>
+              <li key={option.key} onClick={() => option.onClick?.()} className={styles["c-dropdown__item"]}>
                 {children(option)}
               </li>
             ))}

@@ -1,7 +1,4 @@
-export interface UserProfile {
-  user: string;
-  role: ('admin' | 'user')[];
-}
+export type UserProfile = string;
 
 export interface AuthContextType {
   user: UserProfile | null;

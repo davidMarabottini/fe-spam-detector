@@ -7,6 +7,8 @@ import Registration from "@pages/Registration/Registration";
 import Status from "@pages/Status/Status";
 import { Form, HomeIcon, LogIn, User, Hourglass, PlusCircle, SettingsIcon } from "lucide-react";
 
+
+
 export const publicRoutes = [
   {key: 'LOGIN', path: '/login', element: <Login />, label: 'labels.login', icon: <LogIn size={16} />},
   {key: 'REGISTRATION', path: '/registration', element: <Registration />, label: 'labels.registration', icon: <Form size={16} />},
@@ -27,4 +29,4 @@ export const userRoutes = [
 
 export const ROUTES = {
   ...[...publicRoutes, ...privateRoutes, ...userRoutes].reduce((acc, x) => ({...acc, ...{[x.key]: x}}), {}),
-}
+} as const;

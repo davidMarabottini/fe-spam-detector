@@ -9,5 +9,5 @@ export type DropdownProp = {
 
 export interface HeaderProps {
   logout?: () => void;
-  userDetails?: string;
+  userDetails?: string | null;
 };

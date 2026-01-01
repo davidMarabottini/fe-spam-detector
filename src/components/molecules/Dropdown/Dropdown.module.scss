@@ -48,6 +48,7 @@
   &__item {
     display: block;
     padding: $space-sm;
+    cursor: pointer;
     &:hover {
       background: $color-border;
     }

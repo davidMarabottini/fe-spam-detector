@@ -11,7 +11,7 @@ export const PrivateLayout = () => {
 
   return (
     <div className="l-main-layout">
-      <Header logout={logout} userDetails={user as {user: string, role: 'admin'}}/>
+      <Header logout={logout} userDetails={user}/>
       <main className="l-container l-content-section">
         <Outlet />
       </main>
