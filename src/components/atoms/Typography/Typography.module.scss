@@ -7,33 +7,29 @@
   -moz-osx-font-smoothing: grayscale;
 
   &--h1 {
-    @include typography(40px, 700, 1.1);
+    @include typography($font-3xl, $font-weight-medium, $line-height-tight);
     letter-spacing: -0.02em;
   }
 
   &--h2 {
-    @include typography(32px, 700, 1.2);
+    @include typography($font-2xl, $font-weight-medium, $line-height-tight);
     letter-spacing: -0.02em;
   }
 
   &--h3 {
-    @include typography(24px, 600, 1.2);
+    @include typography($font-xl, $font-weight-medium, $line-height-tight);
+  }
+
+  &--h4 {
+    @include typography($font-lg, $font-weight-medium, $line-height-tight)
   }
 
   &--body {
-    @include typography(16px, 400, 1.5);
-  }
-
-  &--md {
-    @include typography(18px, 400, 1.5);
+    @include typography($font-md, $font-weight-medium, $line-height-tight);
   }
 
   &--small {
-    @include typography(14px, 500, 1.4);
-  }
-
-  &--xs {
-    @include typography(12px, 500, 1.4);
+    @include typography($font-sm, $font-weight-medium, $line-height-tight);
   }
 
   &--muted {

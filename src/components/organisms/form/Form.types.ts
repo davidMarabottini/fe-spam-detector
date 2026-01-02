@@ -30,7 +30,7 @@ export interface FormRadioBtnProps<T extends FieldValues> extends Omit<RadioGrou
   rules?: RegisterOptions<T, Path<T>>;
 }
 
-export interface FormSelect<T extends FieldValues> extends Omit<SelectProps, 'placeholder'> {
+export interface FormSelectProps<T extends FieldValues> extends Omit<SelectProps, 'placeholder'> {
   name: Path<T>;
   rules?: RegisterOptions<T, Path<T>>;
 }

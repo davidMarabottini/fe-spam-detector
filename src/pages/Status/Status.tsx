@@ -2,7 +2,6 @@ import Card from "@/components/atoms/Card/Card"
 import clsx from "clsx"
 import styles from './Status.module.scss'
 import ResultCircle from "@/components/atoms/ResultCircle/ResultCircle"
-import Button from "@/components/atoms/Button/Button"
 import { Mail, Smartphone } from 'lucide-react';
 import BadgeContainer from "./components/BadgeContainer/BadgeContainer"
 import HamSpamTable from "./components/HamSpamTable/HamSpamTable"
@@ -36,12 +35,12 @@ const Status = () => {
           {t("contribution.title")}
         </Typography>
         <HamSpamTable ham={contributions.mail.ham} spam={contributions.mail.spam}>
-          <Typography as="div">
+          <Typography additionalClasses={styles["p-status__ham-spam-head"]} as="div">
             <Mail size={16} /> {t("contribution.areas.mail")}
           </Typography>
         </HamSpamTable>
         <HamSpamTable ham={contributions.sms.ham} spam={contributions.sms.spam}>
-          <Typography as="div">
+          <Typography additionalClasses={styles["p-status__ham-spam-head"]} as="div">
             <Smartphone size={16} /> {t("contribution.areas.sms")}
           </Typography>
         </HamSpamTable>
@@ -71,14 +70,10 @@ const Status = () => {
         <div className={styles['p-status__internal-priviledges-card']}>
           {privileges.map((x) => (
             <div key={x} className={styles['p-status__priviledge']}>
-              <Typography as="p">{x}</Typography>
+              <Typography as="p" color="muted">{x}</Typography>
             </div>
           ))}
         </div>
-      </Card>
-      <Card additionalClassName={clsx(styles['p-status__buttons-card'], "l-grid__col l-grid__col--span-12")}>
-        <Button>{t('buttons.newMessage')}</Button>
-        <Button>{t('buttons.cronology')}</Button>
       </Card>
     </div>
   )

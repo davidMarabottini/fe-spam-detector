@@ -1,13 +1,15 @@
 import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Registration.module.scss";
-import { useTranslation } from 'react-i18next';
-import Form from '@/components/organisms/form/Form';
-import Stack from '@/components/atoms/Stack/Stack';
+import { Trans, useTranslation } from 'react-i18next';
+import Form from '@components/organisms/form/Form';
+import Stack from '@components/atoms/Stack/Stack';
 import type { RegistrationForm } from './Registration.types';
-import { useInsertUser } from '@/hooks/useUserHooks';
-import { VALIDATIONS_EMAIL } from '@/constants/validations';
-import Typography from '@/components/atoms/Typography/Typography';
+import { useInsertUser } from '@hooks/useUserHooks';
+import { VALIDATIONS_EMAIL } from '@constants/validations';
+import { ROUTES } from '@constants/routes';
+import Typography from '@components/atoms/Typography/Typography';
+import { Check, X } from 'lucide-react';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -32,6 +34,8 @@ const Registration = () => {
     {label: 'Female', value: 'F'},
     {label: 'Other', value: ''}
   ]
+
+  const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
 
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
@@ -100,10 +104,34 @@ const Registration = () => {
                     value === formValues.password || t('form.error.passwordsDoNotMatch')
                 }}
               />
-            </div>
-            <Form.Button type="submit" autoDisabled={false}>
-              {t("form.submit")}
+              <div></div>
+            <Form.Button
+              additionalClassName={btnClass}
+              type="submit"
+              autoDisabled={false}
+            >
+              <Check size={16} /> {t("form.submit")}
             </Form.Button>
+            <Form.Button
+              additionalClassName={btnClass}
+              type="reset"
+              color='secondary'
+              autoDisabled={false}
+            >
+              <X size={16} /> Reset
+            </Form.Button>
+            </div>
+            <Typography
+              color="muted"
+              additionalClasses={styles['p-registration__login-link']}
+              variant="small"
+            >
+              <Trans
+                i18nKey="login"
+                ns="registration"
+                components={[<a href={ROUTES.LOGIN} key="link" />]}
+              />
+            </Typography>
           </Stack>
         </Form>
       </div>

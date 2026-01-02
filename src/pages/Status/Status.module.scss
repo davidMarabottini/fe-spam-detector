@@ -1,5 +1,5 @@
 .p-status {
-  padding-top: $space-lg;
+  padding-top: $space-md;
 
   &__title {
     margin: 0 auto;
@@ -7,6 +7,12 @@
 
   &__subtitle {
     margin: 0 auto;
+  }
+
+  &__ham-spam-head {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
   }
 
   &__contributions-card {

@@ -1,5 +1,5 @@
 {
-  "title": "Registraione",
+  "title": "Dettagli utente",
   "form": {
     "name": {
       "label": "Nome",
@@ -39,19 +39,8 @@
         "required": "Username Richiesto"
       } 
     },
-    "password": {
-      "label": "Password",
-      "error": {
-        "required": "Password Richiesta"
-      }
-    },
-    "repeatPassword": {
-      "label": "Ripeti Password",
-      "error": {
-        "required": "Password Richiesta"
-      }
-    },
-    "submit": "Registrati"
-  },
-  "login": "Sei gia iscritto ? <0>loggati</0>"
+    "enable": "Abilita",
+    "disable": "Disabilita",
+    "submit": "Modifica"
+  }
 }

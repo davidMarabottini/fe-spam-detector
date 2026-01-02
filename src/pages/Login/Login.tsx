@@ -4,11 +4,14 @@ import { useAuth } from '../../auth/useAuth';
 import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
-import { useTranslation } from 'react-i18next';
-import { useLogin } from '@/hooks/useAuthenticationHooks';
-import Form from '@/components/organisms/form/Form';
-import Stack from '@/components/atoms/Stack/Stack';
+import { Trans, useTranslation } from 'react-i18next';
+import { useLogin } from '@hooks/useAuthenticationHooks';
+import Form from '@components/organisms/form/Form';
+import Stack from '@components/atoms/Stack/Stack';
+import { ROUTES } from '@constants/routes';
 import Typography from '@/components/atoms/Typography/Typography';
+import { LogIn } from 'lucide-react';
+
 
 type LoginData = {username: string, password: string};
 
@@ -34,7 +37,7 @@ const Login = () => {
         <div className={styles["p-login__container"]}>
           <Typography variant="h2">{t('title')}</Typography>
           {error && <Typography additionalClasses={styles["p-login__error"]}>{t('form.error.invalid')}</Typography>}
-          <Form<LoginData> defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
+          <Form<LoginData> className={styles['p-login__form']} defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
             <Stack spacing="md">
               <Form.Input
                 name="username"
@@ -47,9 +50,19 @@ const Login = () => {
                 type="password"
                 rules={{ required: t('error.required') }}
               />
-              <Form.Button type="submit">
-                {t("form.submit")}
+              <Form.Button additionalClassName={styles['p-login__button']} type="submit">
+                <LogIn size={16} /> {t("form.submit")}
               </Form.Button>
+
+              <Typography color="muted" variant="small" additionalClasses={styles['p-login__register-link']}>
+                <Trans
+                  i18nKey="register"
+                  ns="login"
+                  components={[
+                    <a href={ROUTES.REGISTRATION} key="link" />
+                  ]}
+                />
+              </Typography>
             </Stack>
           </Form>
         </div>

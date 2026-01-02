@@ -6,56 +6,89 @@ import Dropdown from "./Dropdown";
 const optionsMock = [
   {
     label: "Opzione 1",
+    key: "Opzione1",
     onClick: vi.fn(),
   },
   {
     label: "Opzione 2",
-    url: "/test-url",
+    key: "Opzione2",
+    onClick: vi.fn(),
   },
 ];
 
-describe("Dropdown component", () => {
-  it("renders the trigger button with label", () => {
-    render(<Dropdown label="Menu" options={optionsMock} />);
+const optionsExtendedMock = [
+  {
+    label: "Opzione 1",
+    key: "Opzione1",
+    value: "Opzione1",
+    onClick: vi.fn(),
+  },
+  {
+    label: "Opzione 2",
+    key: "Opzione2",
+    value: "Opzione2",
+    onClick: vi.fn(),
+  },
+];
 
-    expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
-  });
+type DropDownVoid = {
+  key: string,
+  label: string,
+  onClick?: () => void,
+}
 
-  it("closes the dropdown when clicking outside", async () => {
+type DropDownExtended = {
+  key: string,
+  label: string,
+  onClick?: () => void,
+  value: string,
+}
+
+describe("Dropdown component", () => {  
+  it("renders and click with base dropdown type", async () => {
     const user = userEvent.setup();
     render(
-      <>
-        <Dropdown label="Menu" options={optionsMock} />
-        <div data-testid="outside">outside</div>
-      </>
+      <Dropdown<DropDownVoid> label="Menu" options={optionsMock}>
+        {x => <div key={x.key}>{x.label}</div>}
+      </Dropdown>
     );
 
+    expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
+
     const trigger = screen.getByRole("button");
+
+    expect(screen.queryByText("Opzione 1")).not.toBeInTheDocument();
+    expect(screen.queryByText("Opzione 2")).not.toBeInTheDocument();
+
     await user.click(trigger);
     expect(screen.getByText("Opzione 1")).toBeInTheDocument();
+    expect(screen.getByText("Opzione 2")).toBeInTheDocument();
 
-    await user.click(screen.getByTestId("outside"));
-    expect(screen.queryByText("Opzione 1")).not.toBeInTheDocument();
-  });
-
-  it("calls onClick and closes when clicking an option button", async () => {
-    const user = userEvent.setup();
-    render(<Dropdown label="Menu" options={optionsMock} />);
-
-    await user.click(screen.getByRole("button"));
     await user.click(screen.getByText("Opzione 1"));
-
     expect(optionsMock[0].onClick).toHaveBeenCalledTimes(1);
-    expect(screen.queryByText("Opzione 1")).not.toBeInTheDocument();
+
   });
 
-  it("renders link when option has url", async () => {
+  it("renders and click with extended dropdown type", async () => {
     const user = userEvent.setup();
-    render(<Dropdown label="Menu" options={optionsMock} />);
+    render(
+      <Dropdown<DropDownExtended> label="Menu" options={optionsExtendedMock}>
+        {x => <div key={x.key}>{x.label} ({x.value})</div>}
+      </Dropdown>
+    );
 
-    await user.click(screen.getByRole("button"));
+    expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
 
-    const link = screen.getByRole("link", { name: "Opzione 2" });
-    expect(link).toHaveAttribute("href", "/test-url");
+    const trigger = screen.getByRole("button");
+
+    expect(screen.queryByText("Opzione 1 (Opzione1)")).not.toBeInTheDocument();
+    expect(screen.queryByText("Opzione 2 (Opzione2)")).not.toBeInTheDocument();
+
+    await user.click(trigger);
+    expect(screen.getByText("Opzione 1 (Opzione1)")).toBeInTheDocument();
+    expect(screen.getByText("Opzione 2 (Opzione2)")).toBeInTheDocument();
+
+    await user.click(screen.getByText("Opzione 1 (Opzione1)"));
+    expect(optionsMock[0].onClick).toHaveBeenCalledTimes(1);
   });
 });

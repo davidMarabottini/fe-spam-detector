@@ -2,14 +2,19 @@
   padding-top: $space-lg;
   
   &__form {
-    display: flex;
-    flex-direction: column;
-    gap: $space-md;
-    padding: $space-lg;
+    padding-top: $space-lg;
   }
 
   &__container {
     max-width: 600px;
     margin: 0 auto;
+  }
+
+  &__button {
+    @include flex-center;
+    gap: $space-sm;
+  }
+  &__register-link {
+    margin-top: $space-md;
   }
 }

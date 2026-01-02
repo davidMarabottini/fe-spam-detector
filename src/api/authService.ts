@@ -14,3 +14,8 @@ export const getMe = async (): Promise<{ user: UserProfile }> => {
   const { data } = await apiClient.get('/api/me');
   return data;
 };
+
+export const getMineDetails = async (): Promise<object> => {
+  const { data } = await apiClient.get('/api/users/me');
+  return data;
+};

@@ -5,10 +5,8 @@ import { useMe } from '@/hooks/useAuthenticationHooks';
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data, isLoading } = useMe(); 
   
-  const user = data?.user ?? null;
-
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
+    <AuthContext.Provider value={{ ...data, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

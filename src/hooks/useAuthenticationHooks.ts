@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as authService from '@/api/authService';
+import { ROUTES } from '@/constants/routes';
+import { useNavigate } from 'react-router-dom';
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -22,15 +24,25 @@ export const useMe = () => {
   });
 };
 
+export const useMineDetails = () => {
+  return useQuery({
+    queryKey: ['mineDetails'],
+    queryFn: () => authService.getMineDetails(),
+
+  });
+};
+
+
 export const useLogout = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate()
 
   return useMutation({
     mutationFn: authService.logout,
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.clear(); 
-      window.location.href = '/login';
+      navigate(ROUTES.LOGIN, { replace: true });
     },
   });
 };

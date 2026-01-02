@@ -15,6 +15,7 @@
   },
   "header": {
     "actions": {
+      "openMenu": "Apri menu",
       "logout": "Logout"
     }
   }
