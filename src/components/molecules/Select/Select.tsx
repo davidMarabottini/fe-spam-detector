@@ -35,7 +35,6 @@ const Select = forwardRef<HTMLInputElement, SelectProps>(
         />
 
         <Input
-          ref={ref}
           label={label}
           placeholder=" "
           {...props}

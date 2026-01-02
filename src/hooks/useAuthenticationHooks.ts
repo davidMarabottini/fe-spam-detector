@@ -24,6 +24,15 @@ export const useMe = () => {
   });
 };
 
+export const useMineDetails = () => {
+  return useQuery({
+    queryKey: ['mineDetails'],
+    queryFn: () => authService.getMineDetails(),
+
+  });
+};
+
+
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate()
@@ -33,7 +42,7 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.clear(); 
-      navigate(ROUTES.LOGIN.path, { replace: true });
+      navigate(ROUTES.LOGIN, { replace: true });
     },
   });
 };

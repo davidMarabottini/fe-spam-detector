@@ -1,8 +1,8 @@
 import { useFormContext, type FieldValues } from 'react-hook-form';
-import Select from '@/components/molecules/Select/Select';
-import type { FormSelect } from '../Form.types';
+import Select from '@components/molecules/Select/Select';
+import type { FormSelectProps } from '../Form.types';
 
-const FormSelect = <T extends FieldValues>({ name, rules, options, ...props }: FormSelect<T>) => {
+const FormSelect = <T extends FieldValues>({ name, rules, options, ...props }: FormSelectProps<T>) => {
   const { register, formState: { errors } } = useFormContext<T>();
   const error = errors[name]?.message as string | undefined;
 

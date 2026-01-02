@@ -1,7 +1,9 @@
 export type UserProfile = string;
 
 export interface AuthContextType {
-  user: UserProfile | null;
+  user?: string;
+  id?: number;
+  role?: ('user' | 'admin')[]
   isAuthenticated?: boolean;
   isLoading: boolean;
 }

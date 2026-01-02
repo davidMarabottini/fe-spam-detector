@@ -1,0 +1,23 @@
+.p-user {
+  margin-top: $space-lg;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    padding: $space-lg;
+  }
+
+  &__container {
+    margin: 0 auto;
+  }
+
+  &__login-link {
+    margin-top: $space-md;
+  }
+
+  &__button {
+    @include flex-center;
+    gap: $space-sm;
+  }
+}

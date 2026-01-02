@@ -4,6 +4,7 @@ import Settings from "@/pages/Settings/Settings";
 import Home from "@pages/Home/Home";
 import Login from "@pages/Login/Login";
 import Registration from "@pages/Registration/Registration";
+import UserPage from "@pages/User/User";
 import Status from "@pages/Status/Status";
 import { Form, HomeIcon, LogIn, User, Hourglass, PlusCircle, SettingsIcon } from "lucide-react";
 
@@ -23,10 +24,23 @@ export const privateRoutes = [
 ]
 
 export const userRoutes = [
-  {key: 'USER', path: '/user', element: <User />, label: 'labels.user', icon: <User size={12} /> },
+  {key: 'USER', path: '/user', element: <UserPage />, label: 'labels.user', icon: <User size={12} /> },
   {key: 'SETTINGS', path: '/settings', element: <Settings />, label: 'labels.settings', icon: <SettingsIcon size={12} /> },
 ];
 
+// export const userLogicRoutes = [ TODO: capire se e come integrare
+//   {key: 'LOGOUT', label: 'labels.logout', icon: <LogOut size={12} />}
+// ]
+
 export const ROUTES = {
-  ...[...publicRoutes, ...privateRoutes, ...userRoutes].reduce((acc, x) => ({...acc, ...{[x.key]: x}}), {}),
+  ...[
+    ...publicRoutes, 
+    ...privateRoutes, 
+    ...userRoutes
+  ].reduce((acc, {key, path}) => (
+    {
+      ...acc,
+      [key]: path
+    }
+  ), {}),
 } as const;

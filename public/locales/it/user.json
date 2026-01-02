@@ -1,0 +1,46 @@
+{
+  "title": "Dettagli utente",
+  "form": {
+    "name": {
+      "label": "Nome",
+      "error": {
+        "required": "Nome Richiesto"
+      } 
+    },
+    "surname": {
+      "label": "Cognome",
+      "error": {
+        "required": "Cognome Richiesto"
+      } 
+    },
+    "birthday": {
+      "label": "Data di nascita",
+      "error": {
+        "required": "Data di nascita Richiesta"
+      } 
+    },
+    "gender": {
+      "label": "Genere",
+      "error": {
+        "required": "Genere Richiesto"
+      },
+      "possibilities": ["Maschio", "Femmina", "Altro"]
+    },
+    "email": {
+      "label": "Email",
+      "error": {
+        "required": "Email Richiesta",
+        "errorFormat": "Email in formato errato"
+      } 
+    },
+    "username": {
+      "label": "Username",
+      "error": {
+        "required": "Username Richiesto"
+      } 
+    },
+    "enable": "Abilita",
+    "disable": "Disabilita",
+    "submit": "Modifica"
+  }
+}
