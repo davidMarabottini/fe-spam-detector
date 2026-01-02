@@ -31,9 +31,7 @@ const Dropdown = <T extends DropDownItemBase> ({ label, options, className, onTr
         aria-expanded={isOpen}
         color="custom"
       >
-        
         {label}
-          
       </Button>
 
       {isOpen && (

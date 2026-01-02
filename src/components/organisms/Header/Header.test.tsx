@@ -1,10 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+  }),
+}));
+
+const mockUser = "John Doe";
+
 describe('Header Component', () => {
-  const mockUser = "John Doe";
 
   it('renders title and logo correctly', () => {
     render(
@@ -25,6 +32,15 @@ describe('Header Component', () => {
     render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
+
+  it('renders sideMenu on burger btn clicked', () => {
+    render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
+    const menuTrigger = screen.getByRole('button', { name: 'common:header.actions.openMenu' });
+    fireEvent.click(menuTrigger);
+    expect(menuTrigger).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.click(menuTrigger);
+    expect(menuTrigger).toHaveAttribute('aria-expanded', 'false');
+  })
 
   it('cleans up event listeners on unmount', () => {
     const removeSpy = vi.spyOn(document, 'removeEventListener');

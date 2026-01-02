@@ -47,7 +47,13 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
       <div className="l-container">
         <div className={style["c-header__container"]}>
           <div className={style["c-header__left-area"]}>
-            <Button color="custom" onClick={() => {setMenuOpen(isOpen => !isOpen)}}>
+            <Button 
+              color="custom"
+              onClick={() => {setMenuOpen(isOpen => !isOpen)}}
+              aria-label={t('common:header.actions.openMenu')}
+              aria-expanded={menuOpen}
+              aria-controls="side-menu"
+            >
             <MenuIcon size={36}  />
               </Button>
             <Typography

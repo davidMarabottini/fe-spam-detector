@@ -18,7 +18,7 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
 
   return (
     <>
-    <nav className={clsx(styles['c-side-menu'], {[styles['c-side-menu--open']]: isOpen})}>
+    <nav id="side-menu" className={clsx(styles['c-side-menu'], {[styles['c-side-menu--open']]: isOpen})}>
       <div className={styles['c-side-menu__header']}>
         <Typography variant="h3" color="primary">
           {t('title')}
@@ -46,7 +46,8 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
     {isOpen && <div 
       className={clsx(styles['c-side-menu__backdrop'], isOpen && styles['c-side-menu__backdrop--visible'])} 
       onClick={onClose}
-      aria-hidden="true" // TODO: capire
+      aria-hidden="true"
+      role="presentation"
     />}
     </>
   );
