@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 
 export type DropdownProp = {
   key: string,
   label: string,
   onClick: () => void,
-  icon: ReactNode
+  Icon: LucideIcon
 }
 
 export interface HeaderProps {

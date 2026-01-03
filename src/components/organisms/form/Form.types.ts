@@ -3,7 +3,7 @@ import type { UseFormReturn, FieldValues, Path, DefaultValues, RegisterOptions }
 import type { ButtonProps } from "../../atoms/Button/Button.types";
 import type { InputProps } from "../../atoms/Input/Input.types";
 import type { TextAreaProps } from "../../atoms/TextArea/TextArea.types";
-import type { RadioGroupProps } from "../../atoms/RadioBtn/RadioBtn.types";
+import type { RadioGroupProps, RadioOptionBase } from "../../atoms/RadioBtn/RadioBtn.types";
 import type { SelectProps } from "../../molecules/Select/Select.types";
 
 type FormBase = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onSubmit'>;
@@ -25,7 +25,7 @@ export interface FormTextAreaProps<T extends FieldValues> extends Omit<TextAreaP
   rules?: RegisterOptions<T, Path<T>>;
 }
 
-export interface FormRadioBtnProps<T extends FieldValues> extends Omit<RadioGroupProps, 'placeholder'> {
+export interface FormRadioBtnProps<T extends FieldValues, RadioOption extends RadioOptionBase> extends Omit<RadioGroupProps<RadioOption>, 'placeholder'> {
   name: Path<T>;
   rules?: RegisterOptions<T, Path<T>>;
 }

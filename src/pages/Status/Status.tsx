@@ -27,9 +27,6 @@ const Status = () => {
 
   return (
     <div className={clsx(styles["p-status"], "l-grid")}>
-      <div className={clsx(styles["p-status__title"], "l-grid__col l-grid__col--span-12")}>
-        <Typography variant="h2" >{t("title")}</Typography>
-      </div>
       <Card additionalClassName={clsx(styles["p-status__contributions-card"], "l-grid__col l-grid__col--span-4")}>
         <Typography variant="h3" className={styles["p-status__subtitle"]}>
           {t("contribution.title")}

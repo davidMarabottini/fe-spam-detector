@@ -20,7 +20,12 @@
       } 
     },
     "gender": {
-      "label": "Genere",
+      "label": "Genere:",
+      "options": {
+        "male": "Maschio",
+        "female": "Femmina",
+        "other": "Altro"
+      },
       "error": {
         "required": "Genere Richiesto"
       },

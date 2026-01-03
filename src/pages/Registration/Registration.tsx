@@ -9,7 +9,7 @@ import { useInsertUser } from '@hooks/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@constants/validations';
 import { ROUTES } from '@constants/routes';
 import Typography from '@components/atoms/Typography/Typography';
-import { Check, X } from 'lucide-react';
+import { Check, X, Mars, Venus, Transgender } from 'lucide-react';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -30,17 +30,21 @@ const Registration = () => {
   }
 
   const options = [
-    {label: 'Male', value: 'M'},
-    {label: 'Female', value: 'F'},
-    {label: 'Other', value: ''}
+    {label: 'form.gender.options.male', Icon: Mars, value: 'M'},
+    {label: 'form.gender.options.female', Icon: Venus, value: 'F'},
+    {label: 'form.gender.options.other', Icon: Transgender, value: ''}
   ]
 
   const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
-
+  const radioElementClass =
+    (isSelected: boolean) =>
+      clsx(
+        styles['p-registration__radio-wrapper'],
+        {[styles['p-registration__radio-wrapper--selected']]: isSelected}
+      );
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
-        <Typography variant="h2" >{t('Form Registrazione')}</Typography>
         {error && <Typography>errore</Typography>}
         <Form<RegistrationForm>
           defaultValues={init}
@@ -61,13 +65,22 @@ const Registration = () => {
                 rules={{ required: t('form.surname.error.required') }}
               />
               {/* TODO: implementare un datePicker e aggiungere data di nascita */}
-              <Form.Select
+              <Form.RadioBtn
                 name="gender"
-                label="gender"
-                options={options}
-                className="l-grid__col l-grid__col--span-6"
+                label={t("form.gender.label")}
+                className={clsx(styles['p-registration__radiogroup'], "l-grid__col l-grid__col--span-6")}
+                variant='ghost'
                 rules={{ required: t('form.gender.error.required') }}
-              />
+                defaultValue=''
+                gap="lg"
+                options={options}
+              >
+                {({label, Icon}, isSelected) => 
+                  <Typography as="div" variant="small" additionalClasses={radioElementClass(isSelected)}>
+                    <Icon size={20} /> {t(label)}
+                  </Typography>
+                }
+              </Form.RadioBtn>
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="email"

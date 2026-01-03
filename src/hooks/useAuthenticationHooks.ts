@@ -32,6 +32,18 @@ export const useMineDetails = () => {
   });
 };
 
+export const useUpdateMineDetails = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authService.updateMineDetails,
+
+    onSuccess: (updatedData) => {
+      queryClient.setQueryData(['mineDetails'], updatedData);
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+  });
+};
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
