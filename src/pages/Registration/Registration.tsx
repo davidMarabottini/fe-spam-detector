@@ -10,6 +10,7 @@ import { VALIDATIONS_EMAIL } from '@constants/validations';
 import { ROUTES } from '@constants/routes';
 import Typography from '@components/atoms/Typography/Typography';
 import { Check, X, Mars, Venus, Transgender } from 'lucide-react';
+import { ICON_PRESET } from '@/components/atoms/RadioBtn/presets/icon.presets';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -29,19 +30,16 @@ const Registration = () => {
     password: '',
   }
 
+  const {classBase, ...iconPresetRest} = ICON_PRESET;
+
   const options = [
-    {label: 'form.gender.options.male', Icon: Mars, value: 'M'},
-    {label: 'form.gender.options.female', Icon: Venus, value: 'F'},
-    {label: 'form.gender.options.other', Icon: Transgender, value: ''}
+    {label: t('form.gender.options.male'), Icon: Mars, value: 'M'},
+    {label: t('form.gender.options.female'), Icon: Venus, value: 'F'},
+    {label: t('form.gender.options.other'), Icon: Transgender, value: ''}
   ]
 
   const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
-  const radioElementClass =
-    (isSelected: boolean) =>
-      clsx(
-        styles['p-registration__radio-wrapper'],
-        {[styles['p-registration__radio-wrapper--selected']]: isSelected}
-      );
+
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
@@ -68,25 +66,12 @@ const Registration = () => {
               <Form.RadioBtn
                 name="gender"
                 label={t("form.gender.label")}
-                className={clsx(styles['p-registration__radiogroup'], "l-grid__col l-grid__col--span-6")}
-                variant='ghost'
+                className={clsx(classBase, "l-grid__col l-grid__col--span-6")}
                 rules={{ required: t('form.gender.error.required') }}
-                defaultValue=''
                 gap="lg"
                 options={options}
-              >
-                {({label, Icon}, isSelected) => 
-                  <Typography as="div" variant="small" additionalClasses={radioElementClass(isSelected)}>
-                    <div className={styles['p-registration__radio-icon-wrapper']}>
-                      {isSelected && <Check size={12}/>}
-                      <Icon size={20} />
-                    </div>
-                    <div>
-                      {t(label)}
-                    </div>
-                  </Typography>
-                }
-              </Form.RadioBtn>
+                {...iconPresetRest}
+              />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
                 name="email"
