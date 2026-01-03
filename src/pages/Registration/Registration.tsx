@@ -77,7 +77,13 @@ const Registration = () => {
               >
                 {({label, Icon}, isSelected) => 
                   <Typography as="div" variant="small" additionalClasses={radioElementClass(isSelected)}>
-                    <Icon size={20} /> {t(label)}
+                    <div className={styles['p-registration__radio-icon-wrapper']}>
+                      {isSelected && <Check size={12}/>}
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      {t(label)}
+                    </div>
                   </Typography>
                 }
               </Form.RadioBtn>
@@ -104,7 +110,9 @@ const Registration = () => {
                 name="password"
                 label={t('form.password.label')}
                 type="password"
-                rules={{ required: t('form.password.error.required') }}
+                rules={{
+                  required: t('form.password.error.required'),
+                }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"

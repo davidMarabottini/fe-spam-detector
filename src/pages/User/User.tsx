@@ -36,7 +36,6 @@ const User = () => {
   return (
     <Card additionalClassName={styles['p-user']}>
       <div className={styles["p-user__container"]}>
-        <Typography variant="h2" >{t('title')}</Typography>
         {error && <Typography>errore</Typography>}
         <Form<UserForm>
           defaultValues={data}
@@ -71,7 +70,13 @@ const User = () => {
               >
                 {({Icon, label}, isSelected) => 
                   <Typography as="div" variant="small" additionalClasses={radioElementClass(isSelected)}>
-                    <Icon size={20} /> {t(label)}
+                    <div className={styles['p-user__radio-icon-wrapper']}>
+                      {isSelected && <Check size={12}/>}
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      {t(label)}
+                    </div>
                   </Typography>
                 }
               </Form.RadioBtn>

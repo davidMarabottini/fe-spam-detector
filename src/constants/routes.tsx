@@ -43,4 +43,4 @@ export const ROUTES = {
       [handle.key]: path
     }
   ), {}),
-} as const;
+} as {[n: string]: string};

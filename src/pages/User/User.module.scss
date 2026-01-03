@@ -53,6 +53,10 @@
     }
   }
 
+  &__radio-icon-wrapper {
+    @include flex-center;
+  }
+
   &__button {
     @include flex-center;
     gap: $space-sm;

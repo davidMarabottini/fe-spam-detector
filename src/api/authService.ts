@@ -20,7 +20,7 @@ export const getMineDetails = async (): Promise<UserDetails> => {
   return data;
 };
 
-export const updateMineDetails = async (userData: UserDetails): Promise<UserDetails> => {
+export const updateMineDetails = async (userData: Omit<UserDetails, 'id' | 'roles'>): Promise<UserDetails> => {
   const { data } = await apiClient.put('/api/users/me', userData);
   return data;
 };
