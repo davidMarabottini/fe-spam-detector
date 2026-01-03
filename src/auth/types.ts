@@ -25,3 +25,8 @@ export type UserDetails = {
   surname: string
   username: string
 }
+
+export type UpdateResponse = {
+  status: "success" | "failure"
+  user: UserDetails
+}

@@ -1,5 +1,5 @@
 import apiClient from "./apiClient";
-import type { UserDetails, UserProfile } from "@/auth/types";
+import type { UserDetails, UserProfile, UpdateResponse } from "@/auth/types";
 
 export const login = async (credentials: {username: string, password: string}): Promise<{ user: UserProfile }> => {
   const { data } = await apiClient.post('/login', credentials);
@@ -20,7 +20,7 @@ export const getMineDetails = async (): Promise<UserDetails> => {
   return data;
 };
 
-export const updateMineDetails = async (userData: Omit<UserDetails, 'id' | 'roles'>): Promise<UserDetails> => {
+export const updateMineDetails = async (userData: Omit<UserDetails, 'id' | 'roles'>): Promise<UpdateResponse> => {
   const { data } = await apiClient.put('/api/users/me', userData);
   return data;
 };

@@ -37,10 +37,8 @@ export const useUpdateMineDetails = () => {
 
   return useMutation({
     mutationFn: authService.updateMineDetails,
-
     onSuccess: (updatedData) => {
-      queryClient.setQueryData(['mineDetails'], updatedData);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.setQueryData(['mineDetails'], updatedData.user);
     },
   });
 };

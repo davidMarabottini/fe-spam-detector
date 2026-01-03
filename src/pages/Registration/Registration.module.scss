@@ -27,7 +27,7 @@
     padding-left: $space-md;
     gap: $space-lg;
     
-    @include desktop {
+    @include mq($bp-tablet) {
       flex-direction: row;
       align-items: center;
     }
