@@ -43,7 +43,7 @@ describe('RadioBtn Component', () => {
     render(<RadioBtn data-testid="radiobtn" orientation='vertical' options={options} onValueChange={onChange} />);
 
     const radioBtn = screen.getByTestId('radiobtn');
-    expect(radioBtn.children[0]).toHaveClass(styles['c-radio-btn__container--vertical'])
+    expect(radioBtn.children[1]).toHaveClass(styles['c-radio-btn__container--vertical'])
   });
 
   it('should be vertical on horizontal orientation', async () => {
@@ -69,7 +69,7 @@ describe('RadioBtn Component', () => {
     render(<RadioBtn data-testid="radiobtn" gap={gap} options={options} onValueChange={onChange} />);
 
     const radioBtn = screen.getByTestId('radiobtn');
-    expect(radioBtn.children[0]).toHaveClass(styles[`c-radio-btn__container--${gap}`])
+    expect(radioBtn.children[1]).toHaveClass(styles[`c-radio-btn__container--${gap}`])
   })
 
   it('should have ghost class on radio inputs when variant is ghost', async () => {
@@ -112,4 +112,63 @@ describe('RadioBtn Component', () => {
     expect(radio2).toBeChecked();
     expect(radio1).not.toBeChecked();
   })
+
+  it('should select defaultValue initially', () => {
+    const options = [
+      { label: 'Radio 1', value: 'radio1' },
+      { label: 'Radio 2', value: 'radio2' },
+    ];
+
+    render(
+      <RadioBtn
+        options={options}
+        defaultValue="radio2"
+      />
+    );
+
+    const radio1 = screen.getByRole('radio', { name: /radio 1/i });
+    const radio2 = screen.getByRole('radio', { name: /radio 2/i });
+
+    expect(radio2).toBeChecked();
+    expect(radio1).not.toBeChecked();
+  });
+
+  it('should respect controlled value prop', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+
+    const options = [
+      { label: 'Radio 1', value: 'radio1' },
+      { label: 'Radio 2', value: 'radio2' },
+    ];
+
+    const { rerender } = render(
+      <RadioBtn
+        options={options}
+        value="radio1"
+        onValueChange={onChange}
+      />
+    );
+
+    const radio1 = screen.getByRole('radio', { name: /radio 1/i });
+    const radio2 = screen.getByRole('radio', { name: /radio 2/i });
+
+    expect(radio1).toBeChecked();
+
+    await user.click(radio2);
+
+    expect(onChange).toHaveBeenCalledWith('radio2');
+    expect(radio1).toBeChecked();
+
+    rerender(
+      <RadioBtn
+        options={options}
+        value="radio2"
+        onValueChange={onChange}
+      />
+    );
+
+    expect(radio2).toBeChecked();
+  });
+
 });
