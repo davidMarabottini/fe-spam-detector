@@ -77,22 +77,23 @@ const User = () => {
                 disabled
               />
               <div></div>
-              {!formDisabled && <Form.Button
-              additionalClassName="l-grid__col l-grid__col--span-6"
-              type="submit"
-              // autoDisabled={false}
-            >
-              <Save size={16} /> {t("form.submit")}
-            </Form.Button>}
+              {!formDisabled &&
+                <Form.Button
+                  additionalClassName="l-grid__col l-grid__col--span-6"
+                  type="submit"
+                >
+                  <Save size={16} /> {t("form.submit")}
+                </Form.Button>
+              }
               <Form.Button
-              additionalClassName={clsx("l-grid__col", {"l-grid__col--span-12": formDisabled, "l-grid__col--span-6": !formDisabled})}
-              type="button"
-              onClick={() => setFormDisabled(d => !d)}
-              color={formDisabled ? 'success' : 'error'}
-              autoDisabled={false}
-            >
-              {formDisabled ? <Check size={16} /> : <X size={16} />} {t(formDisabled ? "form.enable" : "form.disable")}
-            </Form.Button>
+                additionalClassName={clsx("l-grid__col", {"l-grid__col--span-12": formDisabled, "l-grid__col--span-6": !formDisabled})}
+                type="button"
+                onClick={() => setFormDisabled(d => !d)}
+                color={formDisabled ? 'success' : 'error'}
+                autoDisabled={false}
+              >
+                {formDisabled ? <Check size={16} /> : <X size={16} />} {t(formDisabled ? "form.enable" : "form.disable")}
+              </Form.Button>
             </div>
           </Stack>
         </Form>
