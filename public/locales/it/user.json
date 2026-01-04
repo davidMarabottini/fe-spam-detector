@@ -1,5 +1,5 @@
 {
-  "title": "Dettagli utente",
+  "title": "I miei dati",
   "form": {
     "name": {
       "label": "Nome",
@@ -20,11 +20,15 @@
       } 
     },
     "gender": {
-      "label": "Genere",
+      "label": "Genere:",
       "error": {
         "required": "Genere Richiesto"
       },
-      "possibilities": ["Maschio", "Femmina", "Altro"]
+      "options": {
+        "male": "Maschio",
+        "female": "Femmina",
+        "other": "Altro"
+      }
     },
     "email": {
       "label": "Email",
@@ -39,8 +43,8 @@
         "required": "Username Richiesto"
       } 
     },
-    "enable": "Abilita",
-    "disable": "Disabilita",
-    "submit": "Modifica"
+    "enable": "Modifica",
+    "disable": "Resetta",
+    "submit": "Salva"
   }
 }

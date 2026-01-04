@@ -1,26 +1,28 @@
-import { useFormContext, type FieldValues } from 'react-hook-form';
+import { Controller, useFormContext, type FieldValues } from 'react-hook-form';
 import RadioBtn from '@components/atoms/RadioBtn/RadioBtn';
 import type { FormRadioBtnProps } from '../Form.types';
+import type { RadioOptionBase } from '@/components/atoms/RadioBtn/RadioBtn.types';
 
 
-const FormRadioBtn = <T extends FieldValues>({ name, rules, options, ...props }: FormRadioBtnProps<T>) => {
-  const { register, formState: { errors } } = useFormContext<T>();
+const FormRadioBtn = <T extends FieldValues, RadioOption extends RadioOptionBase>({ name, rules, options, ...props }: FormRadioBtnProps<T, RadioOption>) => {
+  const { control, formState: { errors } } = useFormContext<T>();
   const error = errors[name]?.message as string | undefined;
 
-  const { onChange, ref, ...restRegister } = register(name, rules);
-
   return (
-    <RadioBtn
-      options={options || []}
-      {...props}
-      {...restRegister}
-      ref={ref}
-      onValueChange={(val: string) => {
-        onChange({ target: { name, value: val } });
-      }}
-      error={error} 
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field }) => (
+        <RadioBtn
+          {...props}
+          options={options || []}
+          value={field.value}
+          onValueChange={field.onChange}
+          error={error}
+        />
+      )}
     />
   );
 };
-
 export default FormRadioBtn;

@@ -39,13 +39,12 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
       >
         <Stack spacing="md">
           <Typography variant="h2">{t('home:cardInput.title')}</Typography>
-          
           <Form.RadioBtn
             name="type"
             variant="ghost"
-            defaultValue={domains[0]}
             gap="sm"
             options={options}
+            rules={{required: t('mailtype.required')}}
           >
             {({label}, isSelected) => (
               <Button 
@@ -63,6 +62,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
             className={styles["c-card-input__text-area"]}
             label={t('home:cardInput.form.textarea.placeholder')}
             rows={10}
+            rules={{required: t('text.required')}}
           />
           
           <Form.Button

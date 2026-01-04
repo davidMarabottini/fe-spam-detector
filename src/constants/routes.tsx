@@ -8,39 +8,39 @@ import UserPage from "@pages/User/User";
 import Status from "@pages/Status/Status";
 import { Form, HomeIcon, LogIn, User, Hourglass, PlusCircle, SettingsIcon } from "lucide-react";
 
-
-
 export const publicRoutes = [
-  {key: 'LOGIN', path: '/login', element: <Login />, label: 'labels.login', icon: <LogIn size={16} />},
-  {key: 'REGISTRATION', path: '/registration', element: <Registration />, label: 'labels.registration', icon: <Form size={16} />},
-  {key: 'HOME_PUBLIC', path: '/analyze', element: <Home />, label: 'labels.home', icon: <HomeIcon size={16} />},
+  {path: '/login', element: <Login />, handle: {key: 'LOGIN', label: 'labels.login', Icon: LogIn}},
+  {path: '/registration', element: <Registration />, handle: {key: 'REGISTRATION', label: 'labels.registration', Icon: Form}},
+  {path: '/analyze', element: <Home />, handle: {key: 'HOME_PUBLIC', label: 'labels.home', Icon: HomeIcon}},
 ]
+
+export const publicMenu = publicRoutes.map(({path, handle}) => ({path, handle}));
 
 export const privateRoutes = [
-  {key: 'HOME', path: '/', element: <Home />, label: 'labels.home', icon: <HomeIcon size={16} />},
-  {key: 'STATUS', path: '/status', element: <Status />, label: 'labels.status', icon: <User size={16} /> },
-  {key: 'CRONOLOGY', path: '/cronology', element: <Cronology />, label: 'labels.cronology', icon: <Hourglass size={16} /> },
-  {key: 'INSERT', path: '/insert', element: <Insert />, label: 'labels.insert', icon: <PlusCircle size={16} /> },
+  {path: '/', element: <Home />, handle: {key: 'HOME', label: 'labels.home', Icon: HomeIcon}},
+  {path: '/status', element: <Status />, handle: {key: 'STATUS', label: 'labels.status', Icon: User} },
+  {path: '/cronology', element: <Cronology />, handle: {key: 'CRONOLOGY', label: 'labels.cronology', Icon: Hourglass} },
+  {path: '/insert', element: <Insert />, handle: {key: 'INSERT', label: 'labels.insert', Icon: PlusCircle} },
 ]
 
+export const privateMenu = privateRoutes.map(({path, handle}) => ({path, handle}));
+
 export const userRoutes = [
-  {key: 'USER', path: '/user', element: <UserPage />, label: 'labels.user', icon: <User size={12} /> },
-  {key: 'SETTINGS', path: '/settings', element: <Settings />, label: 'labels.settings', icon: <SettingsIcon size={12} /> },
+  {path: '/user', element: <UserPage />, handle: {key: 'USER', label: 'labels.user', Icon: User} },
+  {path: '/settings', element: <Settings />, handle: {key: 'SETTINGS', label: 'labels.settings', Icon: SettingsIcon} },
 ];
 
-// export const userLogicRoutes = [ TODO: capire se e come integrare
-//   {key: 'LOGOUT', label: 'labels.logout', icon: <LogOut size={12} />}
-// ]
+export const userMenu = userRoutes.map(({path, handle}) => ({path, handle}));
 
 export const ROUTES = {
   ...[
     ...publicRoutes, 
     ...privateRoutes, 
     ...userRoutes
-  ].reduce((acc, {key, path}) => (
+  ].reduce((acc, {handle, path}) => (
     {
       ...acc,
-      [key]: path
+      [handle.key]: path
     }
   ), {}),
-} as const;
+} as {[n: string]: string};

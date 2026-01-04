@@ -9,7 +9,8 @@ import { useInsertUser } from '@hooks/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@constants/validations';
 import { ROUTES } from '@constants/routes';
 import Typography from '@components/atoms/Typography/Typography';
-import { Check, X } from 'lucide-react';
+import { Check, X, Mars, Venus, Transgender } from 'lucide-react';
+import { ICON_PRESET } from '@/components/atoms/RadioBtn/presets/icon.presets';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -29,10 +30,12 @@ const Registration = () => {
     password: '',
   }
 
+  const {classBase, ...iconPresetRest} = ICON_PRESET;
+
   const options = [
-    {label: 'Male', value: 'M'},
-    {label: 'Female', value: 'F'},
-    {label: 'Other', value: ''}
+    {label: t('form.gender.options.male'), Icon: Mars, value: 'M'},
+    {label: t('form.gender.options.female'), Icon: Venus, value: 'F'},
+    {label: t('form.gender.options.other'), Icon: Transgender, value: ''}
   ]
 
   const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
@@ -40,7 +43,6 @@ const Registration = () => {
   return (
     <Card additionalClassName={clsx(styles['p-registration'], "l-grid__col l-grid__col--span-12")}>
       <div className={styles["p-registration__container"]}>
-        <Typography variant="h2" >{t('Form Registrazione')}</Typography>
         {error && <Typography>errore</Typography>}
         <Form<RegistrationForm>
           defaultValues={init}
@@ -61,12 +63,14 @@ const Registration = () => {
                 rules={{ required: t('form.surname.error.required') }}
               />
               {/* TODO: implementare un datePicker e aggiungere data di nascita */}
-              <Form.Select
+              <Form.RadioBtn
                 name="gender"
-                label="gender"
-                options={options}
-                className="l-grid__col l-grid__col--span-6"
+                label={t("form.gender.label")}
+                className={clsx(classBase, "l-grid__col l-grid__col--span-6")}
                 rules={{ required: t('form.gender.error.required') }}
+                gap="lg"
+                options={options}
+                {...iconPresetRest}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
@@ -91,7 +95,9 @@ const Registration = () => {
                 name="password"
                 label={t('form.password.label')}
                 type="password"
-                rules={{ required: t('form.password.error.required') }}
+                rules={{
+                  required: t('form.password.error.required'),
+                }}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"

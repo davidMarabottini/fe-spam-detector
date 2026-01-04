@@ -16,7 +16,7 @@
 
   grid-template-columns: repeat(6, 1fr);
 
-  @include desktop {
+  @include mq($bp-tablet) {
     grid-template-columns: repeat(12, 1fr);
   }
 
@@ -31,7 +31,7 @@
       &--span-#{$i} {
         grid-column: span 6;
 
-        @include desktop {
+        @include mq($bp-tablet) {
           grid-column: span $i;
         }
       }

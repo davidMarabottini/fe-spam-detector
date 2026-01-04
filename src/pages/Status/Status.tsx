@@ -27,10 +27,7 @@ const Status = () => {
 
   return (
     <div className={clsx(styles["p-status"], "l-grid")}>
-      <div className={clsx(styles["p-status__title"], "l-grid__col l-grid__col--span-12")}>
-        <Typography variant="h2" >{t("title")}</Typography>
-      </div>
-      <Card additionalClassName={clsx(styles["p-status__contributions-card"], "l-grid__col l-grid__col--span-4")}>
+      <Card additionalClassName={clsx(styles["p-status__contributions-card"], "l-grid__col l-grid__col--span-5")}>
         <Typography variant="h3" className={styles["p-status__subtitle"]}>
           {t("contribution.title")}
         </Typography>
@@ -53,12 +50,12 @@ const Status = () => {
         <ResultCircle percentage={user.nextLevelProgress} />
         <Typography as="p">{user.rank}</Typography>
       </Card>
-      <Card additionalClassName={clsx(styles['p-status__badges-card'], "l-grid__col l-grid__col--span-4")}>
+      <Card additionalClassName={clsx(styles['p-status__badges-card'], "l-grid__col l-grid__col--span-3")}>
         <Typography as="h3" className={styles["p-status__subtitle"]}>{t('badges.title')}</Typography>
         <div className="l-grid">
           {
             badges.map(({id, name}) => (
-              <div key={id} className="l-grid__col l-grid__col--3">
+              <div key={id} className="l-grid__col l-grid__col--span-12 l-grid--3">
                 <BadgeContainer badgeName={name} />
               </div>
             ))

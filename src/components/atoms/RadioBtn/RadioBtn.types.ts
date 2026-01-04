@@ -1,11 +1,12 @@
-export interface RadioOption {
+export interface RadioOptionBase {
   label: string;
   value: string;
 }
 
-export interface RadioGroupProps {
+export interface RadioGroupProps<RadioOption extends RadioOptionBase = RadioOptionBase> {
   options: RadioOption[];
   name?: string;
+  label?: string;
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -14,5 +15,6 @@ export interface RadioGroupProps {
   className?: string;
   orientation?: 'horizontal' | 'vertical';
   variant?: 'standard' | 'ghost';
-  gap?: 'sm' | 'md' | 'lg'
+  gap?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
 }

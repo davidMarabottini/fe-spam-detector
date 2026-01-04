@@ -6,8 +6,8 @@
   }
 }
 
-@mixin desktop {
-  @media (min-width: #{$bp-mobile + 1px}) {
+@mixin mq($min) {
+  @media (min-width: $min) {
     @content;
   }
 }

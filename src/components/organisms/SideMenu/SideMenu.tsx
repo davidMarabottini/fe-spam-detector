@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Typography from '@components/atoms/Typography/Typography';
 import styles from './SideMenu.module.scss';
-import { privateRoutes, publicRoutes } from '@constants/routes';
+import { privateMenu, publicMenu } from '@constants/routes';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '@components/atoms/Button/Button';
@@ -27,15 +27,15 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
 
       <ul className={styles['c-side-menu__list']}>
         {
-          (menuType === 'privateRoutes' ? privateRoutes : publicRoutes).map(item => (
-            <Button onClick={() => itemClickHandler(item.path)} asChild color="custom">
-              <li key={item.key} className={styles['c-side-menu__item']}>
+          (menuType === 'privateRoutes' ? privateMenu : publicMenu).map(({path, handle: {key, label, Icon}}) => (
+            <Button key={key} onClick={() => itemClickHandler(path)} asChild color="custom">
+              <li className={styles['c-side-menu__item']}>
                 <Typography 
                   as="a" 
-                  onClick={() => itemClickHandler(item.path)}
+                  onClick={() => itemClickHandler(path)}
                   additionalClasses={styles['c-side-menu__link']}
                 >
-                  {item.icon} {t(item.label)}
+                  <Icon size={16} /> {t(label)}
                 </Typography>
             </li>
           </Button>

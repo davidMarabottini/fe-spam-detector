@@ -34,7 +34,7 @@ describe('SideMenu', () => {
     );
 
     privateRoutes.forEach(route => {
-      expect(screen.getByText(route.label)).toBeInTheDocument();
+      expect(screen.getByText(route.handle.label)).toBeInTheDocument();
     });
   });
 
@@ -47,7 +47,7 @@ describe('SideMenu', () => {
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByText(privateRoutes[0].label));
+    fireEvent.click(screen.getByText(privateRoutes[0].handle.label));
 
     expect(mockNavigate).toHaveBeenCalledWith(privateRoutes[0].path, { replace: true });
     expect(onClose).toHaveBeenCalled();

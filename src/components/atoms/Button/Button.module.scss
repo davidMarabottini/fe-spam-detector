@@ -24,6 +24,24 @@
     }
   }
 
+  &--success {
+    background-color: $color-success;
+    color: #fff;
+
+    &:hover {
+      background-color: $color-success-text;
+    }
+  }
+
+  &--error {
+    background-color: $color-error;
+    color: #fff;
+
+    &:hover {
+      background-color: $color-error-text;
+    }
+  }
+
   &--rounded {
     border-radius: $radius-lg;
   }

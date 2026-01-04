@@ -15,3 +15,18 @@ export type decodedToken = {
   exp: number;
   iat: number
 }
+
+export type UserDetails = {
+  email: string
+  gender: 'M' | 'F' | ''
+  id: number
+  name: string
+  roles: ("admin" | "user")[]
+  surname: string
+  username: string
+}
+
+export type UpdateResponse = {
+  status: "success" | "failure"
+  user: UserDetails
+}

@@ -1,24 +1,28 @@
-import Card from "@/components/atoms/Card/Card";
+import Card from "@components/atoms/Card/Card";
 import styles from './User.module.scss';
-import { useMineDetails } from "@/hooks/useAuthenticationHooks";
-import Typography from "@/components/atoms/Typography/Typography";
-import Form from "@/components/organisms/form/Form";
-import Stack from "@/components/atoms/Stack/Stack";
+import { useMineDetails, useUpdateMineDetails } from "@hooks/useAuthenticationHooks";
+import Typography from "@components/atoms/Typography/Typography";
+import Form from "@components/organisms/form/Form";
+import Stack from "@components/atoms/Stack/Stack";
 import { useTranslation } from "react-i18next";
-import { Check, X, Save } from "lucide-react";
+import { Check, X, Save, Mars, Venus, Transgender } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
 import type { UserForm } from "./User.types";
+import { ICON_PRESET } from "@/components/atoms/RadioBtn/presets/icon.presets";
 const User = () => {
+  const {classBase, ...iconPresetRest} = ICON_PRESET;
   const {data, isLoading, error} = useMineDetails()
   const {t} = useTranslation("user");
-
+  
   const [formDisabled, setFormDisabled] = useState(true);
+  const {mutate: updateUser} = useUpdateMineDetails();
+
 
   const options = [
-    {label: 'Male', value: 'M'},
-    {label: 'Female', value: 'F'},
-    {label: 'Other', value: ''}
+    {label: t('form.gender.options.male'), Icon: Mars, value: 'M'},
+    {label: t('form.gender.options.female'), Icon: Venus, value: 'F'},
+    {label: t('form.gender.options.other'), Icon: Transgender, value: ''}
   ]
 
   if(isLoading) {
@@ -27,11 +31,10 @@ const User = () => {
   return (
     <Card additionalClassName={styles['p-user']}>
       <div className={styles["p-user__container"]}>
-        <Typography variant="h2" >{t('title')}</Typography>
         {error && <Typography>errore</Typography>}
         <Form<UserForm>
           defaultValues={data}
-          onSubmit={console.log}
+          onSubmit={updateUser}
         >
           <Stack spacing='md'>
             <div className="l-grid">
@@ -49,13 +52,15 @@ const User = () => {
                 rules={{ required: t('form.surname.error.required') }}
                 disabled={formDisabled}
               />
-              <Form.Select
+              <Form.RadioBtn
                 name="gender"
-                label="gender"
+                label={t("form.gender.label")}
+                className={clsx(classBase, "l-grid__col l-grid__col--span-6")}
+                rules={{ required: t('form.gender.error.required') }}
+                gap="lg"
                 options={options}
-                className="l-grid__col l-grid__col--span-6"
-                rules={{ required: t('form.surname.error.required') }}
                 disabled={formDisabled}
+                {...iconPresetRest}
               />
               <Form.Input
                 className="l-grid__col l-grid__col--span-6"
@@ -72,22 +77,23 @@ const User = () => {
                 disabled
               />
               <div></div>
-              {!formDisabled && <Form.Button
-              additionalClassName="l-grid__col l-grid__col--span-6"
-              type="submit"
-              autoDisabled={false}
-            >
-              <Save size={16} /> {t("form.submit")}
-            </Form.Button>}
+              {!formDisabled &&
+                <Form.Button
+                  additionalClassName="l-grid__col l-grid__col--span-6"
+                  type="submit"
+                >
+                  <Save size={16} /> {t("form.submit")}
+                </Form.Button>
+              }
               <Form.Button
-              additionalClassName={clsx("l-grid__col", {"l-grid__col--span-12": formDisabled, "l-grid__col--span-6": !formDisabled})}
-              type="button"
-              onClick={() => setFormDisabled(d => !d)}
-              color={formDisabled ? 'primary' : 'secondary'}
-              autoDisabled={false}
-            >
-              {formDisabled ? <Check size={16} /> : <X size={16} />} {t(formDisabled ? "form.enable" : "form.disable")}
-            </Form.Button>
+                additionalClassName={clsx("l-grid__col", {"l-grid__col--span-12": formDisabled, "l-grid__col--span-6": !formDisabled})}
+                type="button"
+                onClick={() => setFormDisabled(d => !d)}
+                color={formDisabled ? 'success' : 'error'}
+                autoDisabled={false}
+              >
+                {formDisabled ? <Check size={16} /> : <X size={16} />} {t(formDisabled ? "form.enable" : "form.disable")}
+              </Form.Button>
             </div>
           </Stack>
         </Form>

@@ -9,7 +9,7 @@ import { useMemo, useState } from "react";
 import Button from "@components/atoms/Button/Button";
 
 import clsx from "clsx";
-import { userRoutes } from "@/constants/routes";
+import { userMenu } from "@/constants/routes";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({ logout, userDetails }: HeaderProps) => {
@@ -19,8 +19,8 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
 
   const remappedRoutes = useMemo(
     () =>
-      userRoutes.map(({path, ...rest}) =>
-        ({onClick: () => navigate(path, {replace: true}), ...rest})), [navigate])
+      userMenu.map(({path, handle}) =>
+        ({onClick: () => navigate(path, {replace: true}), ...handle})), [navigate])
     
   const userLabel = userDetails && (
     <div className={style["c-header__user-info"]}>
@@ -34,7 +34,7 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
     {
       key:'logout',
       label: t('common:header.actions.logout'),
-      icon: <LogOut size={12} />,
+      Icon: LogOut,
       onClick: logout,
     },
   ] as DropdownProp[];
@@ -71,11 +71,11 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
               className={style["c-header__user-dropdown"]}
               onTriggerClick={setDropdownOpened}
             >
-              {(option) => (
+              {({Icon, key, label}) => (
                   <Button
-                    key={option.key}
+                    key={key}
                     color="custom"
-                  >{option.icon} {t(`menu:${option.label}`)}</Button>
+                  ><Icon size={14} /> {t(`menu:${label}`)}</Button>
                 )}
               </Dropdown>
           )}

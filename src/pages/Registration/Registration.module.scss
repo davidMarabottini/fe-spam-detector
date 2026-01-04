@@ -20,4 +20,8 @@
     @include flex-center;
     gap: $space-sm;
   }
+
+  &__radio-icon-wrapper {
+    @include flex-center;
+  }
 }
