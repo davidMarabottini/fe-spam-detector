@@ -1,4 +1,5 @@
 @use "../01-settings/variables" as *;
+@use "sass:meta";
 
 @mixin mobile {
   @media (max-width: #{$bp-mobile}) {
@@ -29,7 +30,13 @@
   font-weight: $weight;
   line-height: $lh;
 
-  $size-map: if(type-of($size) == "map", $size, (0: $size));
+  $size-map: ();
+
+  @if meta.type-of($size) == "map" {
+    $size-map: $size;
+  } @else {
+    $size-map: (0: $size);
+  }
 
   @each $breakpoint, $value in $size-map {
     @if $breakpoint == 0 {
