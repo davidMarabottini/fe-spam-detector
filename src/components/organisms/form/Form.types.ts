@@ -5,6 +5,8 @@ import type { InputProps } from "../../atoms/Input/Input.types";
 import type { TextAreaProps } from "../../atoms/TextArea/TextArea.types";
 import type { RadioGroupProps, RadioOptionBase } from "../../atoms/RadioBtn/RadioBtn.types";
 import type { SelectProps } from "../../molecules/Select/Select.types";
+import type { CheckboxProps, CheckboxValue } from "@/components/atoms/Checkbox/Checkbox.types";
+import type { SwitchProps } from "@/components/atoms/Switch/Switch.types";
 
 type FormBase = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onSubmit'>;
 
@@ -33,6 +35,18 @@ export interface FormRadioBtnProps<T extends FieldValues, RadioOption extends Ra
 export interface FormSelectProps<T extends FieldValues> extends Omit<SelectProps, 'placeholder'> {
   name: Path<T>;
   rules?: RegisterOptions<T, Path<T>>;
+}
+
+export interface FormCheckboxProps<T extends FieldValues> extends Omit<CheckboxProps, 'onChange'> {
+  name: Path<T>;
+  rules?: RegisterOptions<T, Path<T>>;
+  onChange?: (value: CheckboxValue) => void;
+}
+
+export interface FormSwitchProps<T extends FieldValues> extends Omit<SwitchProps, 'onChange'> {
+  name: Path<T>;
+  rules?: RegisterOptions<T, Path<T>>;
+  onChange?: (value: SwitchProps) => void;
 }
 
 export interface FormButtonProps extends ButtonProps {

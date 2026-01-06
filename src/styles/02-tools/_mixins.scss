@@ -26,7 +26,25 @@
 
 @mixin typography($size, $weight: $font-weight-normal, $lh: $line-height-base) {
   font-family: $font-family-base;
-  font-size: rem($size);
   font-weight: $weight;
   line-height: $lh;
+
+  $size-map: if(type-of($size) == "map", $size, (0: $size));
+
+  @each $breakpoint, $value in $size-map {
+    @if $breakpoint == 0 {
+      font-size: rem($value);
+    } @else {
+      @include mq($breakpoint) {
+        font-size: rem($value);
+      }
+    }
+  }
 }
+
+@mixin typography_h1{@include typography((0: $font-2xl, $bp-tablet: $font-3xl), $font-weight-medium, $line-height-tight)}
+@mixin typography_h2{@include typography((0: $font-xl, $bp-tablet: $font-2xl), $font-weight-medium, $line-height-tight)}
+@mixin typography_h3{@include typography((0: $font-lg, $bp-tablet: $font-xl), $font-weight-medium, $line-height-tight)}
+@mixin typography_h4{@include typography((0: $font-md, $bp-tablet: $font-lg), $font-weight-medium, $line-height-tight)}
+@mixin typography_body{@include typography($font-md, $font-weight-medium, $line-height-tight)}
+@mixin typography_small{@include typography($font-sm, $font-weight-medium, $line-height-tight)}
