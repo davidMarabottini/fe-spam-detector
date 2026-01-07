@@ -21,8 +21,9 @@
 
   &__item-input {
     &--ghost {
-      display: none;
-      visibility: hidden;
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
   }
 }
