@@ -1,5 +1,9 @@
 {
   "formMail": {
+    "dropArea": {
+      "label": "Inserisci mail"
+    },
+    "labelInsert": "Oppure compila la form sottostante",
     "language": {
       "label": "Lingua mail",
       "error": {
@@ -18,11 +22,24 @@
         "required": "Oggetto della mail necessario"
       }
     },
-    "from_header": {
-      "label": "Mittente",
+    "from_name": {
+      "label": "Nome Mittente",
       "error": {
-        "required": "Mittente della mail necessario",
-        "pattern.message": "Il mittente deve essere una mail"
+        "required": "Nome mittente necessario"
+      }
+    },
+    "from_mail": {
+      "label": "Mail Mittente",
+      "error": {
+        "required": "Mail Mittente necessaria",
+        "pattern.message": "La mail del mittente deve rispettare il formato della mail"
+      }
+    },
+    "to": {
+      "label": "Mail destinatario",
+      "error": {
+        "required": "Mail destinatario necessaria",
+        "pattern.message": "La mail destinatario deve rispettare il formato della mail"
       }
     },
     "body_text": {
