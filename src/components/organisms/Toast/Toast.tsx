@@ -22,7 +22,7 @@ export const ToastProvider = ({ children }: IToastProviderProps) => {
     <ToastContext.Provider value={{ addToast, toasts }}>
       {children}
       
-      <div style={{ position: 'fixed', bottom: 0, right: 0, zIndex: 9999 }}>
+      <div style={{ position: 'fixed', bottom: 0, right: 0}}>
         {toasts.map(({id, msg, type}) => (
           <ToastItem key={id} msg={msg} type={type} />
         ))}
