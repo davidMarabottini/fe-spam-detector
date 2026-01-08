@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import '@styles/main.scss';
 import { AuthProvider } from '@/auth/AuthProvider';
+import { ToastProvider } from './components/organisms/Toast/Toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +19,9 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <ToastProvider>
+          <RouterProvider router={router} />
+        </ToastProvider>
       </AuthProvider>
       <ReactQueryDevtools
         position="bottom"

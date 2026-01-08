@@ -2,15 +2,16 @@ import { Check, type LucideIcon } from 'lucide-react';
 import Typography from '../../Typography/Typography';
 import styles from './presets.module.scss';
 import clsx from 'clsx';
+import type { RadioOptionBase } from '../RadioBtn.types';
 
-export interface Option {label: string, Icon: LucideIcon, value: unknown}
+export interface OptionIcon extends RadioOptionBase {Icon: LucideIcon}
 
 export const ICON_PRESET = {
   variant: 'ghost',
 
   classBase: styles['pr-icon__radiogroup'],
 
-  children: ({Icon, label}: Option, isSelected: boolean) => 
+  children: ({Icon, label}: OptionIcon, isSelected: boolean) => 
     <Typography as="div" variant="small" additionalClasses={clsx(
         styles['pr-icon__radio-wrapper'],
         {[styles['pr-icon__radio-wrapper--selected']]: isSelected}

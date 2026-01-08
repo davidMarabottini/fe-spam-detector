@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Outlet, useMatches } from 'react-router-dom';
 import styles from './layouts.module.scss';
 import Card from "@components/atoms/Card/Card";
+import { ToastContainer } from "@/components/organisms/Toast/ToastContainer";
 
 export const PublicLayout = () => {
   const matches = useMatches();
@@ -20,7 +21,7 @@ export const PublicLayout = () => {
             {t(label)}
           </Typography>
         </Card>
-
+        <ToastContainer  />
         <Outlet />
       </main>
     </div>

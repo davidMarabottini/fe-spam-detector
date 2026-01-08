@@ -17,7 +17,7 @@ type LoginData = {username: string, password: string};
 
 const Login = () => {
   const { user } = useAuth();
-  const { mutate: login, error } = useLogin();
+  const { mutate: login } = useLogin();
   const navigate = useNavigate();
   const {t} = useTranslation('login');
 
@@ -35,7 +35,6 @@ const Login = () => {
     <div className={clsx(styles["p-login"], "l-grid")}>
       <Card additionalClassName="l-grid__col l-grid__col--span-12">
         <div className={styles["p-login__container"]}>
-          {error && <Typography additionalClasses={styles["p-login__error"]}>{t('form.error.invalid')}</Typography>}
           <Form<LoginData> className={styles['p-login__form']} defaultValues={{ username: '', password: '' }} onSubmit={onSubmit}>
             <Stack spacing="md">
               <Form.Input

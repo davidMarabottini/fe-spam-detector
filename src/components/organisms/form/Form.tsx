@@ -5,6 +5,7 @@ import FormButton from './components/FormButton';
 import FormTextArea from './components/FormTextArea';
 import FormRadioBtn from './components/FormRadioBtn';
 import FormSelect from './components/FormSelect';
+import FormSwitch from './components/FormSwitch';
 
 const Form = <T extends FieldValues>({ 
   children, 
@@ -17,7 +18,7 @@ const Form = <T extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form noValidate={noValidate} onSubmit={methods.handleSubmit(onSubmit)} {...props}>
+      <form noValidate={noValidate} onSubmit={methods.handleSubmit(data => onSubmit(data, methods))} {...props}>
         {typeof children === 'function' ? children(methods) : children}
       </form>
     </FormProvider>
@@ -29,5 +30,6 @@ Form.TextArea = FormTextArea;
 Form.Button = FormButton;
 Form.RadioBtn = FormRadioBtn;
 Form.Select = FormSelect;
+Form.Switch = FormSwitch;
 
 export default Form;

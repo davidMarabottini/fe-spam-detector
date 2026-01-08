@@ -1,14 +1,15 @@
+import type { AvailableDomains, AvailableOutcomes } from "@/types/contentsFormDatas.types";
 import apiClient from "../api/apiClient";
 
 export interface AnalyzeSpamResult {
     "input_text": string,
-    "model_used": "sms" | "mail",
-    "prediction": "ham" | "spam",
+    "model_used": AvailableDomains,
+    "prediction": AvailableOutcomes,
     "probability_spam": number,
     "status": string
 }
 export const predictSpam = async (
-  type: 'sms' | 'mail',
+  type: AvailableDomains,
   text: string
 ): Promise<AnalyzeSpamResult> => {
   const { data } = await apiClient.post(

@@ -1,4 +1,5 @@
 @use "../abstracts" as *;
+@use "sass:meta";
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -19,12 +20,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1 { @include typography($font-3xl, $font-weight-bold, $line-height-tight); }
-h2 { @include typography($font-2xl, $font-weight-bold, $line-height-tight); }
-h3 { @include typography($font-xl, $font-weight-medium, $line-height-tight); }
-h4 { @include typography($font-lg, $font-weight-medium, $line-height-tight); }
-p { @include typography($font-md, $font-weight-medium, $line-height-tight); }
-small { @include typography($font-sm, $font-weight-medium, $line-height-tight); }
+h1 { @include typography_h1; }
+h2 { @include typography_h2; }
+h3 { @include typography_h3; }
+h4 { @include typography_h4; }
+p { @include typography_body; }
+small { @include typography_small; }
 
 textarea, input, button {
   font-family: inherit;

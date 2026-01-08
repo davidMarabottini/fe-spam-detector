@@ -6,6 +6,7 @@ import Typography from "@/components/atoms/Typography/Typography";
 import styles from './layouts.module.scss';
 import { useTranslation } from "react-i18next";
 import Card from "@/components/atoms/Card/Card";
+import { ToastContainer } from "@/components/organisms/Toast/ToastContainer";
 
 export const PrivateLayout = () => {
   const matches = useMatches();
@@ -25,7 +26,7 @@ export const PrivateLayout = () => {
            {t(label)}
           </Typography>
         </Card>
-        
+        <ToastContainer  />
         <Outlet />
       </main>
     </div>

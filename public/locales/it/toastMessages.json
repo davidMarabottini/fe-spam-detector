@@ -1,0 +1,17 @@
+{
+  "Login": {
+    "wrong_user_password": "Username o password errata"
+  },
+  "insert": {
+    "mail": {
+      "success": "Mail inserita correttamente",
+      "401": "Non hai i permessi per inserire questa mail",
+      "500": "Errore del server"
+    },
+    "sms": {
+      "success": "SMS inserito correttamente",
+      "401": "Non hai i permessi per inserire questo SMS",
+      "500": "Errore del server"
+    }
+  }
+}

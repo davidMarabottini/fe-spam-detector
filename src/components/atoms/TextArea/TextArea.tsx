@@ -15,7 +15,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     };
 
     return (
-      <div className={clsx(styles['c-text-area'], { 
+      <div className={clsx(styles['c-text-area'], className, { 
         [styles['c-text-area--error']]: !!error,
       })}>
         <div className={styles['c-text-area__wrapper']}>
@@ -23,7 +23,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           <textarea
             ref={ref}
             id={inputId}
-            className={clsx(styles['c-text-area__field'], className)}
+            className={clsx(styles['c-text-area__field'])}
             onChange={handleChange}
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}

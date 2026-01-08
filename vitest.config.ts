@@ -22,7 +22,9 @@ export default defineConfig({
         '**/*.module.scss', 
         'src/**/index.ts', 
         '**/*.stories.ts',
-        '**/*.stories.tsx'
+        '**/*.stories.tsx',
+        '**/*.presets.ts',
+        '**/*.presets.tsx'
       ],
       reporter: ['text', 'html']
     }
