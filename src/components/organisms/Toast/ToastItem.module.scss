@@ -1,0 +1,21 @@
+.c-toast-item {
+  --bg-color: #{rgba($color-text-muted, 0.2)};
+  --text-color: #{$color-text-main};
+
+  padding: $space-md;
+  background-color: var(--bg-color);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  margin: $space-sm;
+  border-radius: $radius-sm;
+
+  &--success {
+    --bg-color: #{rgba($color-success, 0.2)};
+    --text-color: #{$color-success-text};
+  }
+
+  &--failure {
+    --bg-color: #{rgba($color-error, 0.2)};
+    --text-color: #{$color-error-text};
+  }
+}
