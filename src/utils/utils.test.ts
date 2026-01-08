@@ -4,6 +4,9 @@ import { isNullable } from "./isNullable";
 import { generateMockJWT, getDecodedToken } from './jwt';
 import { calculatePerc } from "./numbers";
 import { setRequiredField } from "./string";
+import { buildSMTPString } from "./formatEmail";
+import type { IMailFormData } from "@/types/mailFormDatas.types";
+import { parseEMLtoMailFormData } from "./mailParse";
 
 describe('isNullable Utility Function', () => {
   it('testing on null validator', () => {
@@ -148,4 +151,125 @@ describe("setRequiredField", () => {
     const result = setRequiredField("test");
     expect(result).toBe("test")
   })
+})
+
+describe('parseEMLtoMailFormData', () => {
+  
+  it('dovrebbe estrarre correttamente i dati da una mail standard con nome e indirizzo', () => {
+    const rawEML = `From: "Mario Rossi" <mario.rossi@example.com>
+To: destinario@test.it
+Subject: Prova parsing
+MIME-Version: 1.0
+
+Ciao, questo è il corpo della mail.`;
+
+    const result = parseEMLtoMailFormData(rawEML);
+
+    expect(result.from_name).toBe("Mario Rossi");
+    expect(result.from_mail).toBe("mario.rossi@example.com");
+    expect(result.to).toBe("destinario@test.it");
+    expect(result.subject).toBe("Prova parsing");
+    expect(result.body_text).toContain("Ciao, questo è il corpo della mail.");
+    expect(result.is_html).toBe(false);
+  });
+
+  it('dovrebbe gestire il mittente quando manca il nome visualizzato', () => {
+    const rawEML = `From: <solo.mail@test.com>
+Subject: Senza Nome
+
+Corpo mail.`;
+
+    const result = parseEMLtoMailFormData(rawEML);
+
+    expect(result.from_name).toBe("");
+    expect(result.from_mail).toBe("solo.mail@test.com");
+  });
+
+  it('dovrebbe identificare correttamente il contenuto HTML', () => {
+    const rawEML = `From: test@test.it
+Subject: Mail HTML
+
+<html><body><h1>Titolo</h1></body></html>`;
+
+    const result = parseEMLtoMailFormData(rawEML);
+
+    expect(result.is_html).toBe(true);
+    expect(result.body_text).toContain("<h1>Titolo</h1>");
+  });
+
+  it('dovrebbe gestire gli header multi-linea (folding)', () => {
+    const rawEML = `From: test@test.it
+Subject: Oggetto molto lungo 
+ che continua sulla riga dopo
+
+Corpo mail.`;
+
+    const result = parseEMLtoMailFormData(rawEML);
+
+    expect(result.subject).toBe("Oggetto molto lungo che continua sulla riga dopo");
+  });
+
+  it('dovrebbe restituire campi vuoti se gli header mancano', () => {
+    const rawEML = `
+
+Solo corpo senza nulla.`;
+
+    const result = parseEMLtoMailFormData(rawEML);
+
+    expect(result.from_mail).toBe("");
+    expect(result.subject).toBe("");
+    expect(result.body_text.trim()).toBe("Solo corpo senza nulla.");
+  });
+});
+
+describe('formatEmails', () => {
+  const mockMailDataHTML: IMailFormData = {
+    from_name: "David Developer",
+    from_mail: "david@example.com",
+    to: "target@test.com",
+    subject: "Test Logico SMTP",
+    body_text: "<h1>Ciao</h1><p>Questa è una prova.</p>",
+    is_html: true,
+  };
+
+    const mockMailDataNoHTML: IMailFormData = {
+    from_name: "David Developer",
+    from_mail: "david@example.com",
+    to: "target@test.com",
+    subject: "Test Logico SMTP",
+    body_text: "Questa è una prova",
+    is_html: false,
+  };
+  it('should correctly format main headers', () => {
+    const result = buildSMTPString(mockMailDataHTML);
+    
+    expect(result).toContain(`From: "David Developer" <david@example.com>`);
+    expect(result).toContain(`To: target@test.com`);
+    expect(result).toContain(`Subject: Test Logico SMTP`);
+    expect(result).toContain(`MIME-Version: 1.0`);
+  });
+
+  it('should use text/html when is_html is true', () => {
+    const result = buildSMTPString(mockMailDataHTML);
+    
+    expect(result).toContain('Content-Type: text/html;');
+    expect(result).not.toContain('Content-Type: text/plain;');
+    expect(result).toContain(mockMailDataHTML.body_text);
+  });
+
+  it('should use text/plain when is_html is false', () => {
+    const result = buildSMTPString(mockMailDataNoHTML);
+    
+    expect(result).toContain('Content-Type: text/plain;');
+    expect(result).not.toContain('Content-Type: text/html;');
+  });
+
+  it('should generate and use a consistent boundary', () => {
+    const result = buildSMTPString(mockMailDataHTML);
+    
+    const boundaryMatch = result.match(/boundary="([^"]+)"/);
+    const boundary = boundaryMatch ? boundaryMatch[1] : null;
+
+    expect(boundary).not.toBeNull();
+  });
 })

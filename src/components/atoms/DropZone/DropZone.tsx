@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import styles from './DropZone.module.scss';
 import type { DropZoneProps } from './DropZone.types';
+import Typography from '../Typography/Typography';
 
 const DropZone: React.FC<DropZoneProps> = ({ label, accept=".eml,text/plain", handleFiles, additionalClasses}) => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -9,7 +10,9 @@ const DropZone: React.FC<DropZoneProps> = ({ label, accept=".eml,text/plain", ha
   };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) handleFiles(e.target.files);
+    if (e.target.files) {
+      handleFiles(e.target.files);
+    }
   };
 
   return (
@@ -25,9 +28,9 @@ const DropZone: React.FC<DropZoneProps> = ({ label, accept=".eml,text/plain", ha
         onChange={handleFileInput}
         id="fileInput"
       />
-      <label htmlFor="fileInput" className={styles["c-dropzone__label"]}>
+      <Typography as="label" htmlFor="fileInput" className={styles["c-dropzone__label"]}>
         {label}
-      </label>
+      </Typography>
     </div>
   );
 };

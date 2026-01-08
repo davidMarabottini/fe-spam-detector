@@ -14,6 +14,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     OKIcon=Check,
     KOIcon=X,
     IndeterminatedIcon=BadgeQuestionMark,
+    dataTestid,
     ...props
   }, externalRef) => {
     const realValue = allowIndeterminate ? value : !!value
@@ -57,7 +58,9 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             [styles['c-switch--checked']]: isChecked,
             [styles['c-switch--indeterminate']]: isIndeterminate
           }, additionalClassName)
-        }>
+        }
+        data-testid={dataTestid}
+        >
           <input
             type="checkbox"
             ref={setRefs}

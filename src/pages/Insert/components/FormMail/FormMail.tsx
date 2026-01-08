@@ -9,7 +9,7 @@ import { VALIDATIONS_EMAIL } from "@constants/validations";
 import DropZone from "@components/atoms/DropZone/DropZone";
 import { parseEMLtoMailFormData } from "@utils/mailParse";
 import { buildSMTPString } from "@utils/formatEmail";
-import type { TFormFinalType } from "../../Insert.types";
+import type { IFormFinalType } from "../../Insert.types";
 import Typography from "@components/atoms/Typography/Typography";
 import { useInsertMail } from "@hooks/useMineMailsHooks";
 import { useMineDetails } from "@hooks/useAuthenticationHooks";
@@ -35,12 +35,12 @@ export const FormMail = () => {
   }
   return (
     <div>
-      <Form<TFormFinalType>
+      <Form<IFormFinalType>
         className={styles["p-insert__form"]}
         onSubmit={
           ({language, isSpam, ...rest}) => {
             if(userId){
-              const mail = buildSMTPString(rest as TFormFinalType)
+              const mail = buildSMTPString(rest as IFormFinalType)
               mutate({ userId, language, isSpam, mail })
             }
           }

@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 
 export type SwitchValue = boolean | null;
 
-export type SwitchProps = {
+export interface SwitchProps  {
   label?: string;
   value?: SwitchValue;
   onChange: (value: SwitchValue) => void;
@@ -15,4 +15,5 @@ export type SwitchProps = {
   OKIcon?: LucideIcon
   KOIcon?: LucideIcon
   IndeterminatedIcon?: LucideIcon
+  dataTestid?: string
 }

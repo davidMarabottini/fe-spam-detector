@@ -1,12 +1,6 @@
-type MailFormData = {
-  from_name: string
-  from_mail: string
-  to: string
-  subject: string
-  is_html: boolean
-  body_text: string
-}
-export function buildSMTPString(formData: MailFormData): string {
+import type { IMailFormData } from "@/types/mailFormDatas.types";
+
+export function buildSMTPString(formData: IMailFormData): string {
   const boundary = `--${Math.random().toString(36).slice(2)}`;
 
   const headers = [

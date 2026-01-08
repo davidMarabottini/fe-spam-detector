@@ -1,13 +1,6 @@
-export type MailFormData = {
-  from_name: string;
-  from_mail: string;
-  to: string;
-  subject: string;
-  is_html: boolean;
-  body_text: string;
-};
+import type { IMailFormData } from "@/types/mailFormDatas.types";
 
-export function parseEMLtoMailFormData(raw: string): MailFormData {
+export function parseEMLtoMailFormData(raw: string): IMailFormData {
   const lines = raw.split(/\r?\n/);
 
   const headers: Record<string, string> = {};

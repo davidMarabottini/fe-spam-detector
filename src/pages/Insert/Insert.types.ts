@@ -1,12 +1,9 @@
-export type TFormMail = {
+import type { IMailFormData } from "@/types/mailFormDatas.types"
+import type { MarkRequired } from "@/types/utilities.types"
+
+export interface IFormMail extends IMailFormData {
   language: string
   isSpam: 'ham' | 'spam' | undefined
-  subject: string
-  from_name: string
-  from_mail: string
-  to: string
-  body_text: string
-  is_html: boolean | null
 }
 
-export type TFormFinalType = TFormMail & {isSpam: 'ham' | 'spam', is_html: boolean}
+export type IFormFinalType = MarkRequired<IFormMail, 'isSpam' | 'is_html'>
