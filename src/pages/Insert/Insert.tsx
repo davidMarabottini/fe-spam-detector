@@ -6,6 +6,7 @@ import { useState } from "react";
 import FormSMS from "./components/FormSMS/FormSMS";
 import { FormMail } from "./components/FormMail/FormMail";
 import { BUTTON_PRESET } from "@/components/atoms/RadioBtn/presets/button.presets";
+import type { AvailableDomains } from "@/types/contentsFormDatas.types";
 
 const Insert = () => {
   const {t} = useTranslation()
@@ -14,7 +15,7 @@ const Insert = () => {
     {label: t(`common:domains.types.${value}`), value}
   ))
 
-  const [curForm, setCurForm] = useState<'sms' | 'mail' | ''>('');
+  const [curForm, setCurForm] = useState<AvailableDomains | ''>('');
 
   return (
     <Card additionalClassName={styles['p-insert']}>
@@ -22,7 +23,7 @@ const Insert = () => {
         name="type"
         options={options}
         className="l-grid__col l-grid__col--span-10"
-        onValueChange={(x) => {setCurForm(x as 'mail' | 'sms')}}
+        onValueChange={(x) => {setCurForm(x as AvailableDomains)}}
         {...BUTTON_PRESET}
       />
       {curForm === 'mail' && <FormMail />}

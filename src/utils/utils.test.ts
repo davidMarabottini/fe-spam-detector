@@ -5,7 +5,7 @@ import { generateMockJWT, getDecodedToken } from './jwt';
 import { calculatePerc } from "./numbers";
 import { setRequiredField } from "./string";
 import { buildSMTPString } from "./formatEmail";
-import type { IMailFormData } from "@/types/mailFormDatas.types";
+import type { IMailFormData } from "@/types/contentsFormDatas.types";
 import { parseEMLtoMailFormData } from "./mailParse";
 
 describe('isNullable Utility Function', () => {

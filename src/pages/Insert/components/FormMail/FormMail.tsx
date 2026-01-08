@@ -9,20 +9,42 @@ import { VALIDATIONS_EMAIL } from "@constants/validations";
 import DropZone from "@components/atoms/DropZone/DropZone";
 import { parseEMLtoMailFormData } from "@utils/mailParse";
 import { buildSMTPString } from "@utils/formatEmail";
-import type { IFormFinalType } from "../../Insert.types";
+import type { IFormMailFinalType } from "../../Insert.types";
 import Typography from "@components/atoms/Typography/Typography";
-import { useInsertMail } from "@hooks/useMineMailsHooks";
+import { useInsertContent } from "@/hooks/useMineContentsHoks";
 import { useMineDetails } from "@hooks/useAuthenticationHooks";
 import { useToast } from "@/hooks/useToast";
+import type { FormProperties } from "@/components/organisms/form/Form.types";
 
 export const FormMail = () => {
-  const {mutate} = useInsertMail()
+  const {mutate} = useInsertContent('mail')
   const {classBase, ...iconPresetRest} = ICON_PRESET;
   const {t} = useTranslation(["insert"])
   const { data: mineDetails } = useMineDetails();
   const { addToast } = useToast();
 
   const {id: userId} = mineDetails || {id: undefined};
+
+  const initialValues = {
+    language: "",
+    isSpam: null,
+    subject: "",
+    from_name: "",
+    from_mail: "",
+    to: "",
+    body_text: "",
+  }
+
+  const submitHandler = (
+    {language, isSpam, ...rest}: IFormMailFinalType,
+    {reset}:FormProperties<IFormMailFinalType>
+  ) => {
+    if(userId){
+      const mail = buildSMTPString(rest as IFormMailFinalType)
+      mutate({ userId, language, isSpam, content: mail, type: 'mail' })
+      reset(initialValues)
+    }
+  }
 
   const handleFiles = async (files: FileList, reset: (x: object) => void) => {
     const file = files[0];
@@ -41,27 +63,9 @@ export const FormMail = () => {
   }
   return (
     <div>
-      <Form<IFormFinalType>
+      <Form<IFormMailFinalType>
         className={styles["p-insert__form"]}
-        onSubmit={
-          ({language, isSpam, ...rest}, {reset}) => {
-            if(userId){
-              const mail = buildSMTPString(rest as IFormFinalType)
-              mutate({ userId, language, isSpam, mail })
-
-              reset({
-                language: "",
-                isSpam: null,
-                subject: "",
-                from_name: "",
-                from_mail: "",
-                to: "",
-                body_text: "",
-              })
-              
-            }
-          }
-        }
+        onSubmit={submitHandler}
       >
         {({reset}) => {
           return (

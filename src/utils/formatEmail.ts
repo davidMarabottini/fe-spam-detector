@@ -1,4 +1,4 @@
-import type { IMailFormData } from "@/types/mailFormDatas.types";
+import type { IMailFormData } from "@/types/contentsFormDatas.types";
 
 export function buildSMTPString(formData: IMailFormData): string {
   const boundary = `--${Math.random().toString(36).slice(2)}`;

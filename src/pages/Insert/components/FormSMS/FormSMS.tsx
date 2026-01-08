@@ -5,15 +5,39 @@ import clsx from "clsx"
 import styles from "../../Insert.module.scss"
 import { useTranslation } from "react-i18next";
 import { spamOptions } from "../../constants";
+import type { IFormSMSFinalType } from "../../Insert.types";
+import type { FormProperties } from "@/components/organisms/form/Form.types";
+import { useMineDetails } from "@/hooks/useAuthenticationHooks";
+import { useInsertContent } from "@/hooks/useMineContentsHoks";
 
 const FormSMS = () => {
+  const {mutate} = useInsertContent('sms')
   const {classBase, ...iconPresetRest} = ICON_PRESET;
   const {t} = useTranslation(["insert"])
+  const { data: mineDetails } = useMineDetails();
+
+  const {id: userId} = mineDetails || {id: undefined};
+
+  const initialValues = {
+    language: "",
+    isSpam: null,
+    text: "",
+  }
+
+  const submitHandler = (
+      {language, isSpam, text: sms}: IFormSMSFinalType,
+      {reset}:FormProperties<IFormSMSFinalType>
+    ) => {
+      if(userId){
+        mutate({ userId, language, isSpam, content: sms, type: 'sms' })
+        reset(initialValues)
+      }
+    }
 
   return (
     <Form
       className={styles["p-insert__form"]}
-      onSubmit={console.log}
+      onSubmit={submitHandler}
     >
       <div className="l-grid">
         <Form.Select

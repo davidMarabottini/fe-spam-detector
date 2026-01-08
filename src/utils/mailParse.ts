@@ -1,4 +1,4 @@
-import type { IMailFormData } from "@/types/mailFormDatas.types";
+import type { IMailFormData } from "@/types/contentsFormDatas.types";
 
 export function parseEMLtoMailFormData(raw: string): IMailFormData {
   const lines = raw.split(/\r?\n/);
