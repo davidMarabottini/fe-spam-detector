@@ -7,6 +7,7 @@ import styles from './layouts.module.scss';
 import { useTranslation } from "react-i18next";
 import Card from "@/components/atoms/Card/Card";
 import { ToastContainer } from "@/components/organisms/Toast/ToastContainer";
+import clsx from "clsx";
 
 export const PrivateLayout = () => {
   const matches = useMatches();
@@ -20,7 +21,7 @@ export const PrivateLayout = () => {
   return (
     <div className="l-main-layout">
       <Header logout={logout} userDetails={user}/>
-      <main className="l-container l-content-section">
+      <main className={clsx(styles['cl-layout__main'], "l-container l-content-section")}>
         <Card additionalClassName={styles['cl-layout__card-title']}>
           <Typography as="h2" variant="h2" additionalClasses={styles['cl-layout__title']}>
            {t(label)}

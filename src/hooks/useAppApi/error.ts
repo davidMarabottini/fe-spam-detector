@@ -6,18 +6,29 @@ export type AppError = {
   message: string;
 }
 
+const kinds = {
+  401: 'UNAUTHORIZED',
+  500: 'SERVER',
+  'default': 'UNKNOWN',
+} as const;
+
+type KindKey = keyof typeof kinds;
+
+const isKindNr = (status: number): status is Extract<KindKey, number> => status in kinds;
+
 export const normalizeError = (error: unknown): AppError => {
   if(!error) return {kind: 'UNKNOWN', message: 'Unknown error'};
 
   if((error as AxiosError).isAxiosError) {
-    const e = error as AxiosError;
-    const status = e.response?.status;
+    const {response, message} = error as AxiosError;
+    const status = response?.status;
+    
+    if (!status) return { kind: 'NETWORK', message };
 
-    if (status === 401) return { kind: 'UNAUTHORIZED', status, message: e.message };
-    if (status === 500) return { kind: 'SERVER', status, message: e.message };
-    if (!status) return { kind: 'NETWORK', message: e.message };
+    const kind = isKindNr(status) ? kinds[status] : kinds.default;
 
-    return { kind: 'UNKNOWN', status, message: e.message };
+    return { kind, status, message }
   }
-  return { kind: 'UNKNOWN', message: (error as Error)?.message || 'Unknown error' };
+
+  return { kind: kinds.default, message: (error as Error)?.message || 'Unknown error' };
 }
