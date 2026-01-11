@@ -1,9 +1,10 @@
 import type { RegistrationData } from "@/pages/Registration/Registration.types";
 import apiClient from "../api/apiClient";
 import { MOCK_PATH } from "@/constants/api";
+import type { AvailableStatusesType } from "@/types/contentsFormDatas.types";
 
 export interface RegistrationResult {
-    status: "success" | "failure";
+    status: AvailableStatusesType;
     "id": number,
     message: string
 }

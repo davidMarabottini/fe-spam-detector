@@ -5,12 +5,14 @@ import { Trans, useTranslation } from 'react-i18next';
 import Form from '@components/organisms/form/Form';
 import Stack from '@components/atoms/Stack/Stack';
 import type { RegistrationForm } from './Registration.types';
-import { useInsertUser } from '@hooks/useUserHooks';
+import { useInsertUser } from '@/hooks/api/useUserHooks';
 import { VALIDATIONS_EMAIL } from '@constants/validations';
 import { ROUTES } from '@constants/routes';
 import Typography from '@components/atoms/Typography/Typography';
-import { Check, X, Mars, Venus, Transgender } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { ICON_PRESET } from '@/components/atoms/RadioBtn/presets/icon.presets';
+import { useOptions } from '@/hooks/useOptions';
+import type { AvailableGendersType } from '@/types/contentsFormDatas.types';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -25,18 +27,14 @@ const Registration = () => {
     name: '',
     surname: '',
     // birthday: '',
-    gender: '' as 'M' | 'F' | '',
+    gender: 'O' as AvailableGendersType,
     username: '',
     password: '',
   }
 
   const {classBase, ...iconPresetRest} = ICON_PRESET;
 
-  const options = [
-    {label: t('form.gender.options.male'), Icon: Mars, value: 'M'},
-    {label: t('form.gender.options.female'), Icon: Venus, value: 'F'},
-    {label: t('form.gender.options.other'), Icon: Transgender, value: ''}
-  ]
+  const { gender } = useOptions()
 
   const btnClass = clsx(styles['p-registration__button'], "l-grid__col l-grid__col--span-6");
 
@@ -69,7 +67,7 @@ const Registration = () => {
                 className={clsx(classBase, "l-grid__col l-grid__col--span-6")}
                 rules={{ required: t('form.gender.error.required') }}
                 gap="lg"
-                options={options}
+                options={gender}
                 {...iconPresetRest}
               />
               <Form.Input

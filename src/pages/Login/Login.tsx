@@ -5,7 +5,7 @@ import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
 import { Trans, useTranslation } from 'react-i18next';
-import { useLogin } from '@hooks/useAuthenticationHooks';
+import { useLogin } from '@/hooks/api/useAuthenticationHooks';
 import Form from '@components/organisms/form/Form';
 import Stack from '@components/atoms/Stack/Stack';
 import { ROUTES } from '@constants/routes';

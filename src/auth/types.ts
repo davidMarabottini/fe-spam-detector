@@ -1,16 +1,18 @@
+import type { AvailableGendersType, AvailableRolesType, AvailableStatusesType } from "@/types/contentsFormDatas.types";
+
 export type UserProfile = string;
 
 export interface AuthContextType {
   user?: string;
   id?: number;
-  role?: ('user' | 'admin')[]
+  role?: AvailableRolesType[]
   isAuthenticated?: boolean;
   isLoading: boolean;
 }
 
 export type decodedToken = {
   user: string;
-  role: 'admin';
+  role: AvailableRolesType;
   created: string;
   exp: number;
   iat: number
@@ -18,15 +20,15 @@ export type decodedToken = {
 
 export type UserDetails = {
   email: string
-  gender: 'M' | 'F' | ''
+  gender: AvailableGendersType
   id: number
   name: string
-  roles: ("admin" | "user")[]
+  roles: AvailableRolesType[]
   surname: string
   username: string
 }
 
 export type UpdateResponse = {
-  status: "success" | "failure"
+  status: AvailableStatusesType
   user: UserDetails
 }

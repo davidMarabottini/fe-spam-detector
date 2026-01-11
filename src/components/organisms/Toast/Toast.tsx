@@ -2,13 +2,14 @@ import { useState, useCallback } from "react";
 import type { IToastItem, IToastProviderProps } from "./Toast.types";
 import { ToastContext } from "./Toast.context";
 import ToastItem from "./ToastItem";
+import type { AvailableStatusesType } from "@/types/contentsFormDatas.types";
 
 
 
 export const ToastProvider = ({ children }: IToastProviderProps) => {
   const [toasts, setToasts] = useState<IToastItem[]>([]);
 
-  const addToast = useCallback((msg: string, type: 'success' | 'failure') => {
+  const addToast = useCallback((msg: string, type: AvailableStatusesType) => {
     const id = Date.now();
     
     setToasts((prev) => [...prev, { id, msg, type }]);

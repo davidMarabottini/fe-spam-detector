@@ -1,7 +1,8 @@
+import type { AvailableStatusesType } from "@/types/contentsFormDatas.types";
 import type { ReactNode } from "react";
 
 export interface IToastContext {
-  addToast: (msg: string, type: 'success' | 'failure') => void;
+  addToast: (msg: string, type: AvailableStatusesType) => void;
   toasts: IToastItem[];
 }
 
@@ -12,5 +13,5 @@ export interface IToastProviderProps {
 export interface IToastItem {
   id: number;
   msg: string;
-  type: 'success' | 'failure';
+  type: AvailableStatusesType;
 }

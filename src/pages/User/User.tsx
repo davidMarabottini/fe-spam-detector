@@ -1,15 +1,16 @@
 import Card from "@components/atoms/Card/Card";
 import styles from './User.module.scss';
-import { useMineDetails, useUpdateMineDetails } from "@hooks/useAuthenticationHooks";
+import { useMineDetails, useUpdateMineDetails } from "@/hooks/api/useAuthenticationHooks";
 import Typography from "@components/atoms/Typography/Typography";
 import Form from "@components/organisms/form/Form";
 import Stack from "@components/atoms/Stack/Stack";
 import { useTranslation } from "react-i18next";
-import { Check, X, Save, Mars, Venus, Transgender } from "lucide-react";
+import { Check, X, Save } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
 import type { UserForm } from "./User.types";
 import { ICON_PRESET } from "@/components/atoms/RadioBtn/presets/icon.presets";
+import { useOptions } from "@/hooks/useOptions";
 const User = () => {
   const {classBase, ...iconPresetRest} = ICON_PRESET;
   const {data, isLoading, error} = useMineDetails()
@@ -18,12 +19,7 @@ const User = () => {
   const [formDisabled, setFormDisabled] = useState(true);
   const {mutate: updateUser} = useUpdateMineDetails();
 
-
-  const options = [
-    {label: t('form.gender.options.male'), Icon: Mars, value: 'M'},
-    {label: t('form.gender.options.female'), Icon: Venus, value: 'F'},
-    {label: t('form.gender.options.other'), Icon: Transgender, value: ''}
-  ]
+  const {gender} = useOptions();
 
   if(isLoading) {
     return <div>Loading ...</div>
@@ -58,7 +54,7 @@ const User = () => {
                 className={clsx(classBase, "l-grid__col l-grid__col--span-6")}
                 rules={{ required: t('form.gender.error.required') }}
                 gap="lg"
-                options={options}
+                options={gender}
                 disabled={formDisabled}
                 {...iconPresetRest}
               />

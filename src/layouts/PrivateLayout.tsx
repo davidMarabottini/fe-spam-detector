@@ -1,7 +1,7 @@
 import Header from "@components/organisms/Header/Header";
 import { useAuth } from "../auth/useAuth";
 import { Outlet, useMatches } from 'react-router-dom';
-import { useLogout } from "@hooks/useAuthenticationHooks";
+import { useLogout } from "@/hooks/api/useAuthenticationHooks";
 import Typography from "@/components/atoms/Typography/Typography";
 import styles from './layouts.module.scss';
 import { useTranslation } from "react-i18next";

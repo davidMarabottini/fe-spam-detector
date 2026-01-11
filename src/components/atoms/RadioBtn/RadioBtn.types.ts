@@ -3,7 +3,7 @@ export interface RadioOptionBase {
   value: string;
 }
 
-export interface RadioGroupProps<RadioOption extends RadioOptionBase = RadioOptionBase> {
+export interface RadioBtnProps<RadioOption extends RadioOptionBase = RadioOptionBase> {
   options: RadioOption[];
   name?: string;
   label?: string;

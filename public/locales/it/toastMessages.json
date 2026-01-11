@@ -13,5 +13,25 @@
       "401": "Non hai i permessi per inserire questo SMS",
       "500": "Errore del server"
     }
+  },
+  "analyze": {
+    "mail": {
+      "success": "Mail analizzata",
+      "401": "Non hai i permessi per analizzare questa mail",
+      "500": "Errore del server"
+    },
+    "sms": {
+      "success": "SMS analizzato",
+      "401": "Non hai i permessi per analizzare questo SMS",
+      "500": "Errore del server"
+    }
+  },
+  "updateUser": {
+    "success": "Dati personali modificati correttamente",
+    "401": "Non hai i permessi per modificare i tuoi dati",
+    "500": "Errore del server"
+  },
+  "logout": {
+    "success": "Logout avvenuto con successo"
   }
 }

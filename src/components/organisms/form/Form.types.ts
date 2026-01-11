@@ -3,7 +3,7 @@ import type { UseFormReturn, FieldValues, Path, DefaultValues, RegisterOptions }
 import type { ButtonProps } from "../../atoms/Button/Button.types";
 import type { InputProps } from "../../atoms/Input/Input.types";
 import type { TextAreaProps } from "../../atoms/TextArea/TextArea.types";
-import type { RadioGroupProps, RadioOptionBase } from "../../atoms/RadioBtn/RadioBtn.types";
+import type { RadioBtnProps, RadioOptionBase } from "../../atoms/RadioBtn/RadioBtn.types";
 import type { SelectProps } from "../../molecules/Select/Select.types";
 import type { SwitchProps } from "@/components/atoms/Switch/Switch.types";
 
@@ -11,35 +11,23 @@ type FormBase = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'on
 
 export interface FormProperties<T extends FieldValues> extends FormBase {
   children: ReactNode | ((methods: UseFormReturn<T>) => ReactNode);
-  onSubmit: (data: T, methods?: UseFormReturn<T>) => void;
+  onSubmit: (data: T, methods: UseFormReturn<T>) => void;
   defaultValues?: DefaultValues<T>;
   noValidate?: boolean;
 }
 
-export interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'placeholder'> {
-  name: Path<T>;
-  rules?: RegisterOptions<T, Path<T>>;
-}
-
-export interface FormTextAreaProps<T extends FieldValues> extends Omit<TextAreaProps, 'placeholder'> {
-  name: Path<T>;
-  rules?: RegisterOptions<T, Path<T>>;
-}
-
-export interface FormRadioBtnProps<T extends FieldValues, RadioOption extends RadioOptionBase> extends Omit<RadioGroupProps<RadioOption>, 'placeholder'> {
-  name: Path<T>;
-  rules?: RegisterOptions<T, Path<T>>;
-}
-
-export interface FormSelectProps<T extends FieldValues> extends Omit<SelectProps, 'placeholder'> {
+interface FormBaseElements<T extends FieldValues> {
   name: Path<T>;
   rules?: RegisterOptions<T, Path<T>>;
 }
 
 
-export interface FormSwitchProps<T extends FieldValues> extends Omit<SwitchProps, 'onChange'> {
-  name: Path<T>;
-  rules?: RegisterOptions<T, Path<T>>;
+export interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 'placeholder' | 'name'>, FormBaseElements<T> {};
+export interface FormTextAreaProps<T extends FieldValues> extends Omit<TextAreaProps, 'placeholder' | 'name'>, FormBaseElements<T> {}
+export interface FormRadioBtnProps<T extends FieldValues, RadioOption extends RadioOptionBase> extends Omit<RadioBtnProps<RadioOption>, 'placeholder' | 'name'>, FormBaseElements<T> {}
+export interface FormSelectProps<T extends FieldValues> extends Omit<SelectProps, 'placeholder' | 'name'>, FormBaseElements<T> {}
+
+export interface FormSwitchProps<T extends FieldValues> extends Omit<SwitchProps, 'onChange' | 'name'>, FormBaseElements<T> {
   onChange?: (value: SwitchProps) => void;
 }
 

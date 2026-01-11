@@ -1,32 +1,26 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as authService from '@/api/authService';
 import { ROUTES } from '@/constants/routes';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from './useToast';
-import type { AxiosError } from 'axios';
-import { useTranslation } from 'react-i18next';
+import { useAppMutation } from '../useAppApi/useAppMutation';
+import { useAppQuery } from '../useAppApi/useAppQuery';
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const {t} = useTranslation("toastMessages")
-  const {addToast} = useToast();
-  
-  return useMutation({
+
+  return useAppMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
-    onError: (e: AxiosError) => {
-      switch(e.status) {
-        case 401:
-          return addToast(t('Login.wrong_user_password'), 'failure')
-        default:
-          return addToast(e.message, 'failure')
-      }
+    errorMap: {
+      401: 'login.401',
+      500: 'login.500',
+      default: 'login.defaultError'
     }
   });
-};
+}
 
 export const useMe = () => {
   return useQuery({
@@ -37,35 +31,48 @@ export const useMe = () => {
   });
 };
 
-export const useMineDetails = () => {
-  return useQuery({
+export const useMineDetails = () =>
+  useAppQuery({
     queryKey: ['mineDetails'],
-    queryFn: () => authService.getMineDetails(),
-
-  });
-};
+    queryFn: authService.getMineDetails,
+    errorMap: {
+      401: `mineDetails.401`,
+      500: `mineDetails.500`,
+      default: 'mineDetails.defaultError',
+    }
+  })
 
 export const useUpdateMineDetails = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useAppMutation({
     mutationFn: authService.updateMineDetails,
-    onSuccess: (updatedData) => {
+    onSuccess: updatedData => {
       queryClient.setQueryData(['mineDetails'], updatedData.user);
     },
-  });
-};
+    successKey: 'updateUser.success',
+    errorMap: {
+      401: 'updateUser.401',
+      500: 'updateUser.500',
+      default: 'updateUser.default'
+    },
+  })
+}
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  return useMutation({
+  return useAppMutation({
     mutationFn: authService.logout,
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.clear(); 
       navigate(ROUTES.LOGIN, { replace: true });
     },
-  });
-};
+    successKey: 'logout.success',
+    errorMap: {
+      default: 'logout.error'
+    }
+  })
+}

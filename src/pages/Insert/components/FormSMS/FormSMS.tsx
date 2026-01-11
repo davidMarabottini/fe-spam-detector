@@ -4,11 +4,11 @@ import { LANGUAGES } from "@constants/languages"
 import clsx from "clsx"
 import styles from "../../Insert.module.scss"
 import { useTranslation } from "react-i18next";
-import { spamOptions } from "../../constants";
 import type { IFormSMSFinalType } from "../../Insert.types";
 import type { FormProperties } from "@/components/organisms/form/Form.types";
-import { useMineDetails } from "@/hooks/useAuthenticationHooks";
-import { useInsertContent } from "@/hooks/useMineContentsHoks";
+import { useMineDetails } from "@/hooks/api/useAuthenticationHooks";
+import { useInsertContent } from "@/hooks/api/useMineContentsHoks";
+import { useOptions } from "@/hooks/useOptions";
 
 const FormSMS = () => {
   const {mutate} = useInsertContent('sms')
@@ -33,6 +33,8 @@ const FormSMS = () => {
         reset(initialValues)
       }
     }
+  
+    const {outcomes} = useOptions()
 
   return (
     <Form
@@ -52,7 +54,7 @@ const FormSMS = () => {
           className ={clsx(classBase, "l-grid__col l-grid__col--span-2")}
           rules={{ required: t('formSMS.isSpam.error.required') }}
           gap="lg"
-          options={spamOptions}
+          options={outcomes}
           {...iconPresetRest}
         />
 
