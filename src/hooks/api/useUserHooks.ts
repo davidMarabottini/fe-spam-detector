@@ -1,6 +1,9 @@
 import { useQueryClient, useQuery } from '@tanstack/react-query';
 import * as userService from '@/api/userService';
 import { useAppMutation } from '../useAppApi/useAppMutation';
+import { ERROR_KINDS } from '../useAppApi/error';
+
+const domain = 'me';
 
 export const useInsertUser = () => {
   const queryClient = useQueryClient();
@@ -10,12 +13,13 @@ export const useInsertUser = () => {
     onSuccess: data => {
       queryClient.setQueryData(['result'], data)
     },
-    successKey: 'insertUser.success',
+    successKey: `${domain}.insert.success`,
     errorMap: {
-      401: `insertUser.401`,
-      500: `insertUser.500`,
-      default: 'insertUser.defaultError',
-    }
+      [ERROR_KINDS.UNAUTHORIZED]: `${domain}.insert.401`,
+      [ERROR_KINDS.SERVER]: `${domain}.insert.500`,
+      [ERROR_KINDS.NETWORK]: `${domain}.insert.network`,
+      [ERROR_KINDS.UNKNOWN]: `${domain}.insert.defaultError`
+    },
   })
 }
 

@@ -1,9 +1,9 @@
 import type { AvailableStatusesType } from "@/types/contentsFormDatas.types";
-import type { AppError } from "./error";
+import { ERROR_KINDS, type AppError } from "./error";
 
 export type ToastOptions = {
   successKey?: string;
-  errorMap?: Record<number | 'default', string>;
+  errorMap?: Partial<Record<keyof typeof ERROR_KINDS, string>>;
 };
 
 export const handleToast = (
@@ -19,6 +19,7 @@ export const handleToast = (
     return;
   }
 
-  const key = (error.status && options.errorMap?.[error.status]) ?? options.errorMap?.default;
+  const key = options.errorMap?.[error.kind] ?? ERROR_KINDS.UNKNOWN;
+
   addToast(key ? t(key) : error.message, 'failure');
-}
+};
