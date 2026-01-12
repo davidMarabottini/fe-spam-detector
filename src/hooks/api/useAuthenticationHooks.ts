@@ -79,7 +79,7 @@ export const useUpdateMineDetails = () => {
     onSuccess: updatedData => {
       queryClient.setQueryData(['mineDetails'], updatedData.user);
     },
-    successKey: 'update.success',
+    successKey: `${meDomain}.update.success`,
     errorMap: {
       [ERROR_KINDS.UNAUTHORIZED]: `${meDomain}.update.401`,
       [ERROR_KINDS.SERVER]: `${meDomain}.update.500`,
