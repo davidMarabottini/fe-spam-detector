@@ -1,9 +1,9 @@
-import type { AvailableOutcomes, IMailFormData, ISMSFormData } from "@/types/contentsFormDatas.types"
+import type { AvailableOutcomesType, IMailFormData, ISMSFormData } from "@/types/contentsFormDatas.types"
 import type { MarkRequired } from "@/types/utilities.types"
 
 export interface IExternalForm {
   language: string
-  isSpam: AvailableOutcomes | undefined
+  isSpam: AvailableOutcomesType | null
 }
 
 export interface IFormMail extends IMailFormData, IExternalForm {}

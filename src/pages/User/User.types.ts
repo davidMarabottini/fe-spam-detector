@@ -1,8 +1,10 @@
+import type { AvailableGendersType } from "@/types/contentsFormDatas.types"
+
 export type UserForm = {
   name: string
   surname: string
   // birthday?: string
-  gender: 'M' | 'F' | ''
+  gender: AvailableGendersType
   username: string
   email: string
 }

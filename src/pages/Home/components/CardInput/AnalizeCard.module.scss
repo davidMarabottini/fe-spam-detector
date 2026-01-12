@@ -1,7 +1,10 @@
 .c-card-input {
-  display: flex;
-  flex-direction: column;
-  gap: $space-md;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    padding-top: $space-lg
+  }
 
   &__btn-group {
     display: flex;

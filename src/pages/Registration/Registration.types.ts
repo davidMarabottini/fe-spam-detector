@@ -1,8 +1,10 @@
+import type { AvailableGendersType } from "@/types/contentsFormDatas.types";
+
 export type RegistrationData = {
   name?: string
   surname?: string
   // birthday?: string
-  gender?: 'M' | 'F' | ''
+  gender?: AvailableGendersType
   username?: string
   password?: string
 };
@@ -10,7 +12,7 @@ export type RegistrationData = {
 export type RegistrationForm = {
   name: string
   surname: string
-  gender: 'M' | 'F' | ''
+  gender: AvailableGendersType
   email: string
   username: string
   password: string

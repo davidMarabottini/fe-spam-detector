@@ -1,29 +1,26 @@
 import Card from "@/components/atoms/Card/Card";
 import styles from './Insert.module.scss';
-import { useTranslation } from "react-i18next";
-import RadioGroup from "@/components/atoms/RadioBtn/RadioBtn";
+import RadioBtn from "@/components/atoms/RadioBtn/RadioBtn";
 import { useState } from "react";
 import FormSMS from "./components/FormSMS/FormSMS";
 import { FormMail } from "./components/FormMail/FormMail";
 import { BUTTON_PRESET } from "@/components/atoms/RadioBtn/presets/button.presets";
-import type { AvailableDomains } from "@/types/contentsFormDatas.types";
+import type { AvailableDomainsType } from "@/types/contentsFormDatas.types";
+import { useOptions } from "@/hooks/useOptions";
 
 const Insert = () => {
-  const {t} = useTranslation()
-  const domains = ['mail', 'sms'];
-  const options = domains.map(value => (
-    {label: t(`common:domains.types.${value}`), value}
-  ))
+  const {domains} = useOptions();
 
-  const [curForm, setCurForm] = useState<AvailableDomains | ''>('');
+  const [curForm, setCurForm] = useState<AvailableDomainsType>('mail');
 
   return (
     <Card additionalClassName={styles['p-insert']}>
-      <RadioGroup
+      <RadioBtn
         name="type"
-        options={options}
+        options={domains}
         className="l-grid__col l-grid__col--span-10"
-        onValueChange={(x) => {setCurForm(x as AvailableDomains)}}
+        onValueChange={(x) => {setCurForm(x as AvailableDomainsType)}}
+        defaultValue={curForm}
         {...BUTTON_PRESET}
       />
       {curForm === 'mail' && <FormMail />}

@@ -5,7 +5,7 @@ import ResultCircle from "@/components/atoms/ResultCircle/ResultCircle"
 import { Mail, Smartphone } from 'lucide-react';
 import BadgeContainer from "./components/BadgeContainer/BadgeContainer"
 import HamSpamTable from "./components/HamSpamTable/HamSpamTable"
-import { useUserStatus } from "@/hooks/useUserHooks"
+import { useUserStatus } from "@/hooks/api/useUserHooks"
 import { useTranslation } from "react-i18next"
 import Typography from "@/components/atoms/Typography/Typography"
 

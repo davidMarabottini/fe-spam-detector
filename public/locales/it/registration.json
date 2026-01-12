@@ -21,15 +21,9 @@
     },
     "gender": {
       "label": "Genere:",
-      "options": {
-        "male": "Maschio",
-        "female": "Femmina",
-        "other": "Altro"
-      },
       "error": {
         "required": "Genere Richiesto"
-      },
-      "possibilities": ["Maschio", "Femmina", "Altro"]
+      }
     },
     "email": {
       "label": "Email",

@@ -1,15 +1,15 @@
-import type { AvailableDomains, AvailableOutcomes } from "@/types/contentsFormDatas.types";
+import type { AvailableDomainsType, AvailableOutcomesType } from "@/types/contentsFormDatas.types";
 import apiClient from "../api/apiClient";
 
 export interface AnalyzeSpamResult {
     "input_text": string,
-    "model_used": AvailableDomains,
-    "prediction": AvailableOutcomes,
+    "model_used": AvailableDomainsType,
+    "prediction": AvailableOutcomesType,
     "probability_spam": number,
     "status": string
 }
 export const predictSpam = async (
-  type: AvailableDomains,
+  type: AvailableDomainsType,
   text: string
 ): Promise<AnalyzeSpamResult> => {
   const { data } = await apiClient.post(

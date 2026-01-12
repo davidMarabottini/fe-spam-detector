@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { AuthContext } from './authContext';
-import { useMe } from '@/hooks/useAuthenticationHooks';
+import { useMe } from '@/hooks/api/useAuthenticationHooks';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data, isLoading } = useMe(); 

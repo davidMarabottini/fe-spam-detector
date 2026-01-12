@@ -1,11 +1,11 @@
 import { forwardRef, useId, useState, type JSX } from "react";
-import type { RadioGroupProps, RadioOptionBase } from "./RadioBtn.types";
+import type { RadioBtnProps, RadioOptionBase } from "./RadioBtn.types";
 import styles from './RadioBtn.module.scss';
 import clsx from "clsx";
 import Typography from "../Typography/Typography";
 
 
-const RadioGroup = forwardRef(
+const RadioBtn = forwardRef(
   <T extends RadioOptionBase>(
     {
       options,
@@ -22,7 +22,7 @@ const RadioGroup = forwardRef(
       gap,
       disabled,
       ...props
-    }: RadioGroupProps<T>,
+    }: RadioBtnProps<T>,
     ref: React.ForwardedRef<HTMLDivElement>
   ) => {
     const [curValue, setCurValue] = useState<string | undefined>(defaultValue);
@@ -73,8 +73,8 @@ const RadioGroup = forwardRef(
     );
   }
 ) as <T extends RadioOptionBase>(
-  props: RadioGroupProps<T> & React.RefAttributes<HTMLDivElement>
+  props: RadioBtnProps<T> & React.RefAttributes<HTMLDivElement>
 ) => JSX.Element;
 
-// RadioGroup.displayName = "RadioGroup";
-export default RadioGroup;
+// RadioBtn.displayName = "RadioBtn";
+export default RadioBtn;

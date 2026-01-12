@@ -23,11 +23,6 @@
       "label": "Genere:",
       "error": {
         "required": "Genere Richiesto"
-      },
-      "options": {
-        "male": "Maschio",
-        "female": "Femmina",
-        "other": "Altro"
       }
     },
     "email": {
