@@ -11,12 +11,14 @@ const meDomain = 'me';
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useAppMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      navigate(ROUTES.HOME, { replace: true });
     },
     successKey: `${authDomain}.login.success`,
     errorMap: {

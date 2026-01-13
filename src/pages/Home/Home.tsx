@@ -1,20 +1,14 @@
-import clsx from "clsx";
-import styles from "./Home.module.scss";
-import {useAnalyzeSpam} from "@/hooks/api/useAnalyzeSpam";
-import CardInput from "./components/CardInput/CardInput";
-import CardResult from "./components/CardPrediction/CardPrediction";
+import Card from "@/components/atoms/Card/Card";
+import Typography from "@/components/atoms/Typography/Typography";
+import styles from './Home.module.scss';
 
 const Home = () => {
-  const analyzeSpamMutation = useAnalyzeSpam();
   return (
-    <div className={clsx(styles["p-home"], "l-grid")}>
-      <CardInput analyzeSpamMutation={analyzeSpamMutation} />
-      
-      {analyzeSpamMutation.isSuccess &&
-        <CardResult analyzeSpamMutation={analyzeSpamMutation} />
-      }
-    </div>
+    <Card additionalClassName={styles["p-home"]}>
+      <Typography as="h2">
+        Benvenuto nella home page
+      </Typography>
+    </Card>
   );
-};
-
+}
 export default Home;
