@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Typography from '@components/atoms/Typography/Typography';
 import styles from './SideMenu.module.scss';
-import { privateMenu, publicMenu } from '@constants/routes';
+import { privateMenu, publicOnlyMenu } from '@constants/routes';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '@components/atoms/Button/Button';
@@ -27,7 +27,7 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
 
       <ul className={styles['c-side-menu__list']}>
         {
-          (menuType === 'privateRoutes' ? privateMenu : publicMenu).map(({path, handle: {key, label, Icon}}) => (
+          (menuType === 'privateRoutes' ? privateMenu : publicOnlyMenu).map(({path, handle: {key, label, Icon}}) => (
             <Button key={key} onClick={() => itemClickHandler(path)} asChild color="custom">
               <li className={styles['c-side-menu__item']}>
                 <Typography 

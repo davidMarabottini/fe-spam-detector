@@ -10,12 +10,11 @@ createRoot(document.getElementById('root')!).render(
       domain="localhost:5173"
       clientId="CLIENT_ID"
       authorizationParams={{
-        redirect_uri: window.location.origin,
         audience: "localhost:5000",
         scope: "predict:sms predict:mail"
       }}
     >
-      <Suspense fallback={<div>Caricamento traduzioni...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <App />
       </Suspense>
     </Auth0Provider>

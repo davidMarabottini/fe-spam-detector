@@ -30,3 +30,9 @@ coverage/*
 storybook-static
 
 .env
+
+to_ignore/
+
+dist/
+*.tsbuildinfo
+.eslintcache
