@@ -1,0 +1,17 @@
+.c-user-menu {
+  &__chevron-opened {
+    transform: rotate(180deg);
+  }
+
+  &__user-info {
+    @include flex-center;
+    gap: $space-sm;
+    line-height: 1.2;
+  }
+
+   &__username {
+    font-weight: 600;
+    color: $color-text-main;
+    font-size: 1rem;
+  }
+}
