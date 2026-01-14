@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../auth/useAuth';
 import Card from '@components/atoms/Card/Card';
 import clsx from 'clsx';
 import styles from "./Login.module.scss";
@@ -12,24 +9,15 @@ import { ROUTES } from '@constants/routes';
 import Typography from '@/components/atoms/Typography/Typography';
 import { LogIn } from 'lucide-react';
 
-
 type LoginData = {username: string, password: string};
 
 const Login = () => {
-  const { user } = useAuth();
   const { mutate: login } = useLogin();
-  const navigate = useNavigate();
   const {t} = useTranslation('login');
 
   const onSubmit = (values: LoginData) => {
     login(values);
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate('/', { replace: true });
-    }
-  }, [user, navigate]);
 
   return (
     <div className={clsx(styles["p-login"], "l-grid")}>

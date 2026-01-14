@@ -42,22 +42,6 @@
     }
   }
 
-  &__user-info {
-    @include flex-center;
-    gap: $space-sm;
-    line-height: 1.2;
-  }
-  
-  &__chevron-opened {
-    transform: rotate(180deg);
-  }
-
-  &__username {
-    font-weight: 600;
-    color: $color-text-main;
-    font-size: 1rem;
-  }
-
   &__role {
     font-size: 0.75rem;
     color: $color-text-muted;

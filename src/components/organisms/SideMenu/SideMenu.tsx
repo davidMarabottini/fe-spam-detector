@@ -5,16 +5,30 @@ import { privateMenu, publicOnlyMenu } from '@constants/routes';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '@components/atoms/Button/Button';
+import { useAuth } from '@/auth/useAuth';
+import { useMemo } from 'react';
 
 
-export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClose: () => void, menuType: 'publicRoutes' | 'privateRoutes' }) => {
+export const SideMenu = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const {t} = useTranslation('menu');
   const navigate = useNavigate();
+  const {isAuthenticated} = useAuth();
 
   const itemClickHandler = (route: string) => {
     navigate(route, {replace: true});
     onClose()
   }
+
+  const menuItems = useMemo(() => {
+    const menu = isAuthenticated ? privateMenu : publicOnlyMenu;
+    
+    return menu.map(({ path, handle: { key, label, Icon } }) => ({
+      key,
+      label: t(label),
+      Icon,
+      path,
+    }));
+  }, [isAuthenticated, t]);
 
   return (
     <>
@@ -27,7 +41,7 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
 
       <ul className={styles['c-side-menu__list']}>
         {
-          (menuType === 'privateRoutes' ? privateMenu : publicOnlyMenu).map(({path, handle: {key, label, Icon}}) => (
+          menuItems.map(({path, key, label, Icon}) => (
             <Button key={key} onClick={() => itemClickHandler(path)} asChild color="custom">
               <li className={styles['c-side-menu__item']}>
                 <Typography 
@@ -35,7 +49,7 @@ export const SideMenu = ({ isOpen, onClose, menuType }: { isOpen: boolean, onClo
                   onClick={() => itemClickHandler(path)}
                   additionalClasses={styles['c-side-menu__link']}
                 >
-                  <Icon size={16} /> {t(label)}
+                  <Icon size={16} /> {label}
                 </Typography>
             </li>
           </Button>

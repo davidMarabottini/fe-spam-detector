@@ -1,53 +1,18 @@
 import style from "./Header.module.scss";
-import type { DropdownProp, HeaderProps } from "./Header.types";
-import Dropdown from "../../molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import Typography from "@/components/atoms/Typography/Typography";
-import { ChevronDown, LogOut, MenuIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { SideMenu } from "../SideMenu/SideMenu";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Button from "@components/atoms/Button/Button";
 
-import clsx from "clsx";
-import { userMenu } from "@/constants/routes";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/auth/useAuth";
+import UserMenu from "../UserMenu/UserMenu";
 
-const Header = ({ logout, userDetails }: HeaderProps) => {
+
+const Header = () => {
   const {t} = useTranslation(["common", "menu"])
-  const navigate = useNavigate();
-  const [dropdownOpened, setDropdownOpened] = useState(false);
-
-  const userMenuOpen = clsx({[style['c-header__chevron-opened']]: dropdownOpened});
-
-  const remappedRoutes = useMemo(
-    () => userMenu.map(({path, handle}) => ({
-      onClick: () => navigate(path, {replace: true}),
-      ...handle
-    })), [navigate])
-    
-  const userLabel = userDetails && (
-    <div className={style["c-header__user-info"]}>
-      <span className={style["c-header__username"]}>
-        {userDetails}
-      </span>
-
-      <ChevronDown
-        className={userMenuOpen}
-        size={12}
-      />
-    </div>
-  );
-  
-  const menuOptions = [
-    ...remappedRoutes,
-    {
-      key:'logout',
-      label: t('common:header.actions.logout'),
-      Icon: LogOut,
-      onClick: logout,
-    },
-  ] as DropdownProp[];
-  
+  const {isAuthenticated} = useAuth();
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -73,19 +38,8 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
               </Typography>
             </div>
             
-            {userDetails && (
-              <Dropdown<DropdownProp>
-                label={userLabel} 
-                options={menuOptions} 
-                className={style["c-header__user-dropdown"]}
-                onTriggerClick={setDropdownOpened}
-              >
-                {({Icon, key, label}) => (
-                    <Button key={key} color="custom">
-                      <Icon size={14} /> {t(`menu:${label}`)}
-                    </Button>
-                  )}
-                </Dropdown>
+            {isAuthenticated && (
+              <UserMenu />
             )}
           </div>
         </div>
@@ -94,7 +48,6 @@ const Header = ({ logout, userDetails }: HeaderProps) => {
       <SideMenu
         isOpen={menuOpen}
         onClose={() =>{setMenuOpen(false)}}
-        menuType={userDetails ? 'privateRoutes' : 'publicRoutes'}
       />
     </>
   );
