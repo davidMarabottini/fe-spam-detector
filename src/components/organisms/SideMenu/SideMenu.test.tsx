@@ -4,20 +4,17 @@ import { SideMenu } from './SideMenu';
 import { MemoryRouter } from 'react-router-dom';
 import { structuredMenu } from '@constants/routes';
 
-// Mock useAuth
 vi.mock('@/auth/useAuth', () => ({
   useAuth: vi.fn(),
 }));
 import { useAuth } from '@/auth/useAuth';
 
-// Mock useMenuStore
 vi.mock('@/zustand/menuState', () => ({
   useMenuStore: vi.fn(),
 }));
 import { useMenuStore } from '@/zustand/menuState';
 import { AUTH_DOMAINS } from '@/constants/configuration';
 
-// Mock useNavigate
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -51,7 +48,6 @@ describe('SideMenu Component', () => {
       </MemoryRouter>
     );
 
-    // Verifica che tutti i link del dominio siano renderizzati
     const menuItems = structuredMenu[AUTH_DOMAINS.PRIVATE]?.main || [];
     menuItems.forEach(({ handle: { label } }) => {
       expect(screen.getByText(label)).toBeInTheDocument();

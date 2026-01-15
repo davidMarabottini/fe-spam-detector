@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
-import type { MenuState } from '@/zustand/menuState';
 
 // =================== MOCKS ===================
 
@@ -106,7 +105,7 @@ describe('OpenMenuBtn', () => {
     const openMenuMock = vi.fn();
     const closeMenuMock = vi.fn();
     const toggleMenuMock = vi.fn();
-    (useMenuStore as MenuState).mockReturnValue({ menuOpen: false, openMenu: openMenuMock, closeMenu: closeMenuMock, toggleMenu: toggleMenuMock });
+    (useMenuStore).mockReturnValue({ menuOpen: false, openMenu: openMenuMock, closeMenu: closeMenuMock, toggleMenu: toggleMenuMock });
 
     render(
       <MemoryRouter>
