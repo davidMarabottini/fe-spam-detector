@@ -5,7 +5,7 @@ import { useToast } from '../useToast';
 import { useTranslation } from 'react-i18next';
 
 type AppMutationOptions<TData, TVariables, TContext = unknown> = ToastOptions & {
-  mutationFn: (variables: TVariables) => Promise<TData>;
+  mutationFn: (variables?: TVariables) => Promise<TData>;
   onSuccess?: (data: TData, variables: TVariables, context?: TContext) => void;
   onError?: (error: AppError, variables: TVariables, context?: TContext) => void;
 };

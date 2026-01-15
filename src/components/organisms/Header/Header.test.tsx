@@ -1,52 +1,122 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Header from './Header';
 import { MemoryRouter } from 'react-router-dom';
 
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
+// =================== MOCKS ===================
+
+vi.mock('@/zustand/menuState', async () => {
+  const actual = await vi.importActual('@/zustand/menuState');
+  return {
+    ...actual,
+    useMenuStore: vi.fn(),
+  };
+});
+import { useMenuStore } from '@/zustand/menuState';
+
+vi.mock('@/auth/useAuth', () => ({
+  useAuth: vi.fn(),
+}));
+import { useAuth } from '@/auth/useAuth';
+
+vi.mock('@/hooks/api/useAuthenticationHooks', () => ({
+  useLogout: () => ({ mutate: vi.fn() }),
 }));
 
-const mockUser = "John Doe";
+// =================== UTILITY ===================
+const mockUseAuth = (authState: Partial<ReturnType<typeof useAuth>> = {}) => {
+  (useAuth as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    isAuthenticated: false,
+    user: null,
+    domain: 'public',
+    id: 0,
+    role: [],
+    isLoading: false,
+    ...authState,
+  });
+};
 
+const mockUseMenuStore = (state: { menuOpen: boolean; openMenu: () => void }) => {
+  (useMenuStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue(state);
+};
+
+// =================== TESTS ===================
 describe('Header Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-  it('renders title and logo correctly', () => {
+  it('OpenMenuBtn renders and calls openMenu on click', () => {
+    const openMenuMock = vi.fn();
+    mockUseMenuStore({ menuOpen: false, openMenu: openMenuMock });
+    mockUseAuth();
+
     render(
       <MemoryRouter>
         <Header />
       </MemoryRouter>
     );
-    expect(screen.getByText('title')).toBeInTheDocument();
+
+    const button = screen.getByRole('button', { name: /common:header.actions.openMenu/i });
+    expect(button).toBeInTheDocument();
+
+    fireEvent.click(button);
+    expect(openMenuMock).toHaveBeenCalled();
   });
 
-  it('does not render user section if userDetails is missing', () => {
-    render(<MemoryRouter><Header /></MemoryRouter>);
-    const userTrigger = screen.queryByRole('button', { name: mockUser });
-    expect(userTrigger).not.toBeInTheDocument();
+  it('does NOT render UserMenu when not authenticated', () => {
+    mockUseMenuStore({ menuOpen: false, openMenu: vi.fn() });
+    mockUseAuth();
+
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByText(/John Doe/i)).not.toBeInTheDocument();
   });
 
-  it('renders user details when provided', () => {
-    render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
+  it('renders UserMenu when authenticated', () => {
+    mockUseMenuStore({ menuOpen: false, openMenu: vi.fn() });
+    mockUseAuth({ isAuthenticated: true, user: 'John Doe', domain: 'private' });
+
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+
     expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
+});
 
-  it('renders sideMenu on burger btn clicked', () => {
-    render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
-    const menuTrigger = screen.getByRole('button', { name: 'common:header.actions.openMenu' });
-    fireEvent.click(menuTrigger);
-    expect(menuTrigger).toHaveAttribute('aria-expanded', 'true');
-    fireEvent.click(menuTrigger);
-    expect(menuTrigger).toHaveAttribute('aria-expanded', 'false');
-  })
 
-  it('cleans up event listeners on unmount', () => {
-    const removeSpy = vi.spyOn(document, 'removeEventListener');
-    const { unmount } = render(<MemoryRouter><Header userDetails={mockUser} /></MemoryRouter>);
-    
-    unmount();
-    expect(removeSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
+vi.mock('@/zustand/menuState', async () => {
+  const actual = await vi.importActual('@/zustand/menuState');
+  return {
+    ...actual,
+    useMenuStore: vi.fn(),
+  };
+});
+
+describe('OpenMenuBtn', () => {
+  it('renders and calls openMenu on click', () => {
+    const openMenuMock = vi.fn();
+    const closeMenuMock = vi.fn();
+    const toggleMenuMock = vi.fn();
+    (useMenuStore).mockReturnValue({ menuOpen: false, openMenu: openMenuMock, closeMenu: closeMenuMock, toggleMenu: toggleMenuMock });
+
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
+
+    const button = screen.getByRole('button', { name: /common:header.actions.openMenu/i });
+    expect(button).toBeInTheDocument();
+
+    fireEvent.click(button);
+    expect(openMenuMock).toHaveBeenCalled();
   });
 });

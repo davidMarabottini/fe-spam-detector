@@ -4,7 +4,8 @@ export type DropdownProp = {
   key: string,
   label: string,
   onClick: () => void,
-  Icon: LucideIcon
+  Icon: LucideIcon,
+  path: string,
 }
 
 export interface HeaderProps {

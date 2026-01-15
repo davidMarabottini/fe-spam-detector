@@ -1,15 +1,16 @@
 import clsx from "clsx";
-import { userMenu } from "@/constants/routes";
+import { structuredMenu } from "@/constants/routes";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "@/hooks/api/useAuthenticationHooks";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/auth/useAuth";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, LogOut } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import type { DropdownProp } from "../Header/Header.types";
 import Dropdown from "@/components/molecules/Dropdown/Dropdown";
-import Button from "@/components/atoms/Button/Button";
 import style from "./UserMenu.module.scss";
+import { AUTH_DOMAINS } from "@/constants/configuration";
+import LinkComponent from "@/components/atoms/LinkComponent/LinkComponent";
 
 const UserMenu = () => {
   const [dropdownOpened, setDropdownOpened] = useState(false);
@@ -18,26 +19,22 @@ const UserMenu = () => {
   const {t} = useTranslation(["common", "menu"])
   const navigate = useNavigate();
 
-  const remappedRoutes = useMemo(
-    () => userMenu.map(({path, handle}) => ({
-      onClick: () => {
-        navigate(path, {replace: true})
-        setDropdownOpened(false);
-      },
+  const onClickRoute = (path: string) => {
+    navigate(path, {replace: true})
+    setDropdownOpened(false);
+  }
+
+  const onClickLogout = (path: string) => {
+    logout(path);
+    setDropdownOpened(false);
+  }
+  const remappedRoutes = (structuredMenu[AUTH_DOMAINS.PRIVATE]?.user || []).map(({path, handle}) => ({
+      onClick: handle.key === 'LOGOUT' ? () => onClickLogout(path) : () => onClickRoute(path),
+      path,
       ...handle
-    })), [navigate])
+    }))
 
   const userMenuOpen = clsx({[style['c-user-menu__chevron-opened']]: dropdownOpened});
-
-  const menuOptions = [
-    ...remappedRoutes,
-    {
-      key:'logout',
-      label: t('common:header.actions.logout'),
-      Icon: LogOut,
-      onClick: logout,
-    },
-  ] as DropdownProp[];
 
   return (
     <Dropdown<DropdownProp>
@@ -53,13 +50,13 @@ const UserMenu = () => {
           />
         </div>
       } 
-      options={menuOptions} 
+      options={remappedRoutes} 
       onTriggerClick={setDropdownOpened}
     >
-      {({Icon, key, label}) => (
-        <Button key={key} color="custom">
+      {({Icon, key, label, onClick, path}) => (
+        <LinkComponent type="navLink" to={path} onClick={onClick} key={key} color="custom">
           <Icon size={14} /> {t(`menu:${label}`)}
-        </Button>
+        </LinkComponent>
       )}
     </Dropdown>
   )

@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout';
-import { ProtectedRoute } from './auth/protectedRoute';
-import { commonRoutes, privateRoutes, publicRoutes, userRoutes } from './constants/routes';
-import { GuestRoute } from './auth/guestRoute';
+import { structuredRoutes, type TStructRoute } from './constants/routes';
 import { Suspense } from 'react';
 import type { LucideIcon } from 'lucide-react';
+import { RouteGuard } from './auth/RouteGuard';
+import type { ValueOf } from './types/utilities.types';
+import type { AUTH_DOMAINS } from './constants/configuration';
 
 export type HandleType = {key: string, label: string, Icon: LucideIcon}
 
@@ -12,7 +13,7 @@ const generateChildren = (routes: Array<{path: string; Element: React.ComponentT
   return routes.map(({path, Element, handle}) => ({
     path,
     element: (
-      <Suspense fallback={<div className="spinner">Caricamento...</div>}>
+      <Suspense key={handle?.key} fallback={<div>Caricamento...</div>}>
         <Element />
       </Suspense>
     ),
@@ -22,15 +23,10 @@ const generateChildren = (routes: Array<{path: string; Element: React.ComponentT
 
 export const router = createBrowserRouter([{
   element: <MainLayout />,
-  children: [
-    ...generateChildren(commonRoutes),
-    ...[{
-      element: <GuestRoute />,
-      children: generateChildren(publicRoutes)
-    }],
-    ...[{
-      element: <ProtectedRoute />,
-      children: generateChildren([...privateRoutes, ...userRoutes])
-    }]
-  ]
+  children: (Object.keys(structuredRoutes) as TStructRoute[]).map((routesGroup) => (
+    {
+      element: <RouteGuard key={routesGroup} availableRoutes={routesGroup.split('__')  as ValueOf<typeof AUTH_DOMAINS>[]} />,
+      children: generateChildren((structuredRoutes[routesGroup] || [])),
+    }
+  ))
 }])

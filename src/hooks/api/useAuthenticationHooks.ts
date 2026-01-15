@@ -1,7 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as authService from '@/api/authService';
-import { ROUTES } from '@/constants/routes';
-import { useNavigate } from 'react-router-dom';
 import { useAppMutation } from '../useAppApi/useAppMutation';
 import { useAppQuery } from '../useAppApi/useAppQuery';
 import { ERROR_KINDS } from '../useAppApi/error';
@@ -11,14 +9,12 @@ const meDomain = 'me';
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   return useAppMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data.user);
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      navigate(ROUTES.HOME, { replace: true });
     },
     successKey: `${authDomain}.login.success`,
     errorMap: {
@@ -32,14 +28,12 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   return useAppMutation({
-    mutationFn: authService.logout,
+    mutationFn: () => authService.logout(),
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.clear(); 
-      navigate(ROUTES.LOGIN, { replace: true });
     },
     successKey: `${authDomain}.logout.success`,
     errorMap: {
