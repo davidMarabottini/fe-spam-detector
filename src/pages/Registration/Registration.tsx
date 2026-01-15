@@ -13,6 +13,7 @@ import { Check, X } from 'lucide-react';
 import { ICON_PRESET } from '@/components/atoms/RadioBtn/presets/icon.presets';
 import { useOptions } from '@/hooks/useOptions';
 import type { AvailableGendersType } from '@/types/contentsFormDatas.types';
+import LinkComponent from '@/components/atoms/LinkComponent/LinkComponent';
 
 const Registration = () => {
   const {t} = useTranslation('registration');
@@ -133,7 +134,7 @@ const Registration = () => {
               <Trans
                 i18nKey="login"
                 ns="registration"
-                components={[<a href={ROUTES.LOGIN} key="link" />]}
+                components={[<LinkComponent to={ROUTES.LOGIN} key="link" />]}
               />
             </Typography>
           </Stack>

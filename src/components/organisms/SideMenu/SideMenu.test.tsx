@@ -1,89 +1,86 @@
-import { describe, expect, it } from 'vitest';
-//TODO: ricreare i test
-describe('WARNING: SideMenu tests are to be reimplemented', () => {
-  it('is a placeholder test', () => {
-    expect(true).toBe(true);
-  });
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { SideMenu } from './SideMenu';
+import { MemoryRouter } from 'react-router-dom';
+import { structuredMenu } from '@constants/routes';
+
+// Mock useAuth
+vi.mock('@/auth/useAuth', () => ({
+  useAuth: vi.fn(),
+}));
+import { useAuth } from '@/auth/useAuth';
+
+// Mock useMenuStore
+vi.mock('@/zustand/menuState', () => ({
+  useMenuStore: vi.fn(),
+}));
+import { useMenuStore } from '@/zustand/menuState';
+import { AUTH_DOMAINS } from '@/constants/configuration';
+
+// Mock useNavigate
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
 });
 
-// import { render, screen, fireEvent } from '@testing-library/react';
-// import { SideMenu } from './SideMenu';
-// import { structuredRoutes } from '@constants/routes';
-// import { MemoryRouter } from 'react-router-dom';
-// import { beforeEach, describe, expect, it, vi } from 'vitest';
+describe('SideMenu Component', () => {
+  const closeMenuMock = vi.fn();
 
-// const mockNavigate = vi.fn();
+  beforeEach(() => {
+    vi.mocked(useAuth).mockReturnValue({ 
+      isAuthenticated: true,
+    user: 'JohnDoe',
+    domain: 'private',
+    id: 1,
+    role: [],
+    isLoading: false,
+     });
+    vi.mocked(useMenuStore).mockReturnValue({ menuOpen: true, closeMenu: closeMenuMock });
+    mockNavigate.mockReset();
+    closeMenuMock.mockReset();
+  });
 
-// const {privateRoutes} = structuredRoutes;
+  it('renders menu items based on domain', () => {
+    render(
+      <MemoryRouter>
+        <SideMenu />
+      </MemoryRouter>
+    );
 
-// vi.mock('react-router-dom', async () => {
-//   const actual = await vi.importActual('react-router-dom');
-  
-//   return {
-//     ...actual,
-//     useNavigate: () => mockNavigate,
-//   };
-// });
+    // Verifica che tutti i link del dominio siano renderizzati
+    const menuItems = structuredMenu[AUTH_DOMAINS.PRIVATE]?.main || [];
+    menuItems.forEach(({ handle: { label } }) => {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    });
+  });
 
-// vi.mock('react-i18next', () => ({
-//   useTranslation: () => ({
-//     t: (key: string) => key,
-//   }),
-// }));
+  it('calls navigate and closeMenu when item clicked', () => {
+    render(
+      <MemoryRouter>
+        <SideMenu />
+      </MemoryRouter>
+    );
 
-// describe('SideMenu', () => {
-//   beforeEach(() => {
-//     mockNavigate.mockClear();
-//   });
+    const firstItem = structuredMenu[AUTH_DOMAINS.PRIVATE]?.main?.[0];
+    const link = screen.getByText(firstItem?.handle.label || '');
+    fireEvent.click(link);
 
-//   it('renders private routes when menuType is privateRoutes', () => {
-//     render(
-//       <MemoryRouter>
-//         <SideMenu isOpen onClose={vi.fn()} menuType="privateRoutes" />
-//       </MemoryRouter>
-//     );
+    expect(mockNavigate).toHaveBeenCalledWith(firstItem?.path, { replace: false });
+    expect(closeMenuMock).toHaveBeenCalled();
+  });
 
-//     privateRoutes.forEach(route => {
-//       expect(screen.getByText(route.handle.label)).toBeInTheDocument();
-//     });
-//   });
+  it('renders menu closed state correctly', () => {
+    vi.mocked(useMenuStore).mockReturnValue({ menuOpen: false, closeMenu: closeMenuMock });
+    render(
+      <MemoryRouter>
+        <SideMenu />
+      </MemoryRouter>
+    );
 
-//   it('navigates and closes menu on item click', () => {
-//     const onClose = vi.fn();
-
-//     render(
-//       <MemoryRouter>
-//         <SideMenu isOpen onClose={onClose} menuType="privateRoutes" />
-//       </MemoryRouter>
-//     );
-
-//     fireEvent.click(screen.getByText(privateRoutes[0].handle.label));
-
-//     expect(mockNavigate).toHaveBeenCalledWith(privateRoutes[0].path, { replace: true });
-//     expect(onClose).toHaveBeenCalled();
-//   });
-
-//   it('calls onClose when backdrop is clicked', () => {
-//     const onClose = vi.fn();
-
-//     render(
-//       <MemoryRouter>
-//         <SideMenu isOpen onClose={onClose} menuType="privateRoutes" />
-//       </MemoryRouter>
-//     );
-
-//     fireEvent.click(screen.getByRole('presentation', { hidden: true }));
-
-//     expect(onClose).toHaveBeenCalled();
-//   });
-
-//   it('does not render backdrop when closed', () => {
-//     render(
-//       <MemoryRouter>
-//         <SideMenu isOpen={false} onClose={vi.fn()} menuType="privateRoutes" />
-//       </MemoryRouter>
-//     );
-
-//     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
-//   });
-// });
+    expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
+  });
+});

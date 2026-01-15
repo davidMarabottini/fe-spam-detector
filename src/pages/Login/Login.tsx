@@ -8,6 +8,7 @@ import Stack from '@components/atoms/Stack/Stack';
 import { ROUTES } from '@constants/routes';
 import Typography from '@/components/atoms/Typography/Typography';
 import { LogIn } from 'lucide-react';
+import LinkComponent from '@/components/atoms/LinkComponent/LinkComponent';
 
 type LoginData = {username: string, password: string};
 
@@ -45,7 +46,7 @@ const Login = () => {
                   i18nKey="register"
                   ns="login"
                   components={[
-                    <a href={ROUTES.REGISTRATION} key="link" />
+                    <LinkComponent to={ROUTES.REGISTRATION} key="link" />
                   ]}
                 />
               </Typography>

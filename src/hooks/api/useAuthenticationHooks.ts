@@ -30,7 +30,7 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
 
   return useAppMutation({
-    mutationFn: authService.logout,
+    mutationFn: () => authService.logout(),
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.clear(); 

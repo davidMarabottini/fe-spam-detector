@@ -1,5 +1,5 @@
 import type { MarkRequired, ValueOf } from "@/types/utilities.types";
-import { Form, LogIn, User, Hourglass, PlusCircle, SettingsIcon, BrainCircuit, HomeIcon, type LucideIcon } from "lucide-react";
+import { Form, LogIn, User, Hourglass, PlusCircle, SettingsIcon, BrainCircuit, HomeIcon, type LucideIcon, LogOutIcon } from "lucide-react";
 import React, { lazy, type LazyExoticComponent } from "react";
 import { AUTH_DOMAINS, AVAILABLE_MENUS } from "./configuration";
 import type { RouteObject } from "react-router-dom";
@@ -20,10 +20,15 @@ export type RouteHandle = {
   Icon: LucideIcon;
   domain: ValueOf<typeof AUTH_DOMAINS>[];
   menu: ValueOf<typeof AVAILABLE_MENUS>[];
-};
+} & ({
+  isOnlyMenu?: false
+} | {
+  isOnlyMenu: true
+  menuAction: (fn: () => void) => void
+});
 
 export type AppRouteObject = MarkRequired<RouteObject, 'path'> & {
-  Element: LazyExoticComponent<() => React.JSX.Element>;
+  Element?: LazyExoticComponent<() => React.JSX.Element>;
   handle: RouteHandle;
 }
 
@@ -49,13 +54,10 @@ const ROUTE_CONFIGS: readonly AppRouteObject[] = Object.freeze([
   {path: '/insert', Element: Insert, handle: {key: 'INSERT', label: 'labels.insert', Icon: PlusCircle, domain: [AUTH_DOMAINS.PRIVATE], menu: [AVAILABLE_MENUS.MAIN]} },
   {path: '/user', Element: UserPage, handle: {key: 'USER', label: 'labels.user', Icon: User, domain: [AUTH_DOMAINS.PRIVATE], menu: [AVAILABLE_MENUS.USER]} },
   {path: '/settings', Element: Settings, handle: {key: 'SETTINGS', label: 'labels.settings', Icon: SettingsIcon, domain: [AUTH_DOMAINS.PRIVATE], menu: [AVAILABLE_MENUS.USER]} },
+  {path: '', handle: {key: 'LOGOUT', label: 'labels.logout', Icon: LogOutIcon, domain: [AUTH_DOMAINS.PRIVATE], menu: [AVAILABLE_MENUS.USER], isOnlyMenu: true, menuAction: (logout) => logout() } },
 ]);
 
 export type TStructRoute = ValueOf<typeof AUTH_DOMAINS> | `${ValueOf<typeof AUTH_DOMAINS>}__${ValueOf<typeof AUTH_DOMAINS>}`
-
-// export const structuredRoutes = Object.groupBy(
-//   ROUTE_CONFIGS, ({handle}: AppRouteObject) => handle?.domain?.toSorted()?.join('__')
-// ) as TStructRoute;
 
 type StructuredRoutes = Record<TStructRoute, AppRouteObject[]>;
 
@@ -84,7 +86,7 @@ for (const domainKey of dKeys) {
   for (const menuKey of menuKeys) {
     const menu = AVAILABLE_MENUS[menuKey as keyof typeof AVAILABLE_MENUS];
 
-    structuredMenu[domain]![menu] = ROUTE_CONFIGS
+    structuredMenu[domain][menu] = ROUTE_CONFIGS
       .filter(({ handle }) =>
         handle.domain.includes(domain) &&
         handle.menu.includes(menu)

@@ -9,15 +9,15 @@ import UserMenu from "../UserMenu/UserMenu";
 import { useMenuStore } from "@/zustand/menuState";
 
 const OpenMenuBtn = () => {
-  const { menuOpen, setMenuOpen } = useMenuStore();
+  const { menuOpen, openMenu } = useMenuStore();
   const {t} = useTranslation(["common", "menu"])
 
   return (
     <Button 
       color="custom"
-      onClick={() => {setMenuOpen(true)}}
+      onClick={openMenu}
       aria-label={t('common:header.actions.openMenu')}
-      aria-expanded={menuOpen}
+      aria-expanded={menuOpen ? "true" : "false"}
       aria-controls="side-menu"
     >
       <MenuIcon size={36}  />
@@ -28,7 +28,7 @@ const OpenMenuBtn = () => {
 const Header = () => {
   const {t} = useTranslation(["common", "menu"])
   const {isAuthenticated } = useAuth();
-  console.log('header render');
+
   return (
     <>
       <header className={style["c-header"]}>
