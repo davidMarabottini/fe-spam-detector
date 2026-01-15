@@ -3,7 +3,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import UserMenu from './UserMenu';
 import { MemoryRouter } from 'react-router-dom';
 
-// mock useAuth
 vi.mock('@/auth/useAuth', () => ({
   useAuth: vi.fn(),
 }));
@@ -57,16 +56,13 @@ describe('UserMenu', () => {
     );
 
     const trigger = screen.getByText('John Doe').closest('div')!;
-    // inizialmente chiuso
     expect(trigger).toBeInTheDocument();
 
-    fireEvent.click(trigger); // apre
-    // il dropdown dovrebbe ora avere almeno un item visibile
+    fireEvent.click(trigger); 
     const items = screen.getAllByRole('button', { hidden: true });
     expect(items.length).toBeGreaterThan(0);
 
-    fireEvent.click(trigger); // chiude
-    // non possiamo testare visibilità CSS facilmente, ma almeno l'handler è chiamato
+    fireEvent.click(trigger);
   });
 
   it('calls navigate for normal menu items', () => {
@@ -79,7 +75,6 @@ describe('UserMenu', () => {
     const trigger = screen.getByText('John Doe').closest('div')!;
     fireEvent.click(trigger);
 
-    // Prendiamo la prima route che non sia LOGOUT
     const firstRouteButton = screen
       .getAllByRole('button')
       .find(btn => !btn.textContent?.toLowerCase().includes('logout'));
