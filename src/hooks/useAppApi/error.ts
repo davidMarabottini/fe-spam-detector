@@ -1,3 +1,4 @@
+import type { ValueOf } from "@/types/utilities.types";
 import type { AxiosError } from "axios";
 
 export const ERROR_KINDS = {
@@ -14,7 +15,7 @@ export const ERROR_KINDS = {
 
 
 export type AppError = {
-  kind: typeof ERROR_KINDS[keyof typeof ERROR_KINDS];
+  kind: ValueOf<typeof ERROR_KINDS>
   status?: number;
   message: string;
 }

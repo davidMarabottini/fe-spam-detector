@@ -2,11 +2,6 @@
   &__card-title {
     margin-top: $space-lg;
   }
-  &__title {
-    @include flex-center;
-    margin: $space-md;
-    gap: $space-md;
-  }
 
   &__main {
     padding-bottom: $space-xxl;

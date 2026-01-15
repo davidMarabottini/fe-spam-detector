@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { userMenu } from "@/constants/routes";
+import { structuredMenu } from "@/constants/routes";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "@/hooks/api/useAuthenticationHooks";
 import { useMemo, useState } from "react";
@@ -10,6 +10,7 @@ import type { DropdownProp } from "../Header/Header.types";
 import Dropdown from "@/components/molecules/Dropdown/Dropdown";
 import Button from "@/components/atoms/Button/Button";
 import style from "./UserMenu.module.scss";
+import { AUTH_DOMAINS } from "@/constants/configuration";
 
 const UserMenu = () => {
   const [dropdownOpened, setDropdownOpened] = useState(false);
@@ -17,9 +18,9 @@ const UserMenu = () => {
   const {mutate: logout} = useLogout();
   const {t} = useTranslation(["common", "menu"])
   const navigate = useNavigate();
-
+  console.log('user menu render');
   const remappedRoutes = useMemo(
-    () => userMenu.map(({path, handle}) => ({
+    () => (structuredMenu[AUTH_DOMAINS.PRIVATE]?.user || []).map(({path, handle}) => ({
       onClick: () => {
         navigate(path, {replace: true})
         setDropdownOpened(false);

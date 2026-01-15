@@ -1,4 +1,6 @@
+import type { AUTH_DOMAINS } from "@/constants/configuration";
 import type { AvailableGendersType, AvailableRolesType, AvailableStatusesType } from "@/types/contentsFormDatas.types";
+import type { ValueOf } from "@/types/utilities.types";
 
 export type UserProfile = string;
 
@@ -8,6 +10,7 @@ export interface AuthContextType {
   role?: AvailableRolesType[]
   isAuthenticated?: boolean;
   isLoading: boolean;
+  domain: ValueOf<typeof AUTH_DOMAINS>
 }
 
 export type decodedToken = {
