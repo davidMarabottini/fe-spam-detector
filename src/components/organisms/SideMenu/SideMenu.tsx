@@ -1,59 +1,60 @@
 import clsx from 'clsx';
 import Typography from '@components/atoms/Typography/Typography';
 import styles from './SideMenu.module.scss';
-import { structuredMenu } from '@constants/routes';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/auth/useAuth';
 import { useMenuStore } from '@/zustand/menuState';
-import LinkComponent from '@/components/atoms/LinkComponent/LinkComponent';
+import MenuManager from '@/components/molecules/MenuManager/MenuManager';
+import { useEffect } from 'react';
 
 export const SideMenu = () => {
-  const {t} = useTranslation('menu');
+  const {t} = useTranslation('common');
   const { menuOpen, closeMenu } = useMenuStore();
-  const navigate = useNavigate();
-  const {domain} = useAuth();
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [menuOpen, closeMenu]);
   
-  const itemClickHandler = (route: string) => {
-    navigate(route, {replace: false});
-    closeMenu();
-  }
-  const menuItems = (
-    structuredMenu[domain]?.main || []).map(({ path, handle: { key, label, Icon } }) => ({
-    key,
-    label: t(label),
-    Icon,
-    path,
-  }));
+  const sideMenuClass = clsx(
+    styles['c-side-menu'],
+    {
+      [styles['c-side-menu--open']]: menuOpen
+    }
+  )
 
   return (
     <>
-      <nav id="side-menu" className={clsx(styles['c-side-menu'], {[styles['c-side-menu--open']]: menuOpen})}>
+      <nav
+        id="side-menu"
+        className={sideMenuClass}
+      >
         <div className={styles['c-side-menu__header']}>
           <Typography variant="h3" color="primary">
-            {t('title')}
+            {t('sideMenu.title')}
           </Typography>
         </div>
-        <ul className={styles['c-side-menu__list']}>
-          {menuItems.map(({path, key, label, Icon}) => (
-            <li key={key} className={styles['c-side-menu__item']} onClick={() => itemClickHandler(path)}>
-              <LinkComponent
-                className={styles['c-side-menu__link']}
-                onClick={() => itemClickHandler(path)}
-                to={path}
-              >
-                <Icon size={16} /> {label}
-              </LinkComponent>
-            </li>
-          ))}
-        </ul>
+
+        <MenuManager
+          curMenu='main'
+          additionalClass={styles['c-side-menu__list']}
+          itemClickHandler={closeMenu}
+        />
       </nav>
+      
       {menuOpen && (
         <div 
           className={clsx(styles['c-side-menu__backdrop'], menuOpen && styles['c-side-menu__backdrop--visible'])} 
+          role="button"
+          tabIndex={0}
+          aria-label="Close menu"
           onClick={closeMenu}
-          aria-hidden="true"
-          role="presentation"
+          onKeyDown={(e) => e.key === 'Enter' && closeMenu()}
         />)}
     </>
   );

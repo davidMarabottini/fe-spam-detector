@@ -1,52 +1,31 @@
-import { useState, useEffect, useRef } from "react";
-import styles from "./Dropdown.module.scss";
-import clsx from "clsx";
-import type { DropDownItemBase, DropdownProps } from "./Dropdown.types.ts";
-import Button from "../../atoms/Button/Button.tsx";
+import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
+import Button from '@components/atoms/Button/Button';
+import styles from './Dropdown.module.scss';
+import type { DropdownHeadProps } from './Dropdown.types.ts';
+import { clsx } from 'clsx';
 
-const Dropdown = <T extends DropDownItemBase> ({ label, options, className, onTriggerClick, children }: DropdownProps<T>) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const triggerClickHandler = (open: boolean) => {
-    setIsOpen(open)
-    onTriggerClick?.(open)
-  }
+export const DropDownHead = ({ label, isOpen, setIsOpen, children, className }: DropdownHeadProps) => {
+  const ddhClassName = clsx(styles['c-dropdown'], className);
 
   return (
-    <div className={clsx(styles["c-dropdown"], { [styles["c-dropdown--open"]]: isOpen }, className)} ref={containerRef}>
-      <Button
-        additionalClassName={styles["c-dropdown__trigger"]}
-        onClick={() => triggerClickHandler(!isOpen)}
-        aria-expanded={isOpen}
-        color="custom"
-      >
-        {label}
-      </Button>
+    <RadixDropdown.Root open={isOpen} onOpenChange={setIsOpen}>
+      <div className={ddhClassName}>
+        <RadixDropdown.Trigger asChild>
+          <Button
+            additionalClassName={styles['c-dropdown__trigger']}
+            aria-haspopup="menu"
+            aria-expanded={false}
+            color="custom"
+            asChild
+          >
+            {label}
+          </Button>
+        </RadixDropdown.Trigger>
 
-      {isOpen && (
-        <div className={styles["c-dropdown__menu"]}>
-          <ul className={styles["c-dropdown__list"]}>
-            {options.map((option) => (
-              <li key={option.key} onClick={() => option.onClick?.()} className={styles["c-dropdown__item"]}>
-                {children(option)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+        <RadixDropdown.Content className={styles['c-dropdown__menu']} >
+          {children}
+        </RadixDropdown.Content>
+      </div>
+    </RadixDropdown.Root>
   );
 };
-
-export default Dropdown;

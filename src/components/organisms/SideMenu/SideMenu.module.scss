@@ -33,6 +33,7 @@
   visibility: visible;
 }
 
+
   &__header {
     margin-bottom: 3rem;
     border-bottom: 1px solid $color-border;
@@ -42,10 +43,9 @@
   &__list {
     list-style: none;
     padding: 0;
-  }
 
-  &__item {
-    margin-bottom: $space-sm;
+    li {
+       margin-bottom: $space-sm;
     cursor: pointer;
     padding: $space-sm;
     transition: 0.5s;
@@ -53,13 +53,9 @@
       background: $color-border;
       color: $color-primary;
     }
-  }
-
-  &__link {
-    text-decoration: none;
-
-    // &:hover {
-    //   color: $color-primary;
-    // }
+    }
+    a {
+      text-decoration: none;
+    }
   }
 }
