@@ -14,9 +14,7 @@ export const DropDownHead = ({ label, isOpen, setIsOpen, children, className }: 
           <Button
             additionalClassName={styles['c-dropdown__trigger']}
             aria-haspopup="menu"
-            aria-expanded={false}
             color="custom"
-            asChild
           >
             {label}
           </Button>

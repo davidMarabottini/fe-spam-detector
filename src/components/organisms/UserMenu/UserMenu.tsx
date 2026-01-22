@@ -45,8 +45,8 @@ const UserMenu = () => {
   }
   return (
     <DropDownHead
-    setIsOpen={setIsOpen}
-    isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      isOpen={isOpen}
       label={
         <div className={style["c-user-menu__user-info"]}>
           <span className={style["c-user-menu__username"]}>
