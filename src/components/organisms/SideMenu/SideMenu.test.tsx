@@ -48,7 +48,7 @@ describe('SideMenu Component', () => {
       </MemoryRouter>
     );
 
-    const menuItems = structuredMenu[AUTH_DOMAINS.PRIVATE]?.main || [];
+    const menuItems = structuredMenu.main?.[AUTH_DOMAINS.PRIVATE] || [];
     menuItems.forEach(({ handle: { label } }) => {
       expect(screen.getByText(label)).toBeInTheDocument();
     });
@@ -61,7 +61,7 @@ describe('SideMenu Component', () => {
       </MemoryRouter>
     );
 
-    const firstItem = structuredMenu[AUTH_DOMAINS.PRIVATE]?.main?.[0];
+    const firstItem = structuredMenu.main?.[AUTH_DOMAINS.PRIVATE]?.[0];
     const link = screen.getByText(firstItem?.handle.label || '');
     fireEvent.click(link);
 

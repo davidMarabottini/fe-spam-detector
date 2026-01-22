@@ -26,7 +26,7 @@ const OpenMenuBtn = () => {
 }
 
 const Header = () => {
-  const {t} = useTranslation(["common", "menu"])
+  const {t} = useTranslation("common")
   const {isAuthenticated } = useAuth();
 
   return (
@@ -40,7 +40,7 @@ const Header = () => {
                 variant="h1"
                 additionalClasses={style["c-header__style"]}
               >
-                {t('common:app.title')}
+                {t('app.title')}
               </Typography>
             </div>
             

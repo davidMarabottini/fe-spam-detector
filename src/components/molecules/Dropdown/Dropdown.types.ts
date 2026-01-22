@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type DropDownItemBase = {
   key: string,
@@ -6,10 +6,15 @@ export type DropDownItemBase = {
   onClick?: () => unknown,
 }
 
-export interface DropdownProps<T> {
+export interface DropdownHeadProps {
   label: ReactNode;
-  options: T[];
   className?: string;
-  onTriggerClick?: (isOpen: boolean) => void;
+  isOpen?: boolean;
+  setIsOpen?: Dispatch<SetStateAction<boolean>>;
+  children: ReactNode;
+}
+
+export interface DropdownProps<T> extends Omit<DropdownHeadProps, 'children'> {
+  options: T[];
   children: (ddo: T) => ReactNode;
 }

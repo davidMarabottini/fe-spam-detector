@@ -12,4 +12,5 @@ export const AUTH_DOMAINS = Object.freeze({
 export const AVAILABLE_MENUS = Object.freeze({
   MAIN: 'main',
   USER: 'user',
+  USER_DETAILS: 'user.details',
 });
