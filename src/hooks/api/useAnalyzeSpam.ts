@@ -12,7 +12,7 @@ const domain = 'analyze';
 export const useAnalyzeSpam = () => 
   useAppMutation(
     {
-       mutationFn: ({ type, text }: AnalyzeSpamParams) => predictSpam(type, text),
+       mutationFn: (x: AnalyzeSpamParams) => predictSpam(x.type, x.text),
        successKey: 'analyze.mail.success',
        errorMap: {
         [ERROR_KINDS.UNAUTHORIZED]: `${domain}.mail.401`,

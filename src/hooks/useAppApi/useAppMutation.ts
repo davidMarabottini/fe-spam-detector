@@ -1,11 +1,14 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import { normalizeError, type AppError } from './error.ts';
 import { handleToast, type ToastOptions } from './toastHandler.ts';
 import { useToast } from '../useToast';
 import { useTranslation } from 'react-i18next';
 
-type AppMutationOptions<TData, TVariables, TContext = unknown> = ToastOptions & {
-  mutationFn: (variables?: TVariables) => Promise<TData>;
+type AppMutationOptions<TData, TVariables, TContext = unknown> = Omit<
+    UseMutationOptions<TData, AppError, TVariables, TContext>,
+    'mutationFn' | 'onSuccess' | 'onError'
+  > & ToastOptions & {
+  mutationFn: (variables: TVariables) => Promise<TData>;
   onSuccess?: (data: TData, variables: TVariables, context?: TContext) => void;
   onError?: (error: AppError, variables: TVariables, context?: TContext) => void;
 };

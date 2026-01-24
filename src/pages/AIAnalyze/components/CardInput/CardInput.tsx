@@ -1,9 +1,6 @@
 import Card from "@components/atoms/Card/Card"
 import clsx from "clsx";
 import styles from './AnalizeCard.module.scss';
-import type { UseMutationResult } from "@tanstack/react-query";
-import type { AnalyzeSpamResult } from "@/api/spamService";
-import type { AnalyzeSpamParams } from "@/hooks/api/useAnalyzeSpam";
 import { useTranslation } from "react-i18next";
 import Form from "@/components/organisms/form/Form";
 import { BUTTON_PRESET } from "@/components/atoms/RadioBtn/presets/button.presets";
@@ -19,10 +16,7 @@ import { type AvailableDomainsType } from "@/types/contentsFormDatas.types";
 import type { IFormMail } from "@/pages/Insert/Insert.types";
 import type { MarkRequired } from "@/types/utilities.types";
 import { useDomain } from "@/hooks/api/useDomainHooks";
-
-interface CardInputProps {
-  analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
-}
+import type { CardInputProps } from "../../AIAnalyze.types";
 
 export type IFormMailFinalType = MarkRequired<IFormMail, 'is_html'>
 
