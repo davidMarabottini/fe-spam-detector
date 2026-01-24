@@ -1,94 +1,42 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Dropdown from "./Dropdown";
+import {DropDownHead} from "./Dropdown";
 
-const optionsMock = [
-  {
-    label: "Opzione 1",
-    key: "Opzione1",
-    onClick: vi.fn(),
-  },
-  {
-    label: "Opzione 2",
-    key: "Opzione2",
-    onClick: vi.fn(),
-  },
-];
-
-const optionsExtendedMock = [
-  {
-    label: "Opzione 1",
-    key: "Opzione1",
-    value: "Opzione1",
-    onClick: vi.fn(),
-  },
-  {
-    label: "Opzione 2",
-    key: "Opzione2",
-    value: "Opzione2",
-    onClick: vi.fn(),
-  },
-];
-
-type DropDownVoid = {
-  key: string,
-  label: string,
-  onClick?: () => void,
-}
-
-type DropDownExtended = {
-  key: string,
-  label: string,
-  onClick?: () => void,
-  value: string,
-}
-
-describe("Dropdown component", () => {  
-  it("renders and click with base dropdown type", async () => {
-    const user = userEvent.setup();
+describe("DropdownHead component", () => {  
+  it("should renders only dropdown head on isOpen false", async () => {
     render(
-      <Dropdown<DropDownVoid> label="Menu" options={optionsMock}>
-        {x => <div key={x.key}>{x.label}</div>}
-      </Dropdown>
+      <DropDownHead label={<div>Apri</div>} isOpen={false} setIsOpen={vi.fn()}>
+        <div>testo</div>
+      </DropDownHead>
     );
-
-    expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
-
-    const trigger = screen.getByRole("button");
-
-    expect(screen.queryByText("Opzione 1")).not.toBeInTheDocument();
-    expect(screen.queryByText("Opzione 2")).not.toBeInTheDocument();
-
-    await user.click(trigger);
-    expect(screen.getByText("Opzione 1")).toBeInTheDocument();
-    expect(screen.getByText("Opzione 2")).toBeInTheDocument();
-
-    await user.click(screen.getByText("Opzione 1"));
-    expect(optionsMock[0].onClick).toHaveBeenCalledTimes(1);
-
+    expect(screen.getByRole("button", { name: /apri/i })).toBeInTheDocument();
+    expect(screen.queryByText("testo")).not.toBeInTheDocument();
   });
 
-  it("renders and click with extended dropdown type", async () => {
-    const user = userEvent.setup();
+  it("should renders opened dropdown on isOpen true", async () => {
     render(
-      <Dropdown<DropDownExtended> label="Menu" options={optionsExtendedMock}>
-        {x => <div key={x.key}>{x.label} ({x.value})</div>}
-      </Dropdown>
+      <DropDownHead label={<div>Apri</div>} isOpen setIsOpen={vi.fn()}>
+        <div>testo</div>
+      </DropDownHead>
     );
 
-    expect(screen.getByRole("button", { name: /menu/i })).toBeInTheDocument();
+    expect(screen.queryByText("testo")).toBeInTheDocument();
+  });
+
+  it("should open dropdown when clicked", async () => {
+    const user = userEvent.setup();
+    render(
+      <DropDownHead label={<div>Apri</div>} setIsOpen={vi.fn()}>
+        <div>testo</div>
+      </DropDownHead>
+    );
+    expect(screen.getByRole("button", { name: /apri/i })).toBeInTheDocument();
 
     const trigger = screen.getByRole("button");
-
-    expect(screen.queryByText("Opzione 1 (Opzione1)")).not.toBeInTheDocument();
-    expect(screen.queryByText("Opzione 2 (Opzione2)")).not.toBeInTheDocument();
-
+    expect(screen.queryByText("testo")).not.toBeInTheDocument();
     await user.click(trigger);
-    expect(screen.getByText("Opzione 1 (Opzione1)")).toBeInTheDocument();
-    expect(screen.getByText("Opzione 2 (Opzione2)")).toBeInTheDocument();
-
-    await user.click(screen.getByText("Opzione 1 (Opzione1)"));
-    expect(optionsMock[0].onClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByText("testo")).toBeInTheDocument();
   });
+  
 });

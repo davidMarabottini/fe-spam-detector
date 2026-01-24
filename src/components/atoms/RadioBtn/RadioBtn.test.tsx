@@ -28,7 +28,7 @@ describe('RadioBtn Component', () => {
 
     await user.click(screen.getByLabelText('Radio 2'));
 
-    expect(onChange).toHaveBeenCalledWith('radio2');
+    expect(onChange).toHaveBeenCalledWith("radio2", "Radio 2");
     expect(radio2).toBeChecked();
     expect(radio1).not.toBeChecked();
   });
@@ -108,7 +108,7 @@ describe('RadioBtn Component', () => {
     const radio1 = screen.getByRole('radio', { name: /radio 1/i });
     const radio2 = screen.getByRole('radio', { name: /radio 2/i });
 
-    expect(onChange).toHaveBeenCalledWith('radio2');
+    expect(onChange).toHaveBeenCalledWith("radio2", "Radio 2");
     expect(radio2).toBeChecked();
     expect(radio1).not.toBeChecked();
   })
@@ -157,7 +157,7 @@ describe('RadioBtn Component', () => {
 
     await user.click(radio2);
 
-    expect(onChange).toHaveBeenCalledWith('radio2');
+    expect(onChange).toHaveBeenCalledWith("radio2", "Radio 2");
     expect(radio1).toBeChecked();
 
     rerender(
