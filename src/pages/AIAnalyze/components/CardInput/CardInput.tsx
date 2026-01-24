@@ -18,20 +18,23 @@ import { useState } from "react";
 import { type AvailableDomainsType } from "@/types/contentsFormDatas.types";
 import type { IFormMail } from "@/pages/Insert/Insert.types";
 import type { MarkRequired } from "@/types/utilities.types";
-import { useOptions } from "@/hooks/useOptions";
+import { useDomain } from "@/hooks/api/useDomainHooks";
 
 interface CardInputProps {
   analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
 }
 
-
 export type IFormMailFinalType = MarkRequired<IFormMail, 'is_html'>
 
-
 const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
+  const { data, isLoading } = useDomain();
   const { t } = useTranslation(['common', 'home']);
   const [curType, setCurType] = useState<AvailableDomainsType>('mail')
   const { addToast } = useToast();
+
+  if(isLoading) {
+    return <div>Loading ...</div>
+  }
 
   const onFormMailSubmit = (obj: IFormMailFinalType) => {
     const text = buildSMTPString(obj)
@@ -42,7 +45,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
     analyzeSpamMutation.mutate({ type: 'sms', text });
   };
 
-  const {domains} = useOptions();
+  const domains = data?.map(({name}) => ({ label: name, value: name })) || [];
   
   const insertCardClassName = clsx(
     "l-grid__col",
@@ -74,7 +77,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
       <RadioBtn
         name="type"
         options={domains}
-        onValueChange={x => setCurType(x as AvailableDomainsType)}
+        onValueChange={(_value, label) => setCurType(label as AvailableDomainsType)}
         defaultValue={curType}
         {...BUTTON_PRESET}
       />

@@ -9,7 +9,7 @@ export interface RadioBtnProps<RadioOption extends RadioOptionBase = RadioOption
   label?: string;
   value?: string;
   defaultValue?: string;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string, label?: string) => void;
   children?: (option: RadioOption, selected: boolean) => React.ReactNode;
   error?: string;
   className?: string;
