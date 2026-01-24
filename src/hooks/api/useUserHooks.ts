@@ -1,7 +1,8 @@
-import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import * as userService from '@/api/userService';
 import { useAppMutation } from '../useAppApi/useAppMutation';
 import { ERROR_KINDS } from '../useAppApi/error';
+import { useAppQuery } from '../useAppApi/useAppQuery';
 
 const domain = 'me';
 
@@ -24,7 +25,7 @@ export const useInsertUser = () => {
 }
 
 export const useUserStatus = () =>
-  useQuery<userService.UserStatusResult, Error>({
+  useAppQuery<userService.UserStatusResult>({
     queryKey: ['userStatus'],
     queryFn: userService.getUserStatus,
     staleTime: 1000 * 60 * 5, 
