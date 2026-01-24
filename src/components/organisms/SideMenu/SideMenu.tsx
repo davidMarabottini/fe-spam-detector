@@ -17,9 +17,11 @@ export const SideMenu = () => {
         <Dialog.Content className={styles['c-side-menu']} asChild>
           <nav>
           <div className={styles['c-side-menu__header']}>
-            <Typography variant="h3" color="primary">
-              {t('sideMenu.title')}
-            </Typography>
+            <Dialog.Title asChild>
+              <Typography variant="h3" color="primary">
+                {t('sideMenu.title')}
+              </Typography>
+            </Dialog.Title>
           </div>
 
           <MenuManager
