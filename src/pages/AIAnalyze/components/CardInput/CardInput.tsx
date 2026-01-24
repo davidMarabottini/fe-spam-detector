@@ -1,9 +1,6 @@
 import Card from "@components/atoms/Card/Card"
 import clsx from "clsx";
 import styles from './AnalizeCard.module.scss';
-import type { UseMutationResult } from "@tanstack/react-query";
-import type { AnalyzeSpamResult } from "@/api/spamService";
-import type { AnalyzeSpamParams } from "@/hooks/api/useAnalyzeSpam";
 import { useTranslation } from "react-i18next";
 import Form from "@/components/organisms/form/Form";
 import { BUTTON_PRESET } from "@/components/atoms/RadioBtn/presets/button.presets";
@@ -18,20 +15,20 @@ import { useState } from "react";
 import { type AvailableDomainsType } from "@/types/contentsFormDatas.types";
 import type { IFormMail } from "@/pages/Insert/Insert.types";
 import type { MarkRequired } from "@/types/utilities.types";
-import { useOptions } from "@/hooks/useOptions";
-
-interface CardInputProps {
-  analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
-}
-
+import { useDomain } from "@/hooks/api/useDomainHooks";
+import type { CardInputProps } from "../../AIAnalyze.types";
 
 export type IFormMailFinalType = MarkRequired<IFormMail, 'is_html'>
 
-
 const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
+  const { data, isLoading } = useDomain();
   const { t } = useTranslation(['common', 'home']);
   const [curType, setCurType] = useState<AvailableDomainsType>('mail')
   const { addToast } = useToast();
+
+  if(isLoading) {
+    return <div>Loading ...</div>
+  }
 
   const onFormMailSubmit = (obj: IFormMailFinalType) => {
     const text = buildSMTPString(obj)
@@ -42,7 +39,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
     analyzeSpamMutation.mutate({ type: 'sms', text });
   };
 
-  const {domains} = useOptions();
+  const domains = data?.map(({name}) => ({ label: name, value: name })) || [];
   
   const insertCardClassName = clsx(
     "l-grid__col",
@@ -74,7 +71,7 @@ const CardInput = ({analyzeSpamMutation}: CardInputProps) => {
       <RadioBtn
         name="type"
         options={domains}
-        onValueChange={x => setCurType(x as AvailableDomainsType)}
+        onValueChange={(_value, label) => setCurType(label as AvailableDomainsType)}
         defaultValue={curType}
         {...BUTTON_PRESET}
       />

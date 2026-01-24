@@ -1,16 +1,11 @@
 import Card from "@components/atoms/Card/Card"
 import clsx from "clsx";
-import type { UseMutationResult } from "@tanstack/react-query";
-import type { AnalyzeSpamResult } from "@/api/spamService";
-import type { AnalyzeSpamParams } from "@/hooks/api/useAnalyzeSpam";
 import ResultCircle from "@/components/atoms/ResultCircle/ResultCircle";
 import styles from "./CardPrediction.module.scss"
 import { calculatePerc } from "@/utils/numbers";
 import Typography from "@/components/atoms/Typography/Typography";
+import type { CardInputProps } from "../../AIAnalyze.types";
 
-interface CardInputProps {
-  analyzeSpamMutation: UseMutationResult<AnalyzeSpamResult, Error, AnalyzeSpamParams, unknown>
-}
 
 const CardResult = ({analyzeSpamMutation}: CardInputProps) => {
   const isSpam = analyzeSpamMutation.isSuccess && analyzeSpamMutation.data.prediction === 'spam';

@@ -27,9 +27,9 @@ const RadioBtn = forwardRef(
   ) => {
     const [curValue, setCurValue] = useState<string | undefined>(defaultValue);
 
-    const changeHandler = (cv: string) => {
+    const changeHandler = (cv: string, label: string) => {
       setCurValue(cv);
-      onChange?.(cv);
+      onChange?.(cv, label);
     }
 
     const groupId = useId();
@@ -53,7 +53,7 @@ const RadioBtn = forwardRef(
                   name={name}
                   value={option.value}
                   checked={isSelected}
-                  onChange={() => changeHandler(option.value)}
+                  onChange={() => changeHandler(option.value, option.label)}
                   className={clsx(styles['c-radio-btn__item-input'], {[styles['c-radio-btn__item-input--ghost']]: variant === 'ghost'})}
                   disabled={disabled}
                   aria-disabled={`${!!disabled}`}

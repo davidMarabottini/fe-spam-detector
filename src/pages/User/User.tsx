@@ -30,7 +30,7 @@ const User = () => {
         {error && <Typography>errore</Typography>}
         <Form<UserForm>
           defaultValues={data}
-          onSubmit={updateUser}
+          onSubmit={value => updateUser(value)}
         >
           <Stack spacing='md'>
             <div className="l-grid">

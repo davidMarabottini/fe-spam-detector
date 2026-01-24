@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import * as authService from '@/api/authService';
 import { useAppMutation } from '../useAppApi/useAppMutation';
 import { useAppQuery } from '../useAppApi/useAppQuery';
@@ -45,14 +45,18 @@ export const useLogout = () => {
   })
 }
 
-export const useMe = () => {
-  return useQuery({
+export const useMe = () => useAppQuery({
     queryKey: ['user'],
     queryFn: authService.getMe,
     retry: false,
     staleTime: Infinity,
+    errorMap: {
+      [ERROR_KINDS.UNAUTHORIZED]: `${authDomain}.me.401`,
+      [ERROR_KINDS.SERVER]: `${authDomain}.me.500`,
+      [ERROR_KINDS.NETWORK]: `${authDomain}.me.network`,
+      [ERROR_KINDS.UNKNOWN]: `${authDomain}.me.defaultError`
+    }
   });
-};
 
 // TODO: spostare questa parte in useUserHooks.ts
 export const useMineDetails = () =>

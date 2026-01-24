@@ -6,12 +6,18 @@ import FormSMS from "./components/FormSMS/FormSMS";
 import { FormMail } from "./components/FormMail/FormMail";
 import { BUTTON_PRESET } from "@/components/atoms/RadioBtn/presets/button.presets";
 import type { AvailableDomainsType } from "@/types/contentsFormDatas.types";
-import { useOptions } from "@/hooks/useOptions";
+import { useDomain } from "@/hooks/api/useDomainHooks";
 
 const Insert = () => {
-  const {domains} = useOptions();
+  const { data, isLoading } = useDomain();
 
   const [curForm, setCurForm] = useState<AvailableDomainsType>('mail');
+  
+  if(isLoading) {
+    return <div>Loading ...</div>
+  }
+
+  const domains = data?.map(({name}) => ({ label: name, value: name })) || [];
 
   return (
     <Card additionalClassName={styles['p-insert']}>
